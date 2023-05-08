@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_coffeeapp/coffee_card.dart';
 import 'package:flutter_coffeeapp/special_coffee_card.dart';
 
-import 'coffee_details_page.dart';
-
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  TabController tabController;
+  late final TabController tabController;
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -68,10 +66,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
                 Text(
                   "Find the best\ncoffee for you",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 20,
@@ -97,41 +92,30 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 SizedBox(
                   height: 10,
                 ),
-                TabBar(
-                    isScrollable: true,
-                    controller: tabController,
-                    labelColor: Color(0xffd17842),
-                    labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                    unselectedLabelColor: Color(0xff3c4046),
-                    indicator:
-                        CircleTabIndicator(color: Color(0xffd17842), radius: 4),
-                    tabs: [
-                      Tab(
-                        text: "Cappuccino",
-                      ),
-                      Tab(
-                        text: "Americano",
-                      ),
-                      Tab(
-                        text: "Espresso",
-                      ),
-                      Tab(
-                        text: "Mocha",
-                      ),
-                      Tab(
-                        text: "Macchiato",
-                      ),
-                      Tab(
-                        text: "Doppio",
-                      ),
-                    ]),
+                TabBar(isScrollable: true, controller: tabController, labelColor: Color(0xffd17842), labelStyle: TextStyle(fontWeight: FontWeight.bold), unselectedLabelColor: Color(0xff3c4046), indicator: CircleTabIndicator(color: Color(0xffd17842), radius: 4), tabs: [
+                  Tab(
+                    text: "Cappuccino",
+                  ),
+                  Tab(
+                    text: "Americano",
+                  ),
+                  Tab(
+                    text: "Espresso",
+                  ),
+                  Tab(
+                    text: "Mocha",
+                  ),
+                  Tab(
+                    text: "Macchiato",
+                  ),
+                  Tab(
+                    text: "Doppio",
+                  ),
+                ]),
                 CoffeeCard(),
                 Text(
                   "Special for you",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 20,
@@ -163,11 +147,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 class CircleTabIndicator extends Decoration {
   final BoxPainter _painter;
 
-  CircleTabIndicator({@required Color color, @required double radius})
-      : _painter = _CirclePainter(color, radius);
+  CircleTabIndicator({required Color color, required double radius}) : _painter = _CirclePainter(color, radius);
 
   @override
-  BoxPainter createBoxPainter([onChanged]) => _painter;
+  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
+    return _painter;
+  }
 }
 
 class _CirclePainter extends BoxPainter {
@@ -181,8 +166,7 @@ class _CirclePainter extends BoxPainter {
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration cfg) {
-    final Offset circleOffset =
-        offset + Offset(cfg.size.width / 2, cfg.size.height - radius);
+    final Offset circleOffset = offset + Offset(cfg.size!.width / 2, cfg.size!.height - radius);
     canvas.drawCircle(circleOffset, radius, _paint);
   }
 }

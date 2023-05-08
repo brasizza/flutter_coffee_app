@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CoffeeDetailsPage extends StatelessWidget {
-  const CoffeeDetailsPage({Key key}) : super(key: key);
+  const CoffeeDetailsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(10),
           child: Column(
@@ -18,28 +18,17 @@ class CoffeeDetailsPage extends StatelessWidget {
                 children: [
                   Container(
                     height: 440,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        image: DecorationImage(
-                            image: AssetImage(
-                                "images/tyler-nix-nwdtkFzDfPY-unsplash.jpg"),
-                            fit: BoxFit.cover)),
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), image: DecorationImage(image: AssetImage("images/tyler-nix-nwdtkFzDfPY-unsplash.jpg"), fit: BoxFit.cover)),
                   ),
                   Positioned(
                     top: 320,
                     child: BlurryContainer(
                       padding: EdgeInsets.all(20),
                       height: 140,
-                      bgColor: Color(0xff141921),
+                      color: Color(0xff141921),
                       width: 377,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          topRight: Radius.circular(30),
-                          bottomLeft: Radius.circular(25)),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30), bottomLeft: Radius.circular(25)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -48,10 +37,7 @@ class CoffeeDetailsPage extends StatelessWidget {
                             children: [
                               Text(
                                 "Cappuccino",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                               SizedBox(
                                 height: 10,
@@ -71,7 +57,6 @@ class CoffeeDetailsPage extends StatelessWidget {
                                   SvgPicture.asset(
                                     "images/star.svg",
                                     height: 20,
-                                    color: Color(0xffd17842),
                                   ),
                                   SizedBox(
                                     width: 10,
@@ -102,10 +87,8 @@ class CoffeeDetailsPage extends StatelessWidget {
                                     height: 42,
                                     width: 42,
                                     child: Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         SvgPicture.asset(
                                           "images/coffee-beans.svg",
@@ -117,16 +100,11 @@ class CoffeeDetailsPage extends StatelessWidget {
                                         ),
                                         Text(
                                           "Coffee",
-                                          style: TextStyle(
-                                              color: Color(0xff919296),
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.bold),
+                                          style: TextStyle(color: Color(0xff919296), fontSize: 10, fontWeight: FontWeight.bold),
                                         )
                                       ],
                                     ),
-                                    decoration: BoxDecoration(
-                                        color: Color(0xff101419),
-                                        borderRadius: BorderRadius.circular(8)),
+                                    decoration: BoxDecoration(color: Color(0xff101419), borderRadius: BorderRadius.circular(8)),
                                   ),
                                   SizedBox(
                                     width: 15,
@@ -135,10 +113,8 @@ class CoffeeDetailsPage extends StatelessWidget {
                                     height: 42,
                                     width: 42,
                                     child: Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         SvgPicture.asset(
                                           "images/water-drop.svg",
@@ -150,16 +126,11 @@ class CoffeeDetailsPage extends StatelessWidget {
                                         ),
                                         Text(
                                           "Milk",
-                                          style: TextStyle(
-                                              color: Color(0xff919296),
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.bold),
+                                          style: TextStyle(color: Color(0xff919296), fontSize: 10, fontWeight: FontWeight.bold),
                                         )
                                       ],
                                     ),
-                                    decoration: BoxDecoration(
-                                        color: Color(0xff101419),
-                                        borderRadius: BorderRadius.circular(8)),
+                                    decoration: BoxDecoration(color: Color(0xff101419), borderRadius: BorderRadius.circular(8)),
                                   ),
                                 ],
                               ),
@@ -171,15 +142,10 @@ class CoffeeDetailsPage extends StatelessWidget {
                                 width: 120,
                                 child: Center(
                                     child: Text(
-                                      "Medium Roasted",
-                                      style: TextStyle(
-                                          color: Color(0xff919296),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold),
-                                    )),
-                                decoration: BoxDecoration(
-                                    color: Color(0xff101419),
-                                    borderRadius: BorderRadius.circular(8)),
+                                  "Medium Roasted",
+                                  style: TextStyle(color: Color(0xff919296), fontSize: 12, fontWeight: FontWeight.bold),
+                                )),
+                                decoration: BoxDecoration(color: Color(0xff101419), borderRadius: BorderRadius.circular(8)),
                               ),
                             ],
                           )
@@ -199,9 +165,7 @@ class CoffeeDetailsPage extends StatelessWidget {
                   children: [
                     Text(
                       "Description",
-                      style: TextStyle(
-                          color: Color(0xff919296),
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Color(0xff919296), fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 8,
@@ -215,10 +179,7 @@ class CoffeeDetailsPage extends StatelessWidget {
                     ),
                     Text(
                       "Size",
-                      style: TextStyle(
-                          color: Color(0xff919296),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Color(0xff919296), fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 15,
@@ -230,16 +191,13 @@ class CoffeeDetailsPage extends StatelessWidget {
                           width: 110,
                           child: Center(
                               child: Text(
-                                "S",
-                                style: TextStyle(
-                                    color: Color(0xff919296),
-                                    fontSize: 18,
-                                    ),
-                              )),
-                          decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Color(0xffd17842))),
+                            "S",
+                            style: TextStyle(
+                              color: Color(0xff919296),
+                              fontSize: 18,
+                            ),
+                          )),
+                          decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(10), border: Border.all(color: Color(0xffd17842))),
                         ),
                         SizedBox(
                           width: 11,
@@ -249,15 +207,13 @@ class CoffeeDetailsPage extends StatelessWidget {
                           width: 110,
                           child: Center(
                               child: Text(
-                                "M",
-                                style: TextStyle(
-                                    color: Color(0xff919296),
-                                    fontSize: 18,
-                                    ),
-                              )),
-                          decoration: BoxDecoration(
-                              color: Color(0xff101419),
-                              borderRadius: BorderRadius.circular(8)),
+                            "M",
+                            style: TextStyle(
+                              color: Color(0xff919296),
+                              fontSize: 18,
+                            ),
+                          )),
+                          decoration: BoxDecoration(color: Color(0xff101419), borderRadius: BorderRadius.circular(8)),
                         ),
                         SizedBox(
                           width: 11,
@@ -267,15 +223,13 @@ class CoffeeDetailsPage extends StatelessWidget {
                           width: 110,
                           child: Center(
                               child: Text(
-                                "L",
-                                style: TextStyle(
-                                    color: Color(0xff919296),
-                                    fontSize: 18,
-                                    ),
-                              )),
-                          decoration: BoxDecoration(
-                              color: Color(0xff101419),
-                              borderRadius: BorderRadius.circular(8)),
+                            "L",
+                            style: TextStyle(
+                              color: Color(0xff919296),
+                              fontSize: 18,
+                            ),
+                          )),
+                          decoration: BoxDecoration(color: Color(0xff101419), borderRadius: BorderRadius.circular(8)),
                         ),
                       ],
                     ),
@@ -290,9 +244,7 @@ class CoffeeDetailsPage extends StatelessWidget {
                           children: [
                             Text(
                               "Price",
-                              style: TextStyle(
-                                  color: Color(0xff919296),
-                                  fontWeight: FontWeight.bold),
+                              style: TextStyle(color: Color(0xff919296), fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               height: 10,
@@ -301,13 +253,11 @@ class CoffeeDetailsPage extends StatelessWidget {
                               children: [
                                 Text(
                                   r'$',
-                                  style: TextStyle(
-                                      color: Color(0xffd17842), fontSize: 21),
+                                  style: TextStyle(color: Color(0xffd17842), fontSize: 21),
                                 ),
                                 Text(
                                   " 4.20",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 21),
+                                  style: TextStyle(color: Colors.white, fontSize: 21),
                                 )
                               ],
                             )
@@ -317,16 +267,18 @@ class CoffeeDetailsPage extends StatelessWidget {
                         ButtonTheme(
                           minWidth: 200,
                           height: 50,
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                backgroundColor: Color(0xffd17842)),
+                            // shape: RoundedRectangleBorder(
+                            //     borderRadius: BorderRadius.circular(20)),
                             onPressed: () {},
-                            color: Color(0xffd17842),
                             child: Text(
                               "Buy Now",
-                              style: TextStyle(color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
+                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
                             ),
                           ),
                         )
