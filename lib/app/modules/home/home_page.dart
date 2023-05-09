@@ -1,29 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:howabout_coffee/app/modules/home/widgets/coffee_card.dart';
-import 'package:howabout_coffee/app/modules/home/widgets/special_coffee_card.dart';
+import 'package:get/get.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+import '../../core/bindings/extensions/circle_indicator.dart';
+import 'home_controller.dart';
+import 'widgets/coffee_card.dart';
+import 'widgets/special_coffee_card.dart';
 
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  late final TabController tabController;
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  void initState() {
-    tabController = TabController(length: 6, vsync: this);
-    super.initState();
-  }
+class HomePage extends GetView<HomeController> {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +38,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           Icons.menu,
                           color: Color(0xff4d4f52),
                         )),
-                    Image.asset(
-                      "assets/images/timothy-dykes-yd4ubMUNTG0-unsplash-removebg-preview.png",
-                      height: 50,
-                      width: 50,
-                    ),
+                    Icon(
+                      Icons.person,
+                      weight: 50,
+                      color: Colors.white,
+                    )
                   ],
                 ),
                 SizedBox(
@@ -92,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 SizedBox(
                   height: 10,
                 ),
-                TabBar(isScrollable: true, controller: tabController, labelColor: Color(0xffd17842), labelStyle: TextStyle(fontWeight: FontWeight.bold), unselectedLabelColor: Color(0xff3c4046), indicator: CircleTabIndicator(color: Color(0xffd17842), radius: 4), tabs: [
+                TabBar(isScrollable: true, controller: controller.tabController, labelColor: Color(0xffd17842), labelStyle: TextStyle(fontWeight: FontWeight.bold), unselectedLabelColor: Color(0xff3c4046), indicator: CircleTabIndicator(color: Color(0xffd17842), radius: 4), tabs: [
                   Tab(
                     text: "Cappuccino",
                   ),
@@ -137,36 +121,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ""),
         ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        currentIndex: 0,
+        onTap: (index) {},
       ),
     );
-  }
-}
-
-class CircleTabIndicator extends Decoration {
-  final BoxPainter _painter;
-
-  CircleTabIndicator({required Color color, required double radius}) : _painter = _CirclePainter(color, radius);
-
-  @override
-  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    return _painter;
-  }
-}
-
-class _CirclePainter extends BoxPainter {
-  final Paint _paint;
-  final double radius;
-
-  _CirclePainter(Color color, this.radius)
-      : _paint = Paint()
-          ..color = color
-          ..isAntiAlias = true;
-
-  @override
-  void paint(Canvas canvas, Offset offset, ImageConfiguration cfg) {
-    final Offset circleOffset = offset + Offset(cfg.size!.width / 2, cfg.size!.height - radius);
-    canvas.drawCircle(circleOffset, radius, _paint);
   }
 }

@@ -11,7 +11,7 @@ class CoffeeDetailsPage extends StatelessWidget {
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [
               Stack(
@@ -19,59 +19,60 @@ class CoffeeDetailsPage extends StatelessWidget {
                   Container(
                     height: 440,
                     width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), image: DecorationImage(image: AssetImage("images/tyler-nix-nwdtkFzDfPY-unsplash.jpg"), fit: BoxFit.cover)),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), image: const DecorationImage(image: AssetImage("assets/images/tyler-nix-nwdtkFzDfPY-unsplash.jpg"), fit: BoxFit.cover)),
                   ),
                   Positioned(
                     top: 320,
                     child: BlurryContainer(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       height: 140,
-                      color: Color(0xff141921),
+                      color: const Color(0xff141921),
                       width: 377,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30), bottomLeft: Radius.circular(25)),
+                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30), bottomLeft: Radius.circular(25)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 "Cappuccino",
                                 style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
-                              Text(
+                              const Text(
                                 "With Oat Milk",
                                 style: TextStyle(
                                   color: Color(0xff919296),
                                   fontSize: 12,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 15,
                               ),
                               Row(
                                 children: [
                                   SvgPicture.asset(
-                                    "images/star.svg",
+                                    "assets/images/star.svg",
                                     height: 20,
+                                    colorFilter: const ColorFilter.mode(Colors.orange, BlendMode.srcIn),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
-                                  Text(
+                                  const Text(
                                     "4.5",
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 20,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 8,
                                   ),
-                                  Text(
+                                  const Text(
                                     "(6.983)",
                                     style: TextStyle(color: Color(0xff919296)),
                                   )
@@ -86,66 +87,66 @@ class CoffeeDetailsPage extends StatelessWidget {
                                   Container(
                                     height: 42,
                                     width: 42,
+                                    decoration: BoxDecoration(color: const Color(0xff101419), borderRadius: BorderRadius.circular(8)),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         SvgPicture.asset(
-                                          "images/coffee-beans.svg",
-                                          color: Color(0xffd17842),
+                                          "assets/images/coffee-beans.svg",
+                                          colorFilter: const ColorFilter.mode(Colors.orange, BlendMode.srcIn),
                                           height: 15,
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 4,
                                         ),
-                                        Text(
+                                        const Text(
                                           "Coffee",
                                           style: TextStyle(color: Color(0xff919296), fontSize: 10, fontWeight: FontWeight.bold),
                                         )
                                       ],
                                     ),
-                                    decoration: BoxDecoration(color: Color(0xff101419), borderRadius: BorderRadius.circular(8)),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 15,
                                   ),
                                   Container(
                                     height: 42,
                                     width: 42,
+                                    decoration: BoxDecoration(color: const Color(0xff101419), borderRadius: BorderRadius.circular(8)),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         SvgPicture.asset(
-                                          "images/water-drop.svg",
-                                          color: Color(0xffd17842),
+                                          "assets/images/water-drop.svg",
+                                          colorFilter: const ColorFilter.mode(Colors.orange, BlendMode.srcIn),
                                           height: 15,
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 4,
                                         ),
-                                        Text(
+                                        const Text(
                                           "Milk",
                                           style: TextStyle(color: Color(0xff919296), fontSize: 10, fontWeight: FontWeight.bold),
                                         )
                                       ],
                                     ),
-                                    decoration: BoxDecoration(color: Color(0xff101419), borderRadius: BorderRadius.circular(8)),
                                   ),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Container(
                                 height: 37,
                                 width: 120,
-                                child: Center(
+                                decoration: BoxDecoration(color: const Color(0xff101419), borderRadius: BorderRadius.circular(8)),
+                                child: const Center(
                                     child: Text(
                                   "Medium Roasted",
                                   style: TextStyle(color: Color(0xff919296), fontSize: 12, fontWeight: FontWeight.bold),
                                 )),
-                                decoration: BoxDecoration(color: Color(0xff101419), borderRadius: BorderRadius.circular(8)),
                               ),
                             ],
                           )
@@ -155,33 +156,33 @@ class CoffeeDetailsPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Description",
                       style: TextStyle(color: Color(0xff919296), fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
-                    Text(
+                    const Text(
                       "A cappuccino is a coffee-based drink made primarily from espresso and milk.",
                       style: TextStyle(color: Color(0xff919296), fontSize: 15),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    Text(
+                    const Text(
                       "Size",
                       style: TextStyle(color: Color(0xff919296), fontSize: 15, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Row(
@@ -189,7 +190,8 @@ class CoffeeDetailsPage extends StatelessWidget {
                         Container(
                           height: 37,
                           width: 110,
-                          child: Center(
+                          decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(10), border: Border.all(color: const Color(0xffd17842))),
+                          child: const Center(
                               child: Text(
                             "S",
                             style: TextStyle(
@@ -197,15 +199,15 @@ class CoffeeDetailsPage extends StatelessWidget {
                               fontSize: 18,
                             ),
                           )),
-                          decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(10), border: Border.all(color: Color(0xffd17842))),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 11,
                         ),
                         Container(
                           height: 37,
                           width: 110,
-                          child: Center(
+                          decoration: BoxDecoration(color: const Color(0xff101419), borderRadius: BorderRadius.circular(8)),
+                          child: const Center(
                               child: Text(
                             "M",
                             style: TextStyle(
@@ -213,15 +215,15 @@ class CoffeeDetailsPage extends StatelessWidget {
                               fontSize: 18,
                             ),
                           )),
-                          decoration: BoxDecoration(color: Color(0xff101419), borderRadius: BorderRadius.circular(8)),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 11,
                         ),
                         Container(
                           height: 37,
                           width: 110,
-                          child: Center(
+                          decoration: BoxDecoration(color: const Color(0xff101419), borderRadius: BorderRadius.circular(8)),
+                          child: const Center(
                               child: Text(
                             "L",
                             style: TextStyle(
@@ -229,11 +231,10 @@ class CoffeeDetailsPage extends StatelessWidget {
                               fontSize: 18,
                             ),
                           )),
-                          decoration: BoxDecoration(color: Color(0xff101419), borderRadius: BorderRadius.circular(8)),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 27,
                     ),
                     Row(
@@ -242,20 +243,20 @@ class CoffeeDetailsPage extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "Price",
                               style: TextStyle(color: Color(0xff919296), fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(
                               children: [
-                                Text(
+                                const Text(
                                   r'$',
                                   style: TextStyle(color: Color(0xffd17842), fontSize: 21),
                                 ),
-                                Text(
+                                const Text(
                                   " 4.20",
                                   style: TextStyle(color: Colors.white, fontSize: 21),
                                 )
@@ -272,11 +273,11 @@ class CoffeeDetailsPage extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                backgroundColor: Color(0xffd17842)),
+                                backgroundColor: const Color(0xffd17842)),
                             // shape: RoundedRectangleBorder(
                             //     borderRadius: BorderRadius.circular(20)),
                             onPressed: () {},
-                            child: Text(
+                            child: const Text(
                               "Buy Now",
                               style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
                             ),

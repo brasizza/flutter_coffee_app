@@ -1,0 +1,31 @@
+{
+        "id": 27764,
+        "company": "How about Coffee",
+        "address": "Rua Abade Faria, 54B",
+        "postal_code": "1900-008",
+        "city": "Lisboa",
+        "email": "howaboutcoffee.lisbon@gmail.com",
+        "tax_id": "INT",
+        "tax_exemption": "",
+        "tax_exemption_law": "",
+        "lat": 38.7408416,
+        "lng": -9.1309952,
+        "url": "https://how-about-coffee.vendus.pt",
+        "fiscal_id": "295494107",
+        "phone": "910136129",
+        "conservatory": "",
+        "socialcapital": "",
+        "country": "PT",
+        "locale": {
+            "currency": {
+                "symbol": "€",
+                "text": "Euro",
+                "abbr": "Eur",
+                "position": "-1"
+            }
+        },
+        "irs": {
+            "incidence_rate": 100,
+            "retention_rate": 0
+        }
+    }
