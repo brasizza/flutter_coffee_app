@@ -258,7 +258,10 @@
                 }
             ],
             "stock_alert": 0,
-            "images": [],
+            "images": {
+                "xs": "https://www.vendus.pt/foto/2a805c9cb4aa2a5ad0ac24f0395f7ed6_xs.jpeg",
+                "m": "https://www.vendus.pt/foto/2a805c9cb4aa2a5ad0ac24f0395f7ed6_m.jpeg"
+            },
             "stores": {
                 "store": "",
                 "store_id": 0
@@ -1502,7 +1505,10 @@
                 }
             ],
             "stock_alert": 0,
-            "images": [],
+            "images": {
+                "xs": "https://www.vendus.pt/foto/ded8bab877bc337a16752d5599165dfd_xs.jpeg",
+                "m": "https://www.vendus.pt/foto/ded8bab877bc337a16752d5599165dfd_m.jpeg"
+            },
             "stores": {
                 "store": "",
                 "store_id": 0
@@ -1926,7 +1932,10 @@
                 }
             ],
             "stock_alert": 0,
-            "images": [],
+            "images": {
+                "xs": "https://www.vendus.pt/foto/be1c7a555cb07baf91aff4665984ca1d_xs.jpeg",
+                "m": "https://www.vendus.pt/foto/be1c7a555cb07baf91aff4665984ca1d_m.jpeg"
+            },
             "stores": {
                 "store": "",
                 "store_id": 0
@@ -2855,7 +2864,10 @@
             "status": "on",
             "stock": 0,
             "stock_alert": 0,
-            "images": [],
+            "images": {
+                "xs": "https://www.vendus.pt/foto/7481dc738497aa5ac808ff46e3f6f455_xs.jpeg",
+                "m": "https://www.vendus.pt/foto/7481dc738497aa5ac808ff46e3f6f455_m.jpeg"
+            },
             "stores": {
                 "store": "",
                 "store_id": 0
@@ -3491,7 +3503,10 @@
                 }
             ],
             "stock_alert": 0,
-            "images": [],
+            "images": {
+                "xs": "https://www.vendus.pt/foto/4f92c72360093e36b849310b4f7d1b2a_xs.jpeg",
+                "m": "https://www.vendus.pt/foto/4f92c72360093e36b849310b4f7d1b2a_m.jpeg"
+            },
             "stores": {
                 "store": "",
                 "store_id": 0
@@ -4385,7 +4400,10 @@
                 }
             ],
             "stock_alert": 0,
-            "images": [],
+            "images": {
+                "xs": "https://www.vendus.pt/foto/211aea52cc8a19adc88ee01f4f99cee0_xs.jpeg",
+                "m": "https://www.vendus.pt/foto/211aea52cc8a19adc88ee01f4f99cee0_m.jpeg"
+            },
             "stores": {
                 "store": "",
                 "store_id": 0
@@ -4590,7 +4608,10 @@
                 }
             ],
             "stock_alert": 0,
-            "images": [],
+            "images": {
+                "xs": "https://www.vendus.pt/foto/0357460f60182843cfc206b007ab3717_xs.jpeg",
+                "m": "https://www.vendus.pt/foto/0357460f60182843cfc206b007ab3717_m.jpeg"
+            },
             "stores": {
                 "store": "",
                 "store_id": 0
@@ -6753,7 +6774,10 @@
                 }
             ],
             "stock_alert": 0,
-            "images": [],
+            "images": {
+                "xs": "https://www.vendus.pt/foto/ae43db53bec962127836e66a4b2fbcfc_xs.jpeg",
+                "m": "https://www.vendus.pt/foto/ae43db53bec962127836e66a4b2fbcfc_m.jpeg"
+            },
             "stores": {
                 "store": "",
                 "store_id": 0

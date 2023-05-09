@@ -11,7 +11,7 @@ class HomeRoutes {
   static final routes = [
     GetPage(
       name: home,
-      page: () => const HomePage(),
+      page: () => HomePage(),
       binding: HomeBinding(),
     ),
   ];

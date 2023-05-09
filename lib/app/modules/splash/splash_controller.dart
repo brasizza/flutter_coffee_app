@@ -10,8 +10,8 @@ class SplashController extends GetxController {
   void onReady() async {
     super.onReady();
 
-    await 5.delay();
-    Get.offNamed('/login');
+    await 1.delay();
+    Get.offNamed('/home');
   }
 
   @override

@@ -1,98 +1,105 @@
 import 'package:flutter/material.dart';
+import 'package:howabout_coffee/app/data/models/product.dart';
 import 'package:howabout_coffee/app/modules/home/widgets/coffee_details_page.dart';
 
 class CoffeeCard extends StatelessWidget {
-  List<String> images = [
-    "assets/images/tyler-nix-nwdtkFzDfPY-unsplash.jpg",
-    "assets/images/newcappuccino.jpg",
-    "assets/images/newcoffee.jpg",
-    "assets/images/nicholas-grande-Hd36cpebWbQ-unsplash.jpg",
-  ];
+  final List<Product>? products;
 
-  List<String> ingredients = ["With Oat Milk", "With Cinnamon Powder", "With Chocolate Powder", "With Caramel Drizzle"];
-
-  List<double> price = [4.29, 3.21, 6.46, 2.90];
-
+  CoffeeCard({super.key, this.products});
   @override
+  final ScrollController scrollController = ScrollController();
+
   Widget build(BuildContext context) {
-    return Flexible(
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      scrollController.jumpTo(0);
+    });
+    return SizedBox(
+      height: 300,
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => CoffeeDetailsPage()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const CoffeeDetailsPage()));
         },
         child: ListView.builder(
+            controller: scrollController,
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            itemCount: images.length,
+            itemCount: products?.length,
             itemBuilder: (context, index) {
+              final Product product = products![index];
               return Row(
                 children: [
                   Container(
                     height: 250,
                     width: 160,
+                    decoration: BoxDecoration(color: const Color(0xff242931), borderRadius: BorderRadius.circular(20)),
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Container(
                           height: 135,
                           width: 140,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), image: DecorationImage(image: AssetImage(images[index]), fit: BoxFit.cover)),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            image: DecorationImage(
+                              image: ((product.image == null) ? const AssetImage('assets/images/logo_coffee.png') : NetworkImage(product.image!)) as ImageProvider,
+                              fit: BoxFit.scaleDown,
+                              scale: 2,
+                            ),
+                          ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Cappuccino",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                ingredients[index],
-                                style: TextStyle(color: Color(0xff919293), fontSize: 11),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        r'$ ',
-                                        style: TextStyle(color: Color(0xffd17842), fontWeight: FontWeight.bold, fontSize: 20),
+                          padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
+                          child: Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  child: Center(
+                                    child: Flexible(
+                                      child: Text(
+                                        product.title,
+                                        style: TextStyle(color: Colors.white),
                                       ),
-                                      Text(
-                                        "${price[index]}",
-                                        style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                                      )
-                                    ],
+                                    ),
                                   ),
-                                  Container(
-                                      height: 30,
-                                      width: 30,
-                                      decoration: BoxDecoration(color: Color(0xffd17842), borderRadius: BorderRadius.circular(10)),
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Colors.white,
-                                        size: 20,
-                                      ))
-                                ],
-                              )
-                            ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          r'$ ',
+                                          style: TextStyle(color: Color(0xffd17842), fontWeight: FontWeight.bold, fontSize: 20),
+                                        ),
+                                        Text(
+                                          "${product.price}",
+                                          style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
+                                    Container(
+                                        height: 30,
+                                        width: 30,
+                                        decoration: BoxDecoration(color: const Color(0xffd17842), borderRadius: BorderRadius.circular(10)),
+                                        child: const Icon(
+                                          Icons.add,
+                                          color: Colors.white,
+                                          size: 20,
+                                        ))
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         )
                       ],
                     ),
-                    decoration: BoxDecoration(color: Color(0xff242931), borderRadius: BorderRadius.circular(20)),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                 ],

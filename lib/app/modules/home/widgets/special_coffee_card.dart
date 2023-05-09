@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class SpecialCoffeeCard extends StatelessWidget {
   List<String> specialImages = [
-    "assets/images/kaffebase-coffeeshop-uAx74-kc5Kw-unsplash.jpg",
+    "assets/images/coffee_based.jpg",
     "assets/images/coffee.jpg",
-    "assts/images/lattee.jpg",
+    "assets/images/lattee.jpg",
   ];
 
   List<String> coffeeName = ["Caramel Macchiato ", "Turkish Coffee", "Cafe Cubanoi"];

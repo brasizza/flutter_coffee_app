@@ -1,6 +1,7 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/route_manager.dart';
 
 class CoffeeDetailsPage extends StatelessWidget {
   const CoffeeDetailsPage({Key? key}) : super(key: key);
@@ -20,6 +21,18 @@ class CoffeeDetailsPage extends StatelessWidget {
                     height: 440,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), image: const DecorationImage(image: AssetImage("assets/images/tyler-nix-nwdtkFzDfPY-unsplash.jpg"), fit: BoxFit.cover)),
+                  ),
+                  Positioned(
+                    right: 10,
+                    top: 10,
+                    child: GestureDetector(
+                      onTap: () => Get.close(0),
+                      child: const Icon(
+                        Icons.expand_more_rounded,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                    ),
                   ),
                   Positioned(
                     top: 320,

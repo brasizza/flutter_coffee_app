@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "580757754203",
+    "project_id": "how-about-coffee-pt",
+    "storage_bucket": "how-about-coffee-pt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580757754203:android:dc250f329d8b6dd95f8a7e",
+        "android_client_info": {
+          "package_name": "com.brasizza.marcus.how_about_coffee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "580757754203-obissvo7rv7enfrh78pjbssgs0tapvus.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWxhMLD3K063Mwvv6yRyazQi6XTxUOq3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "580757754203-obissvo7rv7enfrh78pjbssgs0tapvus.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
