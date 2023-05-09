@@ -44,7 +44,7 @@ class CoffeeCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                             image: DecorationImage(
                               image: ((product.image == null) ? const AssetImage('assets/images/logo_coffee.png') : NetworkImage(product.image!)) as ImageProvider,
-                              fit: BoxFit.scaleDown,
+                              fit: BoxFit.cover,
                               scale: 2,
                             ),
                           ),

@@ -21,7 +21,10 @@ class ProductsPage extends GetView<ProductsController> {
                   final Category category = productDTO!.categories![index];
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: ElevatedButton(
+                    child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(color: (category == productDTO.categorySelected) ? context.theme.primaryColor : Colors.transparent, width: 2),
+                        ),
                         onPressed: () {
                           controller.changeCategory(category);
                         },
