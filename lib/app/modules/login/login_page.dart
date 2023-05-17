@@ -1,9 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
-import 'package:howabout_coffee/app/data/services/auth/auth_service.dart';
 import 'package:howabout_coffee/app/modules/login/login_controller.dart';
 import 'package:howabout_coffee/app/modules/login/state/login_state.dart';
 
@@ -24,17 +22,6 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
   final double opacity = 0.5;
 
   @override
-  void onReady() {
-    super.onReady();
-
-    context.read<AuthService>().listenUser().listen((User? user) {
-      if (user != null) {
-        Navigator.of(context).pushReplacementNamed('/home');
-      }
-    });
-  }
-
-  @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
@@ -42,8 +29,11 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
   }
 
   void loginUser() async {
+    final navigator = Navigator.of(context);
     if (formKey.currentState!.validate()) {
-      await controller.loginUser(email: emailController.text, password: passwordController.text);
+      if (await controller.loginUser(email: emailController.text, password: passwordController.text)) {
+        navigator.pushReplacementNamed('/home');
+      }
     }
   }
 

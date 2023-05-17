@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:howabout_coffee/app/core/rest/rest_client.dart';
 
-import '../../models/category.dart';
+import '../../models/category_model.dart';
 import 'categories_repository.dart';
 
 class CategoriesRepositoryImpl implements CategoriesRepository {
@@ -11,12 +11,12 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
   }) : _rest = rest;
 
   @override
-  Future<List<Category>?> getAll() async {
+  Future<List<CategoryModel>?> getAll() async {
     final response = await _rest.get("/categories");
     if (response.statusCode != 200) {
       return null;
     } else {
-      return ((response.data as List).map((e) => Category.fromMap(e))).toList();
+      return ((response.data as List).map((e) => CategoryModel.fromMap(e))).toList();
     }
   }
 }

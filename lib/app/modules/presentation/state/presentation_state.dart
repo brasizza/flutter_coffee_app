@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-import 'package:howabout_coffee/app/data/models/promotion.dart';
+import 'package:howabout_coffee/app/data/models/promotion_model.dart';
 import 'package:match/match.dart';
 
 part 'presentation_state.g.dart';
@@ -10,7 +10,7 @@ enum PresentationStatus { initial, loading, loaded, error }
 
 class PresentationState extends Equatable {
   final PresentationStatus status;
-  final List<Promotion> images;
+  final List<PromotionModel> images;
   final String? errorMessage;
   const PresentationState({required this.status, required this.images, this.errorMessage});
 
@@ -24,7 +24,7 @@ class PresentationState extends Equatable {
 
   PresentationState copyWith({
     PresentationStatus? status,
-    List<Promotion>? images,
+    List<PromotionModel>? images,
     String? errorMessage,
   }) {
     return PresentationState(

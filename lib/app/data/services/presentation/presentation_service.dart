@@ -1,5 +1,5 @@
-import 'package:howabout_coffee/app/data/models/promotion.dart';
+import 'package:howabout_coffee/app/data/models/promotion_model.dart';
 
 abstract class PresentationService {
-  Future<List<Promotion>?> getPromotion();
+  Future<List<PromotionModel>?> getPromotion();
 }

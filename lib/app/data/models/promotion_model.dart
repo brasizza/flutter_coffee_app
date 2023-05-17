@@ -1,16 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class Promotion {
+class PromotionModel {
   final String image;
-  Promotion({
+  PromotionModel({
     required this.image,
   });
 
-  Promotion copyWith({
+  PromotionModel copyWith({
     String? image,
   }) {
-    return Promotion(
+    return PromotionModel(
       image: image ?? this.image,
     );
   }
@@ -21,21 +21,21 @@ class Promotion {
     };
   }
 
-  factory Promotion.fromMap(Map<String, dynamic> map) {
-    return Promotion(
+  factory PromotionModel.fromMap(Map<String, dynamic> map) {
+    return PromotionModel(
       image: map['image'] as String,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Promotion.fromJson(String source) => Promotion.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory PromotionModel.fromJson(String source) => PromotionModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'Promotion(image: $image)';
+  String toString() => 'PromotionModel(image: $image)';
 
   @override
-  bool operator ==(covariant Promotion other) {
+  bool operator ==(covariant PromotionModel other) {
     if (identical(this, other)) return true;
 
     return other.image == image;

@@ -25,17 +25,19 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
   final _formKey = GlobalKey<FormState>();
 
   // sign user in method
-  void signUserIn() {
+  Future<void> signUserIn() async {
+    final nav = Navigator.of(context);
     if (_formKey.currentState!.validate()) {
       debugPrint('valid');
 
-      controller.signUp(
+      final signed = await controller.signUp(
         name: usernameController.text,
         email: emailController.text,
         password: passwordController.text,
       );
-    } else {
-      debugPrint('not valid');
+      if (signed) {
+        nav.pushReplacementNamed('/home');
+      }
     }
   }
 

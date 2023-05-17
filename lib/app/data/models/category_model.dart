@@ -1,25 +1,25 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class Category {
+class CategoryModel {
   final BigInt id;
   final String title;
   final bool status;
   final int order;
-  Category({
+  CategoryModel({
     required this.id,
     required this.title,
     required this.status,
     required this.order,
   });
 
-  Category copyWith({
+  CategoryModel copyWith({
     BigInt? id,
     String? title,
     bool? status,
     int? order,
   }) {
-    return Category(
+    return CategoryModel(
       id: id ?? this.id,
       title: title ?? this.title,
       status: status ?? this.status,
@@ -36,8 +36,8 @@ class Category {
     };
   }
 
-  factory Category.fromMap(Map<String, dynamic> map) {
-    return Category(
+  factory CategoryModel.fromMap(Map<String, dynamic> map) {
+    return CategoryModel(
       id: BigInt.from(map['id']),
       title: map['title'] as String,
       status: (map['status'] == 'on') ? true : false,
@@ -47,15 +47,15 @@ class Category {
 
   String toJson() => json.encode(toMap());
 
-  factory Category.fromJson(String source) => Category.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory CategoryModel.fromJson(String source) => CategoryModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'Category(id: $id, title: $title, status: $status, order: $order)';
+    return 'CategoryModel(id: $id, title: $title, status: $status, order: $order)';
   }
 
   @override
-  bool operator ==(covariant Category other) {
+  bool operator ==(covariant CategoryModel other) {
     if (identical(this, other)) return true;
 
     return other.id == id && other.title == title && other.status == status && other.order == order;

@@ -1,5 +1,5 @@
-import '../../models/category.dart';
+import '../../models/category_model.dart';
 
 abstract class CategoriesService {
-  Future<List<Category>?> getAll();
+  Future<List<CategoryModel>?> getAll();
 }

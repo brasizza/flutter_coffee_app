@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:howabout_coffee/app/data/models/product.dart';
+import 'package:howabout_coffee/app/data/models/product_model.dart';
 import 'package:howabout_coffee/app/modules/home/widgets/coffee_details_page.dart';
 
 class CoffeeCard extends StatelessWidget {
-  final List<Product>? products;
+  final List<ProductModel>? products;
 
   CoffeeCard({super.key, this.products});
   final ScrollController scrollController = ScrollController();
@@ -24,7 +24,7 @@ class CoffeeCard extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: products?.length,
             itemBuilder: (context, index) {
-              final Product product = products![index];
+              final ProductModel product = products![index];
               return Row(
                 children: [
                   Container(

@@ -76,7 +76,7 @@ class _PresentationPageState extends BaseState<PresentationPage, PresentationCon
                           final image = state.images[index];
                           return Container(
                             clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(),
+                            decoration: const BoxDecoration(),
                             child: CachedNetworkImage(
                               fit: BoxFit.cover,
                               imageUrl: image.image,

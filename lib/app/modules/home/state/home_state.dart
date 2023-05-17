@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-import 'package:howabout_coffee/app/data/models/client.dart';
+import 'package:howabout_coffee/app/data/models/client_model.dart';
 import 'package:match/match.dart';
 
 part 'home_state.g.dart';
@@ -10,7 +10,7 @@ enum HomeStatus { initial, loading, loaded, error, clientLoaded }
 
 class HomeState extends Equatable {
   final HomeStatus status;
-  final Client? client;
+  final ClientModel? client;
 
   const HomeState({
     required this.status,
@@ -26,7 +26,7 @@ class HomeState extends Equatable {
 
   HomeState copyWith({
     HomeStatus? status,
-    Client? client,
+    ClientModel? client,
   }) {
     return HomeState(
       status: status ?? this.status,

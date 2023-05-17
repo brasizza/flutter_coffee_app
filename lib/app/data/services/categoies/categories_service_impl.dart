@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:howabout_coffee/app/data/repositories/categories/categories_repository.dart';
 
-import '../../models/category.dart';
+import '../../models/category_model.dart';
 import 'categories_service.dart';
 
 class CategoriesServiceImpl implements CategoriesService {
@@ -11,7 +11,7 @@ class CategoriesServiceImpl implements CategoriesService {
   }) : _repository = repository;
 
   @override
-  Future<List<Category>?> getAll() {
+  Future<List<CategoryModel>?> getAll() {
     return _repository.getAll();
   }
 }

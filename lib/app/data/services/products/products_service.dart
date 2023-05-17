@@ -1,5 +1,5 @@
-import 'package:howabout_coffee/app/data/models/product.dart';
+import 'package:howabout_coffee/app/data/models/product_model.dart';
 
 abstract class ProductsService {
-  Future<List<Product>?> getAll();
+  Future<List<ProductModel>?> getAll();
 }

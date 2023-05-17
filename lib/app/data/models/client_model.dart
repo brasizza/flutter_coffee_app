@@ -3,8 +3,9 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Client {
-  final String id;
+class ClientModel {
+  final int? id;
+  final String idFirebase;
   final String? name;
   final String password;
   final String email;
@@ -13,8 +14,9 @@ class Client {
   final double? lat;
   final double? lng;
   final bool verified;
-  Client({
+  ClientModel({
     required this.id,
+    required this.idFirebase,
     this.name,
     required this.password,
     required this.email,
@@ -25,8 +27,9 @@ class Client {
     required this.verified,
   });
 
-  Client copyWith({
-    String? id,
+  ClientModel copyWith({
+    int? id,
+    String? idFirebase,
     String? name,
     String? password,
     String? email,
@@ -36,8 +39,9 @@ class Client {
     double? lng,
     bool? verified,
   }) {
-    return Client(
+    return ClientModel(
       id: id ?? this.id,
+      idFirebase: idFirebase ?? this.idFirebase,
       name: name ?? this.name,
       password: password ?? this.password,
       email: email ?? this.email,
@@ -52,6 +56,7 @@ class Client {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
+      'idFirebase': idFirebase,
       'name': name,
       'password': password,
       'email': email,
@@ -63,9 +68,10 @@ class Client {
     };
   }
 
-  factory Client.fromFirebase(User user) {
-    return Client(
-      id: user.uid,
+  factory ClientModel.fromFirebase(User user) {
+    return ClientModel(
+      id: null,
+      idFirebase: user.uid,
       name: user.displayName ?? '',
       password: '',
       email: user.email ?? '',
@@ -77,9 +83,10 @@ class Client {
     );
   }
 
-  factory Client.fromMap(Map<String, dynamic> map) {
-    return Client(
-      id: map['id'] as String,
+  factory ClientModel.fromMap(Map<String, dynamic> map) {
+    return ClientModel(
+      id: map['id'] as int,
+      idFirebase: map['id_firebase'] as String,
       name: map['name'] != null ? map['name'] as String : null,
       password: map['password'] as String,
       email: map['email'] as String,
@@ -93,22 +100,22 @@ class Client {
 
   String toJson() => json.encode(toMap());
 
-  factory Client.fromJson(String source) => Client.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ClientModel.fromJson(String source) => ClientModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'Client(id: $id, name: $name, password: $password, email: $email, avatar: $avatar, phoneNumber: $phoneNumber, lat: $lat, lng: $lng, verified: $verified)';
+    return 'ClientModel(id: $id, idFirebase: $idFirebase, name: $name, password: $password, email: $email, avatar: $avatar, phoneNumber: $phoneNumber, lat: $lat, lng: $lng, verified: $verified)';
   }
 
   @override
-  bool operator ==(covariant Client other) {
+  bool operator ==(covariant ClientModel other) {
     if (identical(this, other)) return true;
 
-    return other.id == id && other.name == name && other.password == password && other.email == email && other.avatar == avatar && other.phoneNumber == phoneNumber && other.lat == lat && other.lng == lng && other.verified == verified;
+    return other.id == id && other.idFirebase == idFirebase && other.name == name && other.password == password && other.email == email && other.avatar == avatar && other.phoneNumber == phoneNumber && other.lat == lat && other.lng == lng && other.verified == verified;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ name.hashCode ^ password.hashCode ^ email.hashCode ^ avatar.hashCode ^ phoneNumber.hashCode ^ lat.hashCode ^ lng.hashCode ^ verified.hashCode;
+    return id.hashCode ^ idFirebase.hashCode ^ name.hashCode ^ password.hashCode ^ email.hashCode ^ avatar.hashCode ^ phoneNumber.hashCode ^ lat.hashCode ^ lng.hashCode ^ verified.hashCode;
   }
 }

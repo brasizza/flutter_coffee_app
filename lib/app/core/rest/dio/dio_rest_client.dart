@@ -87,6 +87,7 @@ class DioRestClient implements RestClient {
       final response = await _dio.post(
         path,
         queryParameters: queryParameters,
+        data: data,
         options: Options(headers: headers),
       );
 

@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class Product {
+class ProductModel {
   final BigInt id;
   final int order;
   final String title;
@@ -10,7 +10,7 @@ class Product {
   final BigInt category;
   final bool status;
   final String? image;
-  Product({
+  ProductModel({
     required this.id,
     required this.order,
     required this.title,
@@ -21,7 +21,7 @@ class Product {
     required this.image,
   });
 
-  Product copyWith({
+  ProductModel copyWith({
     BigInt? id,
     int? order,
     String? title,
@@ -31,7 +31,7 @@ class Product {
     bool? status,
     String? image,
   }) {
-    return Product(
+    return ProductModel(
       id: id ?? this.id,
       order: order ?? this.order,
       title: title ?? this.title,
@@ -56,8 +56,8 @@ class Product {
     };
   }
 
-  factory Product.fromMap(Map<String, dynamic> map) {
-    return Product(
+  factory ProductModel.fromMap(Map<String, dynamic> map) {
+    return ProductModel(
       id: BigInt.from(map['id']),
       order: map['order'] as int,
       title: map['title'] as String,
@@ -75,15 +75,15 @@ class Product {
 
   String toJson() => json.encode(toMap());
 
-  factory Product.fromJson(String source) => Product.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ProductModel.fromJson(String source) => ProductModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'Product(id: $id, order: $order, title: $title, description: $description, price: $price, category: $category, status: $status, image: $image)';
+    return 'ProductModel(id: $id, order: $order, title: $title, description: $description, price: $price, category: $category, status: $status, image: $image)';
   }
 
   @override
-  bool operator ==(covariant Product other) {
+  bool operator ==(covariant ProductModel other) {
     if (identical(this, other)) return true;
 
     return other.id == id && other.order == order && other.title == title && other.description == description && other.price == price && other.category == category && other.status == status && other.image == image;
