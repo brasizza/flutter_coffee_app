@@ -1,5 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
+import 'package:howabout_coffee/app/data/services/auth/auth_service.dart';
+import 'package:howabout_coffee/app/modules/login/login_controller.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/widgets/my_button.dart';
 import '../../core/widgets/my_textfield.dart';
@@ -11,10 +16,20 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends BaseState<LoginPage, LoginController> {
   final usernameController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final double opacity = 0.5;
+
+  @override
+  void onReady() {
+    super.onReady();
+    context.read<AuthService>().listenUser().listen((User? user) {
+      if (user != null) {
+        Navigator.of(context).pushReplacementNamed('/home');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +145,9 @@ class _LoginPageState extends State<LoginPage> {
                                           ),
                                           const SizedBox(width: 20),
                                           GestureDetector(
-                                            onTap: () {},
+                                            onTap: () {
+                                              Navigator.of(context).pushNamed('/login/sign-up');
+                                            },
                                             child: Text(
                                               'Sign Up',
                                               style: TextStyle(color: ColorsApp.instance.primary, fontWeight: FontWeight.bold, fontSize: 20),
