@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
+import 'package:howabout_coffee/app/modules/home/home_controller.dart';
 import 'package:howabout_coffee/app/modules/home/widgets/special_coffee_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,7 +11,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends BaseState<HomePage, HomeController> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

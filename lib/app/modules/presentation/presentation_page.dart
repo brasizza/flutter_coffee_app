@@ -62,18 +62,22 @@ class _PresentationPageState extends BaseState<PresentationPage, PresentationCon
                 return Expanded(
                   child: Visibility(
                     visible: state.status == PresentationStatus.loaded,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(),
-                      child: CarouselSlider.builder(
-                          keepPage: true,
-                          slideIndicator: CircularSlideIndicator(
-                            padding: const EdgeInsets.only(bottom: 32),
-                          ),
-                          enableAutoSlider: true,
-                          unlimitedMode: true,
-                          slideBuilder: (index) {
-                            final image = state.images[index];
-                            return CachedNetworkImage(
+                    child: CarouselSlider.builder(
+                        keepPage: true,
+                        // slideIndicator: CircularSlideIndicator(
+                        //   padding: const EdgeInsets.only(bottom: 30),
+                        //   indicatorBorderColor: ColorsApp.instance.primary,
+                        //   indicatorBackgroundColor: ColorsApp.instance.primary,
+                        //   currentIndicatorColor: ColorsApp.instance.fontColor,
+                        // ),
+                        enableAutoSlider: true,
+                        unlimitedMode: true,
+                        slideBuilder: (index) {
+                          final image = state.images[index];
+                          return Container(
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(),
+                            child: CachedNetworkImage(
                               fit: BoxFit.cover,
                               imageUrl: image.image,
                               placeholder: (context, url) => (index > 0)
@@ -82,10 +86,10 @@ class _PresentationPageState extends BaseState<PresentationPage, PresentationCon
                                       fit: BoxFit.cover,
                                     )
                                   : const SizedBox(),
-                            );
-                          },
-                          itemCount: state.images.length),
-                    ),
+                            ),
+                          );
+                        },
+                        itemCount: state.images.length),
                   ),
                 );
               },

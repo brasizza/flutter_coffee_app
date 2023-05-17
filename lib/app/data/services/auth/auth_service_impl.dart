@@ -2,7 +2,12 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:howabout_coffee/app/data/exceptions/invalid_email_exception.dart';
+import 'package:howabout_coffee/app/data/exceptions/user_not_found_exception.dart';
+import 'package:howabout_coffee/app/data/exceptions/user_password_exception.dart';
+import 'package:howabout_coffee/app/data/exceptions/username_in_use_exception.dart';
 import 'package:howabout_coffee/app/data/exceptions/weak_password_exception.dart';
+import 'package:howabout_coffee/app/data/models/client.dart';
 
 import './auth_service.dart';
 
@@ -12,8 +17,21 @@ class AuthServiceImpl implements AuthService {
     required FirebaseAuth instance,
   }) : _instance = instance;
   @override
-  Future<void> signIn() async {
-    // await FirebaseAuth.instance.signInWithCredential(credential);
+  Future<void> signIn({required String email, required String password}) async {
+    try {
+      final credential = await _instance.signInWithEmailAndPassword(email: email, password: password);
+
+      print(credential);
+    } on FirebaseAuthException catch (e, s) {
+      log(e.toString(), error: e, stackTrace: s);
+      if (e.code == 'user-not-found') {
+        throw UserNotFoundException('User not found', stack: s);
+      } else if (e.code == 'wrong-password') {
+        throw UserPasswordException('User not found', stack: s);
+      } else if (e.code == 'invalid-email') {
+        throw InvalidEmailException('Invalid email', stack: s);
+      }
+    }
   }
 
   @override
@@ -27,8 +45,11 @@ class AuthServiceImpl implements AuthService {
   }
 
   @override
-  User? getCurrentUser() {
-    return _instance.currentUser;
+  Client? getCurrentUser() {
+    if (_instance.currentUser == null) {
+      return null;
+    }
+    return Client.fromFirebase(_instance.currentUser!);
   }
 
   @override
@@ -47,7 +68,8 @@ class AuthServiceImpl implements AuthService {
         log('The password provided is too weak.', error: e, stackTrace: s);
         throw WeakPasswordException('Password too weak', stack: s);
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        log('The account already exists for that email.', error: e, stackTrace: s);
+        throw EmailInUseException('Email in use', stack: s);
       }
 
       // rethrow;

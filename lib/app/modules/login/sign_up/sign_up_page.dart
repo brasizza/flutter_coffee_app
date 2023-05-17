@@ -29,7 +29,7 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
     if (_formKey.currentState!.validate()) {
       debugPrint('valid');
 
-      controller.signIn(
+      controller.signUp(
         name: usernameController.text,
         email: emailController.text,
         password: passwordController.text,

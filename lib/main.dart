@@ -22,7 +22,6 @@ void main() async {
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   final env = await EnvMaker.create(ConfigType.dotenv);
 
-  await FirebaseAuth.instance.signOut();
   runApp(
     MultiProvider(
       providers: [
