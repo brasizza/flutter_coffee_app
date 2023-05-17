@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:howabout_coffee/app/core/rest/rest_client.dart';
-import 'package:howabout_coffee/app/data/repositories/categories/categories_repository.dart';
-import 'package:howabout_coffee/app/data/repositories/categories/categories_repository_impl.dart';
-import 'package:howabout_coffee/app/data/repositories/products/products_repository.dart';
-import 'package:howabout_coffee/app/data/repositories/products/products_repository_impl.dart';
-import 'package:howabout_coffee/app/data/services/categoies/categories_service.dart';
-import 'package:howabout_coffee/app/data/services/categoies/categories_service_impl.dart';
-import 'package:howabout_coffee/app/data/services/products/products_service.dart';
-import 'package:howabout_coffee/app/data/services/products/products_service_impl.dart';
-import 'package:howabout_coffee/app/modules/products/products_controller.dart';
-import 'package:howabout_coffee/app/modules/products/products_page.dart';
+import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
+import 'package:howabout_coffee/app/modules/home/widgets/special_coffee_card.dart';
 
-import 'home_controller.dart';
-import 'widgets/special_coffee_card.dart';
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
-class HomePage extends GetView<HomeController> {
-  HomePage({super.key});
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -33,13 +25,17 @@ class HomePage extends GetView<HomeController> {
           onTap: () => scaffoldKey.currentState?.openDrawer(),
           child: Icon(
             Icons.menu,
-            color: context.theme.primaryColor,
+            color: ColorsApp.instance.primary,
           ),
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
-            child: Icon(Icons.person, weight: 50, color: context.theme.primaryColor),
+            child: Icon(
+              Icons.person,
+              weight: 50,
+              color: ColorsApp.instance.primary,
+            ),
           )
         ],
       ),
@@ -49,57 +45,40 @@ class HomePage extends GetView<HomeController> {
         padding: const EdgeInsets.all(20),
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
-          child: Column(
+          child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
+              SizedBox(
                 height: 20,
               ),
-              const Text(
+              Text(
                 "Find the best\ncoffee for you",
                 style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 20,
               ),
-              const SizedBox(
+              SizedBox(
                 height: 10,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: GetBuilder<ProductsController>(
-                  init: ProductsController(
-                    categoriesService: Get.put<CategoriesService>(
-                      CategoriesServiceImpl(
-                        repository: Get.put<CategoriesRepository>(
-                          CategoriesRepositoryImpl(
-                            rest: Get.find<RestClient>(),
-                          ),
-                        ),
-                      ),
-                    ),
-                    productsService: Get.put<ProductsService>(
-                      ProductsServiceImpl(
-                        repository: Get.put<ProductsRepository>(
-                          ProductsRepositoryImpl(
-                            rest: Get.find<RestClient>(),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  didChangeDependencies: (state) {},
-                  builder: (value) => ProductsPage(),
-                ),
-              ),
-              const Text(
+              Text(
                 "Special for you",
                 style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 20,
               ),
-              SpecialCoffeeCard(),
+              SpecialCoffeeCard(coffeeName: [
+                'AAAA'
+              ], ingredients: [
+                'BBB'
+              ], price: [
+                "3.00"
+              ], specialImages: [
+                "assets/images/coffee_based.jpg",
+                "assets/images/coffee.jpg",
+                "assets/images/lattee.jpg",
+              ]),
             ],
           ),
         ),

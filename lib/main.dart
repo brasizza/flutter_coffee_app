@@ -1,12 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:howabout_coffee/app/core/ui/ui.dart';
+import 'package:howabout_coffee/app/core/config/base_config.dart';
+import 'package:howabout_coffee/app/core/config/env_maker.dart';
+import 'package:howabout_coffee/app/core/rest/dio/dio_rest_client.dart';
+import 'package:howabout_coffee/app/core/rest/rest_client.dart';
+import 'package:howabout_coffee/app/data/enums/config_types.dart';
+import 'package:howabout_coffee/app/routes/routes.dart';
+import 'package:provider/provider.dart';
 
-import 'app/core/bindings/application_bindings.dart';
-import 'app/core/translation/app_translation.dart';
-import 'app/routes/app_pages.dart';
+import 'app/core/ui/theme/theme_config.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -14,18 +17,19 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-
+  final env = await EnvMaker.create(ConfigType.dotenv);
   runApp(
-    GetMaterialApp(
-      fallbackLocale: const Locale('pt', 'BR'),
-      locale: Get.deviceLocale,
-      translations: await AppTranslation().init(),
-      debugShowCheckedModeBanner: false,
-      title: 'How about coffee',
-      initialBinding: ApplicationBindings(),
-      initialRoute: AppPages.INITIAL,
-      getPages: AppPages.routes,
-      theme: AppConfigUI.theme,
+    MultiProvider(
+      providers: [
+        Provider<Env>(create: ((context) => env)),
+        Provider<RestClient>(create: ((context) => DioRestClient.instance..init(env: env))),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'How about coffee',
+        theme: ThemeConfig.theme,
+        routes: Routes.instance.routes,
+      ),
     ),
   );
 }

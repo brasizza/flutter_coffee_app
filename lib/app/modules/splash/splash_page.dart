@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter/scheduler.dart';
 
-import 'splash_controller.dart';
-
-class SplashPage extends GetView<SplashController> {
-  const SplashPage({super.key});
+class SplashPage extends StatelessWidget {
+  const SplashPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(seconds: 3)).then((value) {
+        Navigator.of(context).pushReplacementNamed('/presentation');
+      });
+    });
+
     return Scaffold(
-        backgroundColor: Colors.black,
         body: Center(
-          child: Column(
-            children: [
-              Image.asset('assets/images/logo_coffee.png'),
-              const CircularProgressIndicator.adaptive(
-                backgroundColor: Colors.white,
-              )
-            ],
-          ),
-        ));
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset('assets/images/logo_coffee.png'),
+          const CircularProgressIndicator.adaptive(
+            backgroundColor: Colors.white,
+          )
+        ],
+      ),
+    ));
   }
 }

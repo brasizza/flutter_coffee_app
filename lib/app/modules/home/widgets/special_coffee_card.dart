@@ -1,17 +1,22 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class SpecialCoffeeCard extends StatelessWidget {
-  List<String> specialImages = [
-    "assets/images/coffee_based.jpg",
-    "assets/images/coffee.jpg",
-    "assets/images/lattee.jpg",
-  ];
+  final List<String> specialImages;
 
-  List<String> coffeeName = ["Caramel Macchiato ", "Turkish Coffee", "Cafe Cubanoi"];
+  final List<String> coffeeName;
 
-  List<String> ingredients = ["Ice, Cramel Sauce, Espresso", "Turkish coffee, Sugar", "Ground Coffee, Water"];
+  final List<String> ingredients;
 
-  List<String> price = ["5.00", "7.50", "9.00"];
+  final List<String> price;
+
+  const SpecialCoffeeCard({
+    Key? key,
+    required this.specialImages,
+    required this.coffeeName,
+    required this.ingredients,
+    required this.price,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +29,10 @@ class SpecialCoffeeCard extends StatelessWidget {
               Container(
                 height: 140,
                 width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(color: const Color(0xff141921), borderRadius: BorderRadius.circular(20)),
                 child: Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Container(
@@ -34,7 +40,7 @@ class SpecialCoffeeCard extends StatelessWidget {
                       width: 150,
                       decoration: BoxDecoration(color: Colors.blue, image: DecorationImage(image: AssetImage(specialImages[index]), fit: BoxFit.cover), borderRadius: BorderRadius.circular(20)),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
                     Column(
@@ -43,19 +49,19 @@ class SpecialCoffeeCard extends StatelessWidget {
                       children: [
                         Text(
                           coffeeName[index],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             color: Colors.white,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 6,
                         ),
                         Text(
                           ingredients[index],
-                          style: TextStyle(color: Color(0xff919293), fontSize: 12),
+                          style: const TextStyle(color: Color(0xff919293), fontSize: 12),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Row(
@@ -63,24 +69,24 @@ class SpecialCoffeeCard extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Text(
+                                const Text(
                                   r'$ ',
                                   style: TextStyle(color: Color(0xffd17842), fontWeight: FontWeight.bold, fontSize: 20),
                                 ),
                                 Text(
-                                  "${price[index]}",
-                                  style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                  price[index],
+                                  style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                                 )
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 80,
                             ),
                             Container(
                                 height: 30,
                                 width: 30,
-                                decoration: BoxDecoration(color: Color(0xffd17842), borderRadius: BorderRadius.circular(10)),
-                                child: Icon(
+                                decoration: BoxDecoration(color: const Color(0xffd17842), borderRadius: BorderRadius.circular(10)),
+                                child: const Icon(
                                   Icons.add,
                                   color: Colors.white,
                                   size: 20,
@@ -91,9 +97,8 @@ class SpecialCoffeeCard extends StatelessWidget {
                     )
                   ],
                 ),
-                decoration: BoxDecoration(color: Color(0xff141921), borderRadius: BorderRadius.circular(20)),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
             ],

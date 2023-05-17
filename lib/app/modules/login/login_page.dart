@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:howabout_coffee/app/modules/login/components/sign_up.dart';
+import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 
 import '../../core/widgets/my_button.dart';
 import '../../core/widgets/my_textfield.dart';
-import 'login_controller.dart';
 
-class LoginPage extends GetView<LoginController> {
-  LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final usernameController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final double opacity = 0.5;
@@ -41,7 +44,7 @@ class LoginPage extends GetView<LoginController> {
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.18),
-                    Text('boas_vindas'.tr, style: const TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
+                    const Text('boas_vindas', style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     ClipRect(
                       child: Container(
@@ -69,9 +72,9 @@ class LoginPage extends GetView<LoginController> {
                                 MyButton(
                                   onTap: (() {
                                     if (formKey.currentState!.validate()) {
-                                      Get.offAllNamed('/home');
+                                      // Get.offAllNamed('/home');
                                     } else {
-                                      print('not valid');
+                                      debugPrint('not valid');
                                     }
                                   }),
                                 ),
@@ -127,10 +130,10 @@ class LoginPage extends GetView<LoginController> {
                                           ),
                                           const SizedBox(width: 20),
                                           GestureDetector(
-                                            onTap: () => Get.to(() => Signup()),
+                                            onTap: () {},
                                             child: Text(
                                               'Sign Up',
-                                              style: TextStyle(color: context.theme.primaryColor, fontWeight: FontWeight.bold, fontSize: 20),
+                                              style: TextStyle(color: ColorsApp.instance.primary, fontWeight: FontWeight.bold, fontSize: 20),
                                             ),
                                           ),
                                         ],

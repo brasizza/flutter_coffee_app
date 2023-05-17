@@ -1,7 +1,6 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/route_manager.dart';
 
 class CoffeeDetailsPage extends StatelessWidget {
   const CoffeeDetailsPage({Key? key}) : super(key: key);
@@ -26,7 +25,7 @@ class CoffeeDetailsPage extends StatelessWidget {
                     right: 10,
                     top: 10,
                     child: GestureDetector(
-                      onTap: () => Get.close(0),
+                      onTap: () {},
                       child: const Icon(
                         Icons.expand_more_rounded,
                         color: Colors.white,
@@ -253,23 +252,23 @@ class CoffeeDetailsPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
+                        const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Price",
                               style: TextStyle(color: Color(0xff919296), fontWeight: FontWeight.bold),
                             ),
-                            const SizedBox(
+                            SizedBox(
                               height: 10,
                             ),
                             Row(
                               children: [
-                                const Text(
+                                Text(
                                   r'$',
                                   style: TextStyle(color: Color(0xffd17842), fontSize: 21),
                                 ),
-                                const Text(
+                                Text(
                                   " 4.20",
                                   style: TextStyle(color: Colors.white, fontSize: 21),
                                 )

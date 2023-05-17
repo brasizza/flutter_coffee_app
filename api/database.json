@@ -7,6 +7,20 @@
             "password": "123456"
         }
     ],
+    "promotions": [
+        {
+            "image": "https://img.freepik.com/free-photo/top-view-hot-espresso-with-brown-coffee-seeds-brown-wooden-desk-coffee-cup-drink_140725-28168.jpg"
+        },
+        {
+            "image": "https://img.freepik.com/premium-photo/high-angle-cappuccino-wooden-table_41471-7862.jpg"
+        },
+        {
+            "image": "https://img.freepik.com/free-photo/beautifully-made-cappuccino-served-with-flower-art-foam-shot-from-overhead-view_181624-1793.jpg"
+        },
+        {
+            "image": "https://img.freepik.com/free-photo/latte-coffee-cup_1203-7771.jpg?t=st=1684280449~exp=1684281049~hmac=3480a7d85e9f7f7b6aa0cb6af81a04432554aa53ef6a109c285b81a51eb20ef0"
+        }
+    ],
     "company": {
         "id": 27764,
         "company": "How about Coffee",
@@ -157,7 +171,7 @@
             "kitchen_request": "yes"
         }
     ],
-    "products" : [
+    "products": [
         {
             "id": 105130585,
             "order": 0,

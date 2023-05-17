@@ -6,9 +6,8 @@ class CoffeeCard extends StatelessWidget {
   final List<Product>? products;
 
   CoffeeCard({super.key, this.products});
-  @override
   final ScrollController scrollController = ScrollController();
-
+  @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       scrollController.jumpTo(0);
@@ -61,7 +60,7 @@ class CoffeeCard extends StatelessWidget {
                                     child: Flexible(
                                       child: Text(
                                         product.title,
-                                        style: TextStyle(color: Colors.white),
+                                        style: const TextStyle(color: Colors.white),
                                       ),
                                     ),
                                   ),

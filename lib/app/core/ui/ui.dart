@@ -14,7 +14,6 @@ class AppConfigUI {
     primarySwatch: _primarySwatch,
     primaryColor: Colors.orange,
     primaryColorLight: Colors.orange.withOpacity(.8),
-
     // primaryColor: Colors.white,
     // primaryColorLight: Colors.white,
     inputDecorationTheme: InputDecorationTheme(
@@ -34,7 +33,7 @@ class AppConfigUI {
         ),
       ),
     ),
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: Colors.black,
   );
 }
 

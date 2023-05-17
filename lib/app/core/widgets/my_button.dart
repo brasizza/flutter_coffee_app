@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
+import 'package:howabout_coffee/app/core/ui/styles/text_styles.dart';
 
 class MyButton extends StatelessWidget {
   final Function()? onTap;
@@ -13,13 +14,15 @@ class MyButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(25),
         decoration: BoxDecoration(
-          color: context.theme.primaryColor,
+          color: ColorsApp.instance.primary,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: const Center(
+        child: Center(
           child: Text(
             "Continue",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
+            style: context.textStyles.textBold.copyWith(
+              color: ColorsApp.instance.fontColor,
+            ),
           ),
         ),
       ),
@@ -39,7 +42,7 @@ class MyButtonAgree extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(25),
         decoration: BoxDecoration(
-          color: context.theme.primaryColor,
+          color: ColorsApp.instance.primary,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(

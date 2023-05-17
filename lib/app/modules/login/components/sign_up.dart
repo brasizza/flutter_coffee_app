@@ -1,28 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../core/widgets/my_button.dart';
 import '../../../core/widgets/my_textfield.dart';
 
-class Signup extends StatelessWidget {
-  Signup({super.key});
+class Signup extends StatefulWidget {
+  const Signup({super.key});
 
+  @override
+  State<Signup> createState() => _SignupState();
+}
+
+class _SignupState extends State<Signup> {
   // text editing controllers
   final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  final double _sigmaX = 5; // from 0-10
-  final double _sigmaY = 5; // from 0-10
   final double _opacity = .3;
+
   final _formKey = GlobalKey<FormState>();
 
   // sign user in method
   void signUserIn() {
     if (_formKey.currentState!.validate()) {
-      print('valid');
+      debugPrint('valid');
     } else {
-      print('not valid');
+      debugPrint('not valid');
     }
+  }
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    emailController.dispose();
+    super.dispose();
   }
 
   @override
@@ -92,14 +104,15 @@ class Signup extends StatelessWidget {
                               const SizedBox(height: 10),
 
                               MyTextField(
-                                controller: usernameController,
+                                controller: emailController,
                                 hintText: 'Email',
                                 obscureText: false,
                               ),
 
                               const SizedBox(height: 10),
-                              MyPasswordTextField(
+                              MyTextField(
                                 controller: passwordController,
+                                validatorText: 'Password empty',
                                 hintText: 'Password',
                                 obscureText: true,
                               ),
@@ -114,7 +127,7 @@ class Signup extends StatelessWidget {
                                   MyButtonAgree(
                                     text: "Continue",
                                     onTap: () {
-                                      Get.close(1);
+                                      signUserIn();
                                     },
                                   ),
                                 ],
