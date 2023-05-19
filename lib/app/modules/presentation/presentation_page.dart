@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
+import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/text_styles.dart';
 import 'package:howabout_coffee/app/data/services/auth/auth_service.dart';
@@ -99,14 +100,10 @@ class _PresentationPageState extends BaseState<PresentationPage, PresentationCon
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
+                  width: context.screenWidth,
                   child: TextButton(
                     onPressed: () {
-                      if (context.read<AuthService>().isLogged()) {
-                        Navigator.of(context).pushReplacementNamed('/home');
-                      } else {
-                        Navigator.of(context).pushReplacementNamed('/login');
-                      }
+                      Navigator.of(context).pushReplacementNamed(context.read<AuthService>().isLogged() ? '/home' : '/login');
                     },
                     child: Text(
                       'Entrar',

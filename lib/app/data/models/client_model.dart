@@ -56,7 +56,7 @@ class ClientModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'idFirebase': idFirebase,
+      'id_firebase': idFirebase,
       'name': name,
       'password': password,
       'email': email,

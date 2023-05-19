@@ -41,7 +41,7 @@ class AuthServiceImpl implements AuthService {
 
   @override
   bool isLogged() {
-    return _instance.currentUser == null ? false : true;
+    return (_instance.currentUser != null);
   }
 
   @override
@@ -64,8 +64,8 @@ class AuthServiceImpl implements AuthService {
   Future<User?> signUp({required String email, required String password, required String name}) async {
     try {
       final credential = await _instance.createUserWithEmailAndPassword(email: email, password: password);
-      await credential.user!.updateDisplayName(name);
-      await credential.user!.reload();
+      await credential.user?.updateDisplayName(name);
+      await credential.user?.reload();
       await credential.user?.sendEmailVerification();
       return _instance.currentUser;
     } on FirebaseAuthException catch (e, s) {

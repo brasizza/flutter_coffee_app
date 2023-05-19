@@ -3,9 +3,9 @@ import 'package:howabout_coffee/app/data/models/product_model.dart';
 import 'package:howabout_coffee/app/modules/home/widgets/coffee_details_page.dart';
 
 class CoffeeCard extends StatelessWidget {
-  final List<ProductModel>? products;
+  final List<ProductModel> products;
 
-  CoffeeCard({super.key, this.products});
+  CoffeeCard({super.key, this.products = const []});
   final ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
@@ -22,9 +22,9 @@ class CoffeeCard extends StatelessWidget {
             controller: scrollController,
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            itemCount: products?.length,
+            itemCount: products.length,
             itemBuilder: (context, index) {
-              final ProductModel product = products![index];
+              final ProductModel product = products[index];
               return Row(
                 children: [
                   Container(

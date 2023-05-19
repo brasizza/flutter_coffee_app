@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/modules/login/login_controller.dart';
@@ -65,8 +66,8 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
                 children: [
                   Image.asset(
                     'assets/images/lattee.jpg',
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                    width: context.screenWidth,
+                    height: context.screenHeight,
                     fit: BoxFit.cover,
                   ),
                   Positioned(

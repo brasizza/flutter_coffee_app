@@ -37,7 +37,7 @@ void main() async {
         Provider<RestClient>(create: ((context) => DioRestClient.instance..init(env: env))),
         Provider<AuthService>(create: ((context) => AuthServiceImpl(instance: FirebaseAuth.instance))),
         Provider<UserRepository>(create: (context) => UserRepositoryImpl(rest: context.read())),
-        Provider<UserService>(create: (context) => UserServiceImpl(repository: context.read(), storage: context.read())),
+        Provider<UserService>(create: (context) => UserServiceImpl(repository: context.read(), storage: context.read(), env: context.read())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
