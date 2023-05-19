@@ -18,6 +18,7 @@ import 'package:howabout_coffee/app/data/services/user/user_service_impl.dart';
 import 'package:howabout_coffee/app/routes/routes.dart';
 import 'package:provider/provider.dart';
 
+import 'app/core/global/global_context.dart';
 import 'app/core/ui/theme/theme_config.dart';
 import 'firebase_options.dart';
 
@@ -27,14 +28,15 @@ void main() async {
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   final env = await EnvMaker.create(ConfigType.dotenv);
+  final navKey = GlobalKey<NavigatorState>();
+  GlobalContext.instance.navigatorKey = navKey;
 
-  await FirebaseAuth.instance.signOut();
   runApp(
     MultiProvider(
       providers: [
         Provider<Env>(create: ((context) => env)),
         Provider<LocalStorage>(create: ((context) => LocalStorageShared()..init())),
-        Provider<RestClient>(create: ((context) => DioRestClient.instance..init(env: env))),
+        Provider<RestClient>(create: ((context) => DioRestClient.instance..init(env: env, storage: context.read()))),
         Provider<AuthService>(create: ((context) => AuthServiceImpl(instance: FirebaseAuth.instance))),
         Provider<UserRepository>(create: (context) => UserRepositoryImpl(rest: context.read())),
         Provider<UserService>(create: (context) => UserServiceImpl(repository: context.read(), storage: context.read(), env: context.read())),
@@ -44,6 +46,7 @@ void main() async {
         title: 'How about coffee',
         theme: ThemeConfig.theme,
         routes: Routes.instance.routes,
+        navigatorKey: navKey,
       ),
     ),
   );

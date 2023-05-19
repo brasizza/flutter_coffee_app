@@ -2,11 +2,15 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:howabout_coffee/app/core/local_storage/local_storage.dart';
+import 'package:howabout_coffee/app/core/rest/dio/interceptors/auth_interceptor.dart';
 
 import '../../config/base_config.dart';
 import 'dio.dart';
 
 class DioRestClient implements RestClient {
+  late AuthInterceptor _authInterceptor;
+
   final Dio _dio = Dio()
     ..interceptors.add(
       LogInterceptor(
@@ -28,12 +32,14 @@ class DioRestClient implements RestClient {
     return _instance!;
   }
 
-  init({required Env env}) {
+  init({required Env env, required LocalStorage storage}) {
     _dio.options = BaseOptions(
       baseUrl: env['base_url_backend'] ?? '',
       connectTimeout: const Duration(seconds: 5),
       receiveTimeout: const Duration(seconds: 60),
     );
+
+    _authInterceptor = AuthInterceptor(env: env, storage: storage);
   }
 
   @override
@@ -147,5 +153,19 @@ class DioRestClient implements RestClient {
         statusMessage: response?.statusMessage,
       ),
     );
+  }
+
+  @override
+  DioRestClient auth<DioRestClient>() {
+    if (!_dio.interceptors.contains(_authInterceptor)) {
+      _dio.interceptors.add(_authInterceptor);
+    }
+    return this as DioRestClient;
+  }
+
+  @override
+  DioRestClient unauth<DioRestClient>() {
+    _dio.interceptors.remove(_authInterceptor);
+    return this as DioRestClient;
   }
 }

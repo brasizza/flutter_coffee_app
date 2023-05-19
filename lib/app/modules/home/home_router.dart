@@ -7,7 +7,11 @@ class HomeRouter {
   HomeRouter._();
 
   static Widget get page => MultiProvider(
-        providers: [Provider(create: (context) => HomeController())],
+        providers: [
+          Provider(
+            create: (context) => HomeController(userService: context.read()),
+          ),
+        ],
         child: const HomePage(),
       );
 }

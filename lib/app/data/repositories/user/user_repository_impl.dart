@@ -16,7 +16,7 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<bool> save(ClientModel client) async {
-    final response = await _rest.post('/users', data: client.toJson());
+    final response = await _rest.unauth().post('/users', data: client.toJson());
     if (response.statusCode == 200) {
       return true;
     }
@@ -24,9 +24,9 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<AuthModel?> login(ClientModel client) async {
+  Future<AuthModel?> auth(ClientModel client) async {
     try {
-      final response = await _rest.post('/auth', data: client.toJson());
+      final response = await _rest.unauth().post('/auth', data: client.toJson());
       if (response.statusCode != 200) {
         throw Exception('Falha ao fazer o login');
       } else {
@@ -36,5 +36,14 @@ class UserRepositoryImpl implements UserRepository {
       log('Erro', error: e, stackTrace: s);
       throw UserNotFoundException('Falha ao fazer o login', stack: s);
     }
+  }
+
+  @override
+  Future<ClientModel?> getUser() async {
+    final response = await _rest.auth().get('/me');
+    if (response.statusCode != 200) {
+      return null;
+    }
+    return ClientModel.fromMap(response.data);
   }
 }

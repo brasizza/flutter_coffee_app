@@ -30,10 +30,13 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
   }
 
   void loginUser() async {
-    final navigator = Navigator.of(context);
+    final nav = Navigator.of(context);
     if (formKey.currentState!.validate()) {
-      if (await controller.loginUser(email: emailController.text, password: passwordController.text)) {
-        navigator.pushReplacementNamed('/home');
+      final user = await controller.loginUser(email: emailController.text, password: passwordController.text);
+      if (user) {
+        nav.pushReplacementNamed('/home');
+      } else {
+        nav.pushReplacementNamed('/presentation');
       }
     }
   }

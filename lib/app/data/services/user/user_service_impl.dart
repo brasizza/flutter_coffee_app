@@ -24,12 +24,17 @@ class UserServiceImpl implements UserService {
   }
 
   @override
-  Future<bool> login(ClientModel client) async {
-    final authModel = await _repository.login(client);
+  Future<bool> auth(ClientModel client) async {
+    final authModel = await _repository.auth(client);
     if (authModel != null) {
       await _storage.setData(_env['AUTH_TOKEN'], authModel.accessToken);
       return true;
     }
     return false;
+  }
+
+  @override
+  Future<ClientModel?> getuser() async {
+    return await _repository.getUser();
   }
 }

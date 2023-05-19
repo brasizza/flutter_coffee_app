@@ -13,7 +13,6 @@ class ClientModel {
   final String? phoneNumber;
   final double? lat;
   final double? lng;
-  final bool verified;
   ClientModel({
     required this.id,
     required this.idFirebase,
@@ -24,7 +23,6 @@ class ClientModel {
     this.phoneNumber,
     this.lat,
     this.lng,
-    required this.verified,
   });
 
   ClientModel copyWith({
@@ -37,7 +35,6 @@ class ClientModel {
     String? phoneNumber,
     double? lat,
     double? lng,
-    bool? verified,
   }) {
     return ClientModel(
       id: id ?? this.id,
@@ -49,7 +46,6 @@ class ClientModel {
       phoneNumber: phoneNumber ?? this.phoneNumber,
       lat: lat ?? this.lat,
       lng: lng ?? this.lng,
-      verified: verified ?? this.verified,
     );
   }
 
@@ -61,10 +57,9 @@ class ClientModel {
       'password': password,
       'email': email,
       'avatar': avatar,
-      'phoneNumber': phoneNumber,
+      'phone_number': phoneNumber,
       'lat': lat,
       'lng': lng,
-      'verified': verified,
     };
   }
 
@@ -78,7 +73,6 @@ class ClientModel {
       avatar: user.photoURL ?? '',
       lat: null,
       lng: null,
-      verified: user.emailVerified,
       phoneNumber: user.phoneNumber,
     );
   }
@@ -88,13 +82,12 @@ class ClientModel {
       id: map['id'] as int,
       idFirebase: map['id_firebase'] as String,
       name: map['name'] != null ? map['name'] as String : null,
-      password: map['password'] as String,
+      password: map['password'] != null ? map['password'] as String : '',
       email: map['email'] as String,
       avatar: map['avatar'] != null ? map['avatar'] as String : null,
-      phoneNumber: map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
-      lat: map['lat'] != null ? map['lat'] as double : null,
+      phoneNumber: map['phone_number'] != null ? map['phone_number'] as String : null,
+      lat: map['lat'] != null ? map['lat'] as double? : null,
       lng: map['lng'] != null ? map['lng'] as double : null,
-      verified: map['verified'] as bool,
     );
   }
 
@@ -103,19 +96,19 @@ class ClientModel {
   factory ClientModel.fromJson(String source) => ClientModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() {
-    return 'ClientModel(id: $id, idFirebase: $idFirebase, name: $name, password: $password, email: $email, avatar: $avatar, phoneNumber: $phoneNumber, lat: $lat, lng: $lng, verified: $verified)';
-  }
-
-  @override
   bool operator ==(covariant ClientModel other) {
     if (identical(this, other)) return true;
 
-    return other.id == id && other.idFirebase == idFirebase && other.name == name && other.password == password && other.email == email && other.avatar == avatar && other.phoneNumber == phoneNumber && other.lat == lat && other.lng == lng && other.verified == verified;
+    return other.id == id && other.idFirebase == idFirebase && other.name == name && other.password == password && other.email == email && other.avatar == avatar && other.phoneNumber == phoneNumber && other.lat == lat && other.lng == lng;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ idFirebase.hashCode ^ name.hashCode ^ password.hashCode ^ email.hashCode ^ avatar.hashCode ^ phoneNumber.hashCode ^ lat.hashCode ^ lng.hashCode ^ verified.hashCode;
+    return id.hashCode ^ idFirebase.hashCode ^ name.hashCode ^ password.hashCode ^ email.hashCode ^ avatar.hashCode ^ phoneNumber.hashCode ^ lat.hashCode ^ lng.hashCode;
+  }
+
+  @override
+  String toString() {
+    return 'ClientModel(id: $id, idFirebase: $idFirebase, name: $name, password: $password, email: $email, avatar: $avatar, phoneNumber: $phoneNumber, lat: $lat, lng: $lng)';
   }
 }

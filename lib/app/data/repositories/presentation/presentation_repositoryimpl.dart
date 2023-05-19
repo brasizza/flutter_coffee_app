@@ -11,7 +11,7 @@ class PresentationRepositoryImpl implements PresentationRepository {
 
   @override
   Future<List<PromotionModel>?> getPromotion() async {
-    final request = await _rest.get('/promotions');
+    final request = await _rest.unauth().get('/promotions');
 
     if (request.statusCode != 200) {
       return null;

@@ -11,6 +11,9 @@ abstract class RestClient {
     Encoding? encoding,
   });
 
+  T auth<T>();
+  T unauth<T>();
+
   Future<RestClientResponse<T>> get<T>(
     String path, {
     Map<String, dynamic>? queryParameters,

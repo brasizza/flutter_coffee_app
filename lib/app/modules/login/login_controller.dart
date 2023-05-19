@@ -18,7 +18,7 @@ class LoginController extends Cubit<LoginState> {
     try {
       final user = await _authService.signIn(email: email, password: password);
       if (user != null) {
-        return await _userService.login(ClientModel.fromFirebase(user).copyWith(password: password));
+        return await _userService.auth(ClientModel.fromFirebase(user).copyWith(password: password));
       }
       emit(state.copyWith(status: LoginStatus.error, errorMessage: 'Falha autenticacao'));
       return false;

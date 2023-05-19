@@ -7,7 +7,6 @@ import 'package:howabout_coffee/app/data/exceptions/user_not_found_exception.dar
 import 'package:howabout_coffee/app/data/exceptions/user_password_exception.dart';
 import 'package:howabout_coffee/app/data/exceptions/username_in_use_exception.dart';
 import 'package:howabout_coffee/app/data/exceptions/weak_password_exception.dart';
-import 'package:howabout_coffee/app/data/models/client_model.dart';
 
 import './auth_service.dart';
 
@@ -20,7 +19,10 @@ class AuthServiceImpl implements AuthService {
   Future<User?> signIn({required String email, required String password}) async {
     try {
       final credential = await _instance.signInWithEmailAndPassword(email: email, password: password);
-      return credential.user;
+      if (credential.user?.emailVerified == false) {
+        await credential.user?.reload();
+      }
+      return _instance.currentUser;
     } on FirebaseAuthException catch (e, s) {
       log(e.toString(), error: e, stackTrace: s);
       if (e.code == 'user-not-found') {
@@ -45,14 +47,14 @@ class AuthServiceImpl implements AuthService {
   }
 
   @override
-  ClientModel? getCurrentUser() {
+  Future<User?> getCurrentUser() async {
     if (_instance.currentUser == null) {
       return null;
     }
     if (_instance.currentUser?.emailVerified == false) {
       _instance.currentUser?.reload();
     }
-    return ClientModel.fromFirebase(_instance.currentUser!);
+    return _instance.currentUser;
   }
 
   @override

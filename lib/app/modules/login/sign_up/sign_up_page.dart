@@ -29,14 +29,15 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
     final nav = Navigator.of(context);
     if (_formKey.currentState!.validate()) {
       debugPrint('valid');
-
-      final signed = await controller.signUp(
+      final user = await controller.signUp(
         name: usernameController.text,
         email: emailController.text,
         password: passwordController.text,
       );
-      if (signed) {
+      if (user) {
         nav.pushReplacementNamed('/home');
+      } else {
+        nav.pushReplacementNamed('/presentation');
       }
     }
   }

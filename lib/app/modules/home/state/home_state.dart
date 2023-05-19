@@ -11,26 +11,27 @@ enum HomeStatus { initial, loading, loaded, error, clientLoaded }
 class HomeState extends Equatable {
   final HomeStatus status;
   final ClientModel? client;
+  final String? errorMessage;
 
-  const HomeState({
-    required this.status,
-    this.client,
-  });
+  const HomeState({required this.status, this.client, this.errorMessage});
 
   const HomeState.initial()
       : status = HomeStatus.initial,
+        errorMessage = '',
         client = null;
 
   @override
-  List<Object?> get props => [status, client];
+  List<Object?> get props => [status, client, errorMessage];
 
   HomeState copyWith({
     HomeStatus? status,
     ClientModel? client,
+    String? errorMessage,
   }) {
     return HomeState(
       status: status ?? this.status,
       client: client ?? this.client,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 }

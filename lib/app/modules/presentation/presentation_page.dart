@@ -6,6 +6,7 @@ import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/text_styles.dart';
 import 'package:howabout_coffee/app/data/services/auth/auth_service.dart';
+import 'package:howabout_coffee/app/data/services/user/user_service.dart';
 import 'package:howabout_coffee/app/modules/presentation/presentation_controller.dart';
 import 'package:howabout_coffee/app/modules/presentation/state/presentation_state.dart';
 
@@ -102,8 +103,15 @@ class _PresentationPageState extends BaseState<PresentationPage, PresentationCon
                 child: SizedBox(
                   width: context.screenWidth,
                   child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacementNamed(context.read<AuthService>().isLogged() ? '/home' : '/login');
+                    onPressed: () async {
+                      final nav = Navigator.of(context);
+                      final user = await controller.autoLogin(authService: context.read<AuthService>(), userService: context.read<UserService>());
+                      await Future.delayed(Duration(seconds: 0));
+                      if (user == null) {
+                        nav.pushReplacementNamed('/login');
+                      } else {
+                        nav.pushReplacementNamed('/home');
+                      }
                     },
                     child: Text(
                       'Entrar',

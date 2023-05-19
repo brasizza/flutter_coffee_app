@@ -21,8 +21,7 @@ class SignUpController extends Cubit<LoginState> {
       if (user != null) {
         final client = ClientModel.fromFirebase(user).copyWith(password: password);
         await _userService.save(client);
-        await _userService.login(client);
-        return true;
+        return _userService.auth(client);
       }
     } on WeakPasswordException catch (e) {
       emit(state.copyWith(errorMessage: e.toString(), status: LoginStatus.error));
