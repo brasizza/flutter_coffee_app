@@ -5,6 +5,7 @@ import 'package:howabout_coffee/app/core/rest/dio/dio.dart';
 import 'package:howabout_coffee/app/data/exceptions/user_not_found_exception.dart';
 import 'package:howabout_coffee/app/data/models/auth_model.dart';
 import 'package:howabout_coffee/app/data/models/client_model.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 import './user_repository.dart';
 
@@ -40,10 +41,10 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<ClientModel?> getUser() async {
-    final response = await _rest.auth().get('/me');
-    if (response.statusCode != 200) {
-      return null;
+    final parseUser = await ParseUser.currentUser() as ParseUser?;
+    if (parseUser == null) {
+      throw UserNotFoundException('User not found');
     }
-    return ClientModel.fromMap(response.data);
+    return ClientModel.fromParse(parseUser);
   }
 }

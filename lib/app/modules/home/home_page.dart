@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
+import 'package:howabout_coffee/app/core/global/translation/app_translation.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/modules/home/home_controller.dart';
 import 'package:howabout_coffee/app/modules/home/state/home_state.dart';
-import 'package:howabout_coffee/app/modules/home/widgets/special_coffee_card.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final AppTranslation translation;
+  const HomePage({Key? key, required this.translation}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -18,7 +20,6 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
 
   @override
   void onReady() {
-    // TODO: implement onReady
     controller.addUser();
   }
 
@@ -44,10 +45,8 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
         return Scaffold(
           key: scaffoldKey,
           drawerEnableOpenDragGesture: false,
-          backgroundColor: Colors.black,
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            backgroundColor: Colors.black,
             leading: GestureDetector(
               onTap: () => scaffoldKey.currentState?.openDrawer(),
               child: Icon(
@@ -68,52 +67,45 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
           ),
           drawer: const Drawer(),
           body: SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
               child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 20,
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                child: SizedBox(
+                  width: context.screenWidth,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.translation.translate('home_find_coffee'),
+                        style: const TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+
+                      Text(
+                        widget.translation.translate('home_special_coffee'),
+                        style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      // SpecialCoffeeCard(coffeeName: [
+                      //   'AAAA'
+                      // ], ingredients: [
+                      //   'BBB'
+                      // ], price: [
+                      //   "3.00"
+                      // ], specialImages: [
+                      //   "assets/images/coffee_based.jpg",
+                      //   "assets/images/coffee.jpg",
+                      //   "assets/images/lattee.jpg",
+                      // ]),
+                    ],
                   ),
-                  Text(
-                    "Find the best\ncoffee for you",
-                    style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Special for you",
-                    style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SpecialCoffeeCard(coffeeName: [
-                    'AAAA'
-                  ], ingredients: [
-                    'BBB'
-                  ], price: [
-                    "3.00"
-                  ], specialImages: [
-                    "assets/images/coffee_based.jpg",
-                    "assets/images/coffee.jpg",
-                    "assets/images/lattee.jpg",
-                  ]),
-                ],
-              ),
-            ),
-          )),
+                ),
+              )),
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.black,
-            selectedItemColor: const Color(0xffd17842),
-            unselectedItemColor: const Color(0xff4d4f52),
             showSelectedLabels: false,
             showUnselectedLabels: false,
             items: const [

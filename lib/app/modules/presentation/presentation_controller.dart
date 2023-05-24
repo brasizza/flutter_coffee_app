@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:howabout_coffee/app/data/models/client_model.dart';
 import 'package:howabout_coffee/app/data/services/auth/auth_service.dart';
 import 'package:howabout_coffee/app/data/services/presentation/presentation_service.dart';
-import 'package:howabout_coffee/app/data/services/user/user_service.dart';
 import 'package:howabout_coffee/app/modules/presentation/state/presentation_state.dart';
 
 class PresentationController extends Cubit<PresentationState> {
@@ -21,16 +19,13 @@ class PresentationController extends Cubit<PresentationState> {
     }
   }
 
-  Future<ClientModel?> autoLogin({required AuthService authService, required UserService userService}) async {
+  Future<bool> autoLogin({required AuthService authService}) async {
     emit(state.copyWith(status: PresentationStatus.loading));
-
-    final isLogged = authService.isLogged();
+    final isLogged = await authService.isLogged();
     if (!isLogged) {
-      emit(state.copyWith(status: PresentationStatus.loaded));
-      return null;
+      return false;
     } else {
-      final user = await userService.getuser();
-      return user;
+      return true;
     }
   }
 }

@@ -1,85 +1,69 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:howabout_coffee/app/data/exceptions/b4app_exception.dart';
 import 'package:howabout_coffee/app/data/exceptions/invalid_email_exception.dart';
+import 'package:howabout_coffee/app/data/exceptions/sign_up_exception.dart';
 import 'package:howabout_coffee/app/data/exceptions/user_not_found_exception.dart';
-import 'package:howabout_coffee/app/data/exceptions/user_password_exception.dart';
-import 'package:howabout_coffee/app/data/exceptions/username_in_use_exception.dart';
-import 'package:howabout_coffee/app/data/exceptions/weak_password_exception.dart';
+import 'package:howabout_coffee/app/data/models/client_model.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 import './auth_service.dart';
 
 class AuthServiceImpl implements AuthService {
-  final FirebaseAuth _instance;
-  AuthServiceImpl({
-    required FirebaseAuth instance,
-  }) : _instance = instance;
   @override
-  Future<User?> signIn({required String email, required String password}) async {
-    try {
-      final credential = await _instance.signInWithEmailAndPassword(email: email, password: password);
-      if (credential.user?.emailVerified == false) {
-        await credential.user?.reload();
+  Future<bool> isLogged() async {
+    final parseUser = await ParseUser.currentUser() as ParseUser?;
+    return parseUser != null;
+  }
+
+  @override
+  Future<ClientModel> signIn({required String email, required String password}) async {
+    final user = ParseUser(email, password, email);
+    final parseResponse = await user.login();
+
+    if (!parseResponse.success) {
+      if (parseResponse.error != null) {
+        throw InvalidEmailException(parseResponse.error?.message ?? 'Fail to login1');
       }
-      return _instance.currentUser;
-    } on FirebaseAuthException catch (e, s) {
-      log(e.toString(), error: e, stackTrace: s);
-      if (e.code == 'user-not-found') {
-        throw UserNotFoundException('User not found', stack: s);
-      } else if (e.code == 'wrong-password') {
-        throw UserPasswordException('User not found', stack: s);
-      } else if (e.code == 'invalid-email') {
-        throw InvalidEmailException('Invalid email', stack: s);
-      }
-      return null;
     }
+
+    return ClientModel.fromParse(parseResponse.results?.first);
   }
 
   @override
   Future<void> signOut() async {
-    await _instance.signOut();
+    final user = await ParseUser.currentUser() as ParseUser?;
+    await user?.logout();
   }
 
   @override
-  bool isLogged() {
-    return (_instance.currentUser != null);
-  }
+  Future signUp({required String email, required String password}) async {
+    ParseResponse? parseResponse;
 
-  @override
-  Future<User?> getCurrentUser() async {
-    if (_instance.currentUser == null) {
-      return null;
-    }
-    if (_instance.currentUser?.emailVerified == false) {
-      _instance.currentUser?.reload();
-    }
-    return _instance.currentUser;
-  }
-
-  @override
-  Stream<User?> listenUser() {
-    return _instance.authStateChanges();
-  }
-
-  @override
-  Future<User?> signUp({required String email, required String password, required String name}) async {
     try {
-      final credential = await _instance.createUserWithEmailAndPassword(email: email, password: password);
-      await credential.user?.updateDisplayName(name);
-      await credential.user?.reload();
-      await credential.user?.sendEmailVerification();
-      return _instance.currentUser;
-    } on FirebaseAuthException catch (e, s) {
-      if (e.code == 'weak-password') {
-        log('The password provided is too weak.', error: e, stackTrace: s);
-        throw WeakPasswordException('Password too weak', stack: s);
-      } else if (e.code == 'email-already-in-use') {
-        log('The account already exists for that email.', error: e, stackTrace: s);
-        throw EmailInUseException('Email in use', stack: s);
+      final user = ParseUser.createUser(email, password, email);
+      parseResponse = await user.signUp();
+      if (parseResponse.error != null) {
+        throw SignUpException(parseResponse.error?.message ?? 'Erro login');
       }
-      return null;
-      // rethrow;
+    } catch (e, s) {
+      throw SignUpException(parseResponse?.error?.message ?? 'Erro login', stack: s);
+    }
+  }
+
+  @override
+  Future<bool> forgotPassword({required String email}) async {
+    ParseResponse? parseResponse;
+
+    try {
+      final user = ParseUser(email, null, email);
+
+      parseResponse = await user.requestPasswordReset();
+      if (parseResponse.error != null) {
+        throw UserNotFoundException(parseResponse.error?.message ?? 'Erro login');
+      }
+      return true;
+    } catch (e, s) {
+      throw Back4AppException(parseResponse?.error?.message ?? 'Erro login', stack: s);
     }
   }
 }

@@ -8,8 +8,8 @@ class LoginRouter {
 
   static Widget get page => MultiProvider(
         providers: [
-          Provider(create: (context) => LoginController(authService: context.read(), userService: context.read())),
+          Provider(create: (context) => LoginController(authService: context.read())),
         ],
-        child: const LoginPage(),
+        builder: (context, child) => LoginPage(translation: context.read()),
       );
 }

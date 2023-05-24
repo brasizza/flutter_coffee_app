@@ -1,53 +1,22 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:howabout_coffee/app/core/config/base_config.dart';
+import 'package:howabout_coffee/app/app_widget.dart';
+import 'package:howabout_coffee/app/core/config/b4a_config.dart';
 import 'package:howabout_coffee/app/core/config/env_maker.dart';
+import 'package:howabout_coffee/app/core/global/translation/app_translation.dart';
 import 'package:howabout_coffee/app/core/local_storage/local_storage.dart';
-import 'package:howabout_coffee/app/core/local_storage/local_storage_get.dart';
-import 'package:howabout_coffee/app/core/rest/dio/dio_rest_client.dart';
-import 'package:howabout_coffee/app/core/rest/rest_client.dart';
 import 'package:howabout_coffee/app/data/enums/config_types.dart';
-import 'package:howabout_coffee/app/data/repositories/user/user_repository.dart';
-import 'package:howabout_coffee/app/data/repositories/user/user_repository_impl.dart';
-import 'package:howabout_coffee/app/data/services/auth/auth_service.dart';
-import 'package:howabout_coffee/app/data/services/auth/auth_service_impl.dart';
-import 'package:howabout_coffee/app/data/services/user/user_service.dart';
-import 'package:howabout_coffee/app/data/services/user/user_service_impl.dart';
-import 'package:howabout_coffee/app/routes/routes.dart';
-import 'package:provider/provider.dart';
 
-import 'app/core/global/global_context.dart';
-import 'app/core/ui/theme/theme_config.dart';
-import 'firebase_options.dart';
+import 'app/core/local_storage/local_storage_impl_shared.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await B4aConfig().init();
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  final env = await EnvMaker.create(ConfigType.dotenv);
-  final navKey = GlobalKey<NavigatorState>();
-  GlobalContext.instance.navigatorKey = navKey;
-
-  runApp(
-    MultiProvider(
-      providers: [
-        Provider<Env>(create: ((context) => env)),
-        Provider<LocalStorage>(create: ((context) => LocalStorageShared()..init())),
-        Provider<RestClient>(create: ((context) => DioRestClient.instance..init(env: env, storage: context.read()))),
-        Provider<AuthService>(create: ((context) => AuthServiceImpl(instance: FirebaseAuth.instance))),
-        Provider<UserRepository>(create: (context) => UserRepositoryImpl(rest: context.read())),
-        Provider<UserService>(create: (context) => UserServiceImpl(repository: context.read(), storage: context.read(), env: context.read())),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'How about coffee',
-        theme: ThemeConfig.theme,
-        routes: Routes.instance.routes,
-        navigatorKey: navKey,
-      ),
-    ),
-  );
+  final env = await EnvMaker.create(ConfigType.b4app);
+  final LocalStorage storageImpl = LocalStorageImplShared()..init();
+  final AppTranslation translation = AppTranslation()..init();
+  runApp(AppWidget(env: env, storage: storageImpl, translation: translation));
 }

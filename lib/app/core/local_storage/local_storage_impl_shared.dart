@@ -1,10 +1,8 @@
-import 'dart:developer';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 import './local_storage.dart';
 
-class LocalStorageShared implements LocalStorage {
+class LocalStorageImplShared implements LocalStorage {
   late SharedPreferences instance;
   @override
   Future<bool> clearStorage() async {
@@ -23,7 +21,6 @@ class LocalStorageShared implements LocalStorage {
 
   @override
   Future<LocalStorage> init() async {
-    log('Start SharedPreferences ');
     instance = await SharedPreferences.getInstance();
     return this;
   }

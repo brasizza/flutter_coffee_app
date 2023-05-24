@@ -8,8 +8,12 @@ class SignUpRouter {
 
   static Widget get page => MultiProvider(
         providers: [
-          Provider(create: (context) => SignUpController(auth: context.read(), userService: context.read())),
+          Provider(
+              create: (context) => SignUpController(
+                    auth: context.read(),
+                  )),
         ],
-        child: const SignupPage(),
+        builder: (context, child) => SignupPage(translation: context.read()),
+        // child: const SignupPage(translation: ),
       );
 }

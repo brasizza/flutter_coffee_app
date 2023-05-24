@@ -5,14 +5,14 @@ import 'package:match/match.dart';
 part 'login_state.g.dart';
 
 @match
-enum LoginStatus { initial, loading, loaded, error }
+enum LoginStatus { initial, loading, loaded, error, resendPassword, emptyEmail }
 
 class LoginState extends Equatable {
   final LoginStatus status;
   final String? errorMessage;
   const LoginState({required this.status, this.errorMessage = ''});
   @override
-  List<Object> get props => [status];
+  List get props => [status, errorMessage];
   const LoginState.initial()
       : status = LoginStatus.initial,
         errorMessage = '';

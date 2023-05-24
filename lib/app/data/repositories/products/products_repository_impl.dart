@@ -12,7 +12,7 @@ class ProductsRepositoryImpl implements ProductsRepository {
 
   @override
   Future<List<ProductModel>?> getAll() async {
-    final response = await _rest.unauth().get('/products');
+    final response = await _rest.auth().get('/products');
     if (response.statusCode != 200) {
       return null;
     }

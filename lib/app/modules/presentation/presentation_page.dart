@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
+import 'package:howabout_coffee/app/core/global/translation/app_translation.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/text_styles.dart';
-import 'package:howabout_coffee/app/data/services/auth/auth_service.dart';
-import 'package:howabout_coffee/app/data/services/user/user_service.dart';
 import 'package:howabout_coffee/app/modules/presentation/presentation_controller.dart';
 import 'package:howabout_coffee/app/modules/presentation/state/presentation_state.dart';
 
 import '../../core/ui/styles/color_app.dart';
+import '../../data/services/auth/auth_service.dart';
 
 class PresentationPage extends StatefulWidget {
-  const PresentationPage({Key? key}) : super(key: key);
+  final AppTranslation translation;
+  const PresentationPage({Key? key, required this.translation}) : super(key: key);
 
   @override
   State<PresentationPage> createState() => _PresentationPageState();
@@ -29,21 +30,9 @@ class _PresentationPageState extends BaseState<PresentationPage, PresentationCon
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Center(
-        child: Column(
+        child: Stack(
           children: [
-            Image.asset(
-              'assets/images/logo_coffee.png',
-              width: 200,
-            ),
-            const Padding(
-              padding: EdgeInsets.only(bottom: 18.0),
-              child: Text(
-                'Bem vindo ao How about coffee',
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
-            ),
             BlocConsumer<PresentationController, PresentationState>(
               listener: (context, state) {
                 state.status.matchAny(
@@ -61,22 +50,26 @@ class _PresentationPageState extends BaseState<PresentationPage, PresentationCon
                     loaded: (() => true),
                   )),
               builder: (context, state) {
-                return Expanded(
-                  child: Visibility(
-                    visible: state.status == PresentationStatus.loaded,
-                    child: CarouselSlider.builder(
-                        keepPage: true,
-                        // slideIndicator: CircularSlideIndicator(
-                        //   padding: const EdgeInsets.only(bottom: 30),
-                        //   indicatorBorderColor: ColorsApp.instance.primary,
-                        //   indicatorBackgroundColor: ColorsApp.instance.primary,
-                        //   currentIndicatorColor: ColorsApp.instance.fontColor,
-                        // ),
-                        enableAutoSlider: true,
-                        unlimitedMode: true,
-                        slideBuilder: (index) {
-                          final image = state.images[index];
-                          return Container(
+                return Visibility(
+                  visible: state.status == PresentationStatus.loaded,
+                  child: CarouselSlider.builder(
+                      keepPage: true,
+
+                      // slideIndicator: CircularSlideIndicator(
+                      //   padding: const EdgeInsets.only(bottom: 30),
+                      //   indicatorBorderColor: ColorsApp.instance.primary,
+                      //   indicatorBackgroundColor: ColorsApp.instance.primary,
+                      //   currentIndicatorColor: ColorsApp.instance.fontColor,
+                      // ),
+                      autoSliderTransitionTime: const Duration(milliseconds: 800),
+                      enableAutoSlider: true,
+                      unlimitedMode: true,
+                      autoSliderTransitionCurve: Curves.fastOutSlowIn,
+                      slideBuilder: (index) {
+                        final image = state.images[index];
+                        return Opacity(
+                          opacity: 0.6,
+                          child: Container(
                             clipBehavior: Clip.antiAlias,
                             decoration: const BoxDecoration(),
                             child: CachedNetworkImage(
@@ -89,34 +82,51 @@ class _PresentationPageState extends BaseState<PresentationPage, PresentationCon
                                     )
                                   : const SizedBox(),
                             ),
-                          );
-                        },
-                        itemCount: state.images.length),
-                  ),
+                          ),
+                        );
+                      },
+                      itemCount: state.images.length),
                 );
               },
             ),
-            Container(
-              color: ColorsApp.instance.primary,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: SizedBox(
-                  width: context.screenWidth,
-                  child: TextButton(
-                    onPressed: () async {
-                      final nav = Navigator.of(context);
-                      final user = await controller.autoLogin(authService: context.read<AuthService>(), userService: context.read<UserService>());
-                      await Future.delayed(Duration(seconds: 0));
-                      if (user == null) {
-                        nav.pushReplacementNamed('/login');
-                      } else {
-                        nav.pushReplacementNamed('/home');
-                      }
-                    },
-                    child: Text(
-                      'Entrar',
-                      style: context.textStyles.textExtraBold.copyWith(
-                        color: ColorsApp.instance.fontColor,
+            Align(
+              alignment: Alignment.topCenter,
+              child: Image.asset(
+                'assets/images/logo_coffee_transparente.png',
+                color: ColorsApp.instance.white,
+                width: 200,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 165.0),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Text(widget.translation.translate('presentation.welcome'), style: context.textStyles.textExtraBold.copyWith(color: ColorsApp.instance.white)),
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              child: Container(
+                color: ColorsApp.instance.primary,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: SizedBox(
+                    width: context.screenWidth,
+                    child: TextButton(
+                      onPressed: () async {
+                        final nav = Navigator.of(context);
+                        final user = await controller.autoLogin(authService: context.read<AuthService>());
+                        if (user == true) {
+                          nav.pushReplacementNamed('/home');
+                        } else {
+                          nav.pushReplacementNamed('/login');
+                        }
+                      },
+                      child: Text(
+                        widget.translation.translate('btn.enter'),
+                        style: context.textStyles.textExtraBold.copyWith(
+                          color: ColorsApp.instance.fontColor,
+                        ),
                       ),
                     ),
                   ),

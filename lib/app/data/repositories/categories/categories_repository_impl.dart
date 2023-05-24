@@ -12,7 +12,7 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
 
   @override
   Future<List<CategoryModel>?> getAll() async {
-    final response = await _rest.unauth().get("/categories");
+    final response = await _rest.auth().get("/categories");
     if (response.statusCode != 200) {
       return null;
     } else {

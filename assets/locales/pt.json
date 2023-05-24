@@ -1,5 +1,21 @@
 {
 
-
-    "boas_vindas" : "Bem vindo!"
+    "or" : "Ou",
+    "presentation.welcome" : "Bem vindo ao How About Coffee",
+    "btn.enter" : "Entrar",
+    "reset.email" : "Sua senha foi redefinida!\nAguarde o e-mail.",
+    "email.emtpy" : "E-mail vazio.\n Por favor inserir um e-mail.",
+    "login.welcome" : "Faça seu login!",
+    "login.dont_have_account" : "Não tem uma conta cadastrada?",
+    "login.sing_up_label" : "Cadastre-se aqui",
+    "login.forgot_password" :"Esqueci minha senha",
+    "signup.sign_up_label" : "Cadastre-se",
+    "signup.text_creation" : "Parece que você não tem uma conta.\nVamos criar uma conta nova digitando seu e-mail e sua senha abaixo!",
+    "signup.text_sign_up" : "Cadastrar",
+    "validation.email_empty" : "E-mail vazio",
+    "validation.password_empy" : "Senha está vazia",
+    "home_find_coffee" : "How About Coffee",
+    "home_special_coffee" : "Especialmente para você",
+    "fields.email" : "E-mail",
+    "fields.password" : "Senha"
 }

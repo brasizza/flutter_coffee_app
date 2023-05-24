@@ -3,9 +3,9 @@ import 'package:howabout_coffee/app/core/rest/rest_client.dart';
 import 'package:howabout_coffee/app/data/models/promotion_model.dart';
 import 'package:howabout_coffee/app/data/repositories/presentation/presentation_repository.dart';
 
-class PresentationRepositoryImpl implements PresentationRepository {
+class PresentationRepositoryRestImpl implements PresentationRepository {
   final RestClient _rest;
-  PresentationRepositoryImpl({
+  PresentationRepositoryRestImpl({
     required RestClient rest,
   }) : _rest = rest;
 

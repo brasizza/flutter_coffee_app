@@ -11,6 +11,6 @@ class PresentationServiceImpl implements PresentationService {
   }) : _repository = repository;
   @override
   Future<List<PromotionModel>?> getPromotion() async {
-    return _repository.getPromotion();
+    return await _repository.getPromotion();
   }
 }

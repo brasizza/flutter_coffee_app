@@ -1,11 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
+
+// import 'package:firebase_auth/firebase_auth.dart';
 
 class ClientModel {
-  final int? id;
-  final String idFirebase;
+  final String? id;
   final String? name;
   final String password;
   final String email;
@@ -15,7 +16,6 @@ class ClientModel {
   final double? lng;
   ClientModel({
     required this.id,
-    required this.idFirebase,
     this.name,
     required this.password,
     required this.email,
@@ -26,8 +26,7 @@ class ClientModel {
   });
 
   ClientModel copyWith({
-    int? id,
-    String? idFirebase,
+    String? id,
     String? name,
     String? password,
     String? email,
@@ -38,7 +37,6 @@ class ClientModel {
   }) {
     return ClientModel(
       id: id ?? this.id,
-      idFirebase: idFirebase ?? this.idFirebase,
       name: name ?? this.name,
       password: password ?? this.password,
       email: email ?? this.email,
@@ -52,7 +50,6 @@ class ClientModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'id_firebase': idFirebase,
       'name': name,
       'password': password,
       'email': email,
@@ -63,24 +60,23 @@ class ClientModel {
     };
   }
 
-  factory ClientModel.fromFirebase(User user) {
+  factory ClientModel.fromParse(ParseObject user) {
     return ClientModel(
-      id: null,
-      idFirebase: user.uid,
-      name: user.displayName ?? '',
+      id: user.objectId,
+      // idFirebase: user.uid,
+      // name: user.displayName ?? '',
       password: '',
-      email: user.email ?? '',
-      avatar: user.photoURL ?? '',
+      email: user.get('email'),
+      avatar: user.get('avatar'),
       lat: null,
       lng: null,
-      phoneNumber: user.phoneNumber,
+      phoneNumber: user.get('phone'),
     );
   }
 
   factory ClientModel.fromMap(Map<String, dynamic> map) {
     return ClientModel(
-      id: map['id'] as int,
-      idFirebase: map['id_firebase'] as String,
+      id: map['id'],
       name: map['name'] != null ? map['name'] as String : null,
       password: map['password'] != null ? map['password'] as String : '',
       email: map['email'] as String,
@@ -99,16 +95,16 @@ class ClientModel {
   bool operator ==(covariant ClientModel other) {
     if (identical(this, other)) return true;
 
-    return other.id == id && other.idFirebase == idFirebase && other.name == name && other.password == password && other.email == email && other.avatar == avatar && other.phoneNumber == phoneNumber && other.lat == lat && other.lng == lng;
+    return other.id == id && other.name == name && other.password == password && other.email == email && other.avatar == avatar && other.phoneNumber == phoneNumber && other.lat == lat && other.lng == lng;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ idFirebase.hashCode ^ name.hashCode ^ password.hashCode ^ email.hashCode ^ avatar.hashCode ^ phoneNumber.hashCode ^ lat.hashCode ^ lng.hashCode;
+    return id.hashCode ^ name.hashCode ^ password.hashCode ^ email.hashCode ^ avatar.hashCode ^ phoneNumber.hashCode ^ lat.hashCode ^ lng.hashCode;
   }
 
   @override
   String toString() {
-    return 'ClientModel(id: $id, idFirebase: $idFirebase, name: $name, password: $password, email: $email, avatar: $avatar, phoneNumber: $phoneNumber, lat: $lat, lng: $lng)';
+    return 'ClientModel(id: $id,  name: $name, password: $password, email: $email, avatar: $avatar, phoneNumber: $phoneNumber, lat: $lat, lng: $lng)';
   }
 }

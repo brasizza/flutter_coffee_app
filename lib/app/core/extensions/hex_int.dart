@@ -1,6 +1,6 @@
-extension HexInt on int {
-  int hexColorInt(String hexColor) {
-    hexColor = hexColor.toUpperCase().replaceAll('#', '');
+extension HexInt on String {
+  int hexColorInt() {
+    String hexColor = toUpperCase().replaceAll('#', '');
     if (hexColor.length == 6) {
       hexColor = 'FF$hexColor';
     } else {

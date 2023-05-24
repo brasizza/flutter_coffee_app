@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
+import 'package:howabout_coffee/app/core/global/translation/app_translation.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
+import 'package:howabout_coffee/app/core/widgets/my_button.dart';
 import 'package:howabout_coffee/app/modules/login/sign_up/sign_up_controller.dart';
 import 'package:howabout_coffee/app/modules/login/state/login_state.dart';
 
-import '../../../core/widgets/my_button.dart';
 import '../../../core/widgets/my_textfield.dart';
 
 class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
+  final AppTranslation translation;
+  const SignupPage({super.key, required this.translation});
 
   @override
   State<SignupPage> createState() => _SignupPageState();
@@ -16,11 +19,11 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends BaseState<SignupPage, SignUpController> {
   // text editing controllers
-  final usernameController = TextEditingController();
+  // final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  final double _opacity = .3;
+  final double _opacity = 0.5;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -28,9 +31,7 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
   Future<void> signUserIn() async {
     final nav = Navigator.of(context);
     if (_formKey.currentState!.validate()) {
-      debugPrint('valid');
       final user = await controller.signUp(
-        name: usernameController.text,
         email: emailController.text,
         password: passwordController.text,
       );
@@ -44,7 +45,7 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
 
   @override
   void dispose() {
-    usernameController.dispose();
+    // usernameController.dispose();
     passwordController.dispose();
     emailController.dispose();
     super.dispose();
@@ -53,7 +54,6 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: BlocListener<SignUpController, LoginState>(
         listener: (context, state) {
           state.status.matchAny(
@@ -71,15 +71,15 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
             children: [
               Image.asset(
                 'assets/images/coffee_based.jpg',
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
+                width: context.screenWidth,
+                height: context.screenHeight,
                 fit: BoxFit.cover,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                  SizedBox(height: context.screenHeight * 0.05),
                   IconButton(
                     icon: const Icon(Icons.arrow_back_ios),
                     color: Colors.white,
@@ -87,16 +87,16 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
                       Navigator.pop(context);
                     },
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                  const Text("Sign Up", style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  SizedBox(height: context.screenHeight * 0.1),
+                  Text(widget.translation.translate('signup.sign_up_label'), style: const TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
+                  SizedBox(height: context.screenHeight * 0.02),
                   ClipRect(
                     clipBehavior: Clip.hardEdge,
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(color: const Color.fromRGBO(0, 0, 0, 1).withOpacity(_opacity), borderRadius: const BorderRadius.all(Radius.circular(30))),
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: MediaQuery.of(context).size.height * 0.7,
+                      width: context.screenWidth * 0.9,
+                      height: context.screenHeight * 0.7,
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Form(
@@ -107,25 +107,13 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                const Text("Look like you don't have an account. Let's create a new account for",
+                                Text(widget.translation.translate('signup.text_creation'),
                                     // ignore: prefer_const_constructors
                                     style: TextStyle(color: Colors.white, fontSize: 20),
                                     textAlign: TextAlign.start),
                                 // ignore: prefer_const_constructors
-                                const Text(
-                                  "jane.doe@gmail.com",
-                                  style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.start,
-                                ),
-                                const SizedBox(height: 30),
 
-                                MyTextField(
-                                  controller: usernameController,
-                                  hintText: 'Your name',
-                                  obscureText: false,
-                                ),
-
-                                const SizedBox(height: 10),
+                                const SizedBox(height: 40),
 
                                 MyTextField(
                                   controller: emailController,
@@ -133,14 +121,14 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
                                   obscureText: false,
                                 ),
 
-                                const SizedBox(height: 10),
+                                const SizedBox(height: 20),
                                 MyTextField(
                                   controller: passwordController,
                                   validatorText: 'Password empty',
                                   hintText: 'Password',
                                   obscureText: true,
                                 ),
-                                const SizedBox(height: 30),
+                                const SizedBox(height: 20),
 
                                 Column(
                                   mainAxisSize: MainAxisSize.min,
@@ -148,8 +136,8 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
                                     const SizedBox(height: 10),
-                                    MyButtonAgree(
-                                      text: "Continue",
+                                    MyButton(
+                                      text: widget.translation.translate('signup.text_sign_up'),
                                       onTap: () {
                                         signUserIn();
                                       },

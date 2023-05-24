@@ -1,6 +1,8 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
+import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 
 class CoffeeDetailsPage extends StatelessWidget {
   const CoffeeDetailsPage({Key? key}) : super(key: key);
@@ -8,7 +10,6 @@ class CoffeeDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -18,17 +19,19 @@ class CoffeeDetailsPage extends StatelessWidget {
                 children: [
                   Container(
                     height: 440,
-                    width: MediaQuery.of(context).size.width,
+                    width: context.screenWidth,
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), image: const DecorationImage(image: AssetImage("assets/images/tyler-nix-nwdtkFzDfPY-unsplash.jpg"), fit: BoxFit.cover)),
                   ),
                   Positioned(
                     right: 10,
                     top: 10,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: const Icon(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
                         Icons.expand_more_rounded,
-                        color: Colors.white,
+                        color: ColorsApp.instance.white,
                         size: 40,
                       ),
                     ),

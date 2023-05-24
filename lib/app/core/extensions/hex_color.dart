@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-extension HexConversor on Color {
-  Color hexToColor(String hexColor) {
-    hexColor = hexColor.toUpperCase().replaceAll('#', '');
+extension HexConversor on String {
+  Color hexToColor() {
+    String hexColor = toUpperCase().replaceAll('#', '');
     if (hexColor.length == 6) {
       hexColor = 'FF$hexColor';
     } else {

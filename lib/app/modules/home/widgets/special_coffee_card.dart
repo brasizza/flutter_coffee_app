@@ -1,34 +1,25 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
+
+import '../../../data/models/product_model.dart';
 
 class SpecialCoffeeCard extends StatelessWidget {
-  final List<String> specialImages;
-
-  final List<String> coffeeName;
-
-  final List<String> ingredients;
-
-  final List<String> price;
-
-  const SpecialCoffeeCard({
-    Key? key,
-    required this.specialImages,
-    required this.coffeeName,
-    required this.ingredients,
-    required this.price,
-  }) : super(key: key);
+  final List<ProductModel> products;
+  const SpecialCoffeeCard({Key? key, required this.products}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        shrinkWrap: true,
-        itemCount: specialImages.length,
+        itemCount: products.length,
         itemBuilder: (context, index) {
+          final product = products[index];
           return Column(
             children: [
               Container(
                 height: 140,
-                width: MediaQuery.of(context).size.width,
+                width: context.screenWidth,
                 decoration: BoxDecoration(color: const Color(0xff141921), borderRadius: BorderRadius.circular(20)),
                 child: Row(
                   children: [
@@ -38,7 +29,7 @@ class SpecialCoffeeCard extends StatelessWidget {
                     Container(
                       height: 120,
                       width: 150,
-                      decoration: BoxDecoration(color: Colors.blue, image: DecorationImage(image: AssetImage(specialImages[index]), fit: BoxFit.cover), borderRadius: BorderRadius.circular(20)),
+                      decoration: BoxDecoration(color: Colors.blue, image: DecorationImage(image: CachedNetworkImageProvider(product.image ?? ' '), fit: BoxFit.cover), borderRadius: BorderRadius.circular(20)),
                     ),
                     const SizedBox(
                       width: 15,
@@ -48,7 +39,7 @@ class SpecialCoffeeCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          coffeeName[index],
+                          product.title,
                           style: const TextStyle(
                             fontSize: 16,
                             color: Colors.white,
@@ -57,10 +48,10 @@ class SpecialCoffeeCard extends StatelessWidget {
                         const SizedBox(
                           height: 6,
                         ),
-                        Text(
-                          ingredients[index],
-                          style: const TextStyle(color: Color(0xff919293), fontSize: 12),
-                        ),
+                        // Text(
+                        //   ingredients[index],
+                        //   style: const TextStyle(color: Color(0xff919293), fontSize: 12),
+                        // ),
                         const SizedBox(
                           height: 8,
                         ),
@@ -74,7 +65,7 @@ class SpecialCoffeeCard extends StatelessWidget {
                                   style: TextStyle(color: Color(0xffd17842), fontWeight: FontWeight.bold, fontSize: 20),
                                 ),
                                 Text(
-                                  price[index],
+                                  product.price.toString(),
                                   style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                                 )
                               ],

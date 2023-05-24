@@ -1,10 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:howabout_coffee/app/data/models/client_model.dart';
 
 abstract class AuthService {
-  Future<User?> signIn({required String email, required String password});
-  Future<User?> signUp({required String email, required String password, required String name});
+  Future<ClientModel> signIn({required String email, required String password});
+  Future signUp({required String email, required String password});
+  Future<bool> forgotPassword({required String email});
   Future<void> signOut();
-  bool isLogged();
-  Future<User?> getCurrentUser();
-  Stream<User?> listenUser();
+  Future<bool> isLogged();
 }

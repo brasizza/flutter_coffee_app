@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
+
 class PromotionModel {
   final String image;
   PromotionModel({
@@ -24,6 +26,12 @@ class PromotionModel {
   factory PromotionModel.fromMap(Map<String, dynamic> map) {
     return PromotionModel(
       image: map['image'] as String,
+    );
+  }
+
+  factory PromotionModel.fromParse(ParseObject map) {
+    return PromotionModel(
+      image: map.get('image')?.get('url') as String,
     );
   }
 
