@@ -16,7 +16,9 @@ void main() async {
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   final env = await EnvMaker.create(ConfigType.b4app);
-  final LocalStorage storageImpl = LocalStorageImplShared()..init();
-  final AppTranslation translation = AppTranslation()..init();
+  final LocalStorage storageImpl = LocalStorageImplShared();
+  await storageImpl.init();
+  final AppTranslation translation = AppTranslation();
+  await translation.init();
   runApp(AppWidget(env: env, storage: storageImpl, translation: translation));
 }

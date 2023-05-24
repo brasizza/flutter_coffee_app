@@ -18,10 +18,10 @@ class HomeRouter {
   static Widget get page => MultiProvider(
         providers: [
           Provider<ProductsRepository>(
-            create: (context) => ProductsRepositoryImpl(rest: context.read()),
+            create: (context) => ProductsRepositoryImpl(),
           ),
           Provider<CategoriesRepository>(
-            create: (context) => CategoriesRepositoryImpl(rest: context.read()),
+            create: (context) => CategoriesRepositoryImpl(),
           ),
           Provider<CategoriesService>(
             create: (context) => CategoriesServiceImpl(repository: context.read()),
@@ -33,7 +33,7 @@ class HomeRouter {
             create: (context) => ProductsController(categoriesService: context.read(), productsService: context.read()),
           ),
           Provider(
-            create: (context) => HomeController(productsController: context.read(), userService: context.read()),
+            create: (context) => HomeController(userService: context.read()),
           ),
         ],
         builder: (context, child) => HomePage(translation: context.read()),

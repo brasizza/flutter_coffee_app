@@ -1,14 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:howabout_coffee/app/data/services/user/user_service.dart';
 import 'package:howabout_coffee/app/modules/home/state/home_state.dart';
-import 'package:howabout_coffee/app/modules/products/products_controller.dart';
 
 class HomeController extends Cubit<HomeState> {
-  final ProductsController _productsController;
   final UserService _userService;
-  HomeController({required ProductsController productsController, required UserService userService})
-      : _productsController = productsController,
-        _userService = userService,
+  HomeController({required UserService userService})
+      : _userService = userService,
         super(const HomeState.initial());
 
   addUser() async {

@@ -89,7 +89,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
                     children: [
                       SizedBox(height: context.screenHeight * 0.05),
                       SizedBox(height: context.screenHeight * 0.18),
-                      Text(widget.translation.translate('login.welcome'), style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
+                      Text(widget.translation.translate('login.welcome'), style: const TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
                       SizedBox(height: context.screenHeight * 0.02),
                       ClipRect(
                         child: Container(

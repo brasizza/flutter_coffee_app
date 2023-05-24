@@ -7,7 +7,7 @@ import 'package:match/match.dart';
 part 'product_state.g.dart';
 
 @match
-enum ProductStatus { initial, loading, loaded, error }
+enum ProductStatus { initial, loading, loaded, error, changeCategory }
 
 class ProductState extends Equatable {
   final ProductStatus status;

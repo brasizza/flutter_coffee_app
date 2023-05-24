@@ -11,7 +11,8 @@ extension ProductStatusMatch on ProductStatus {
       {required T Function() initial,
       required T Function() loading,
       required T Function() loaded,
-      required T Function() error}) {
+      required T Function() error,
+      required T Function() changeCategory}) {
     final v = this;
     if (v == ProductStatus.initial) {
       return initial();
@@ -29,6 +30,10 @@ extension ProductStatusMatch on ProductStatus {
       return error();
     }
 
+    if (v == ProductStatus.changeCategory) {
+      return changeCategory();
+    }
+
     throw Exception('ProductStatus.match failed, found no match for: $this');
   }
 
@@ -37,7 +42,8 @@ extension ProductStatusMatch on ProductStatus {
       T Function()? initial,
       T Function()? loading,
       T Function()? loaded,
-      T Function()? error}) {
+      T Function()? error,
+      T Function()? changeCategory}) {
     final v = this;
     if (v == ProductStatus.initial && initial != null) {
       return initial();
@@ -53,6 +59,10 @@ extension ProductStatusMatch on ProductStatus {
 
     if (v == ProductStatus.error && error != null) {
       return error();
+    }
+
+    if (v == ProductStatus.changeCategory && changeCategory != null) {
+      return changeCategory();
     }
 
     return any();

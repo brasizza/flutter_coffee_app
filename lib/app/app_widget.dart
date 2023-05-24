@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:howabout_coffee/app/core/company/company_controller.dart';
 import 'package:howabout_coffee/app/core/global/translation/app_translation.dart';
+import 'package:howabout_coffee/app/data/repositories/company/company_repository.dart';
+import 'package:howabout_coffee/app/data/repositories/company/company_repository_impl.dart';
+import 'package:howabout_coffee/app/data/services/company/company_service.dart';
+import 'package:howabout_coffee/app/data/services/company/company_service_impl.dart';
 import 'package:howabout_coffee/app/routes/routes.dart';
 import 'package:provider/provider.dart';
 
@@ -50,8 +55,13 @@ class _AppWidgetState extends State<AppWidget> {
         Provider<LocalStorage>(create: ((context) => widget.storage)),
         Provider<RestClient>(create: ((context) => DioRestClient.instance..init(env: context.read(), storage: context.read()))),
         Provider<AuthService>(create: ((context) => AuthServiceImpl())),
-        Provider<UserRepository>(create: (context) => UserRepositoryImpl(rest: context.read())),
+        Provider<UserRepository>(create: (context) => UserRepositoryImpl()),
         Provider<UserService>(create: (context) => UserServiceImpl(repository: context.read())),
+        Provider<CompanyRepository>(create: (context) => CompanyRepositoryImpl()),
+        Provider<CompanyService>(create: (context) => CompanyServiceImpl(repository: context.read())),
+        Provider<CompanyController>(
+          create: (context) => CompanyController(service: context.read())..init(),
+        ),
       ],
       child: MaterialApp(
         localizationsDelegates: const [
@@ -65,7 +75,20 @@ class _AppWidgetState extends State<AppWidget> {
           Locale('es'),
           Locale('pt'),
         ],
-        locale: Locale('pt'),
+        localeResolutionCallback: (
+          locale,
+          supportedLocales,
+        ) {
+          if (supportedLocales.contains(Locale(locale!.languageCode))) {
+            widget.storage.setData('locale', locale.languageCode);
+            widget.translation.currentLocale = locale.languageCode;
+
+            return locale;
+          } else {
+            return const Locale('en');
+          }
+        },
+        // locale: const Locale('jp'),
         title: 'How about coffee',
         theme: ThemeConfig.theme,
         routes: Routes.instance.routes,

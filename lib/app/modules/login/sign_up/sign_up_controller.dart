@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:howabout_coffee/app/data/exceptions/sign_up_exception.dart';
-import 'package:howabout_coffee/app/data/exceptions/username_in_use_exception.dart';
-import 'package:howabout_coffee/app/data/exceptions/weak_password_exception.dart';
+import 'package:howabout_coffee/app/core/exceptions/sign_up_exception.dart';
+import 'package:howabout_coffee/app/core/exceptions/username_in_use_exception.dart';
+import 'package:howabout_coffee/app/core/exceptions/weak_password_exception.dart';
 import 'package:howabout_coffee/app/data/services/auth/auth_service.dart';
 import 'package:howabout_coffee/app/modules/login/state/login_state.dart';
 

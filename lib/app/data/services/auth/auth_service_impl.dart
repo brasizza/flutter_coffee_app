@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:howabout_coffee/app/data/exceptions/b4app_exception.dart';
-import 'package:howabout_coffee/app/data/exceptions/invalid_email_exception.dart';
-import 'package:howabout_coffee/app/data/exceptions/sign_up_exception.dart';
-import 'package:howabout_coffee/app/data/exceptions/user_not_found_exception.dart';
+import 'package:howabout_coffee/app/core/exceptions/b4app_exception.dart';
+import 'package:howabout_coffee/app/core/exceptions/invalid_email_exception.dart';
+import 'package:howabout_coffee/app/core/exceptions/sign_up_exception.dart';
+import 'package:howabout_coffee/app/core/exceptions/user_not_found_exception.dart';
 import 'package:howabout_coffee/app/data/models/client_model.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 

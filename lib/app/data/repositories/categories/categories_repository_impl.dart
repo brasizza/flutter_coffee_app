@@ -1,22 +1,28 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:howabout_coffee/app/core/rest/rest_client.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
+import '../../../core/exceptions/b4app_exception.dart';
 import '../../models/category_model.dart';
 import 'categories_repository.dart';
 
 class CategoriesRepositoryImpl implements CategoriesRepository {
-  final RestClient _rest;
-  CategoriesRepositoryImpl({
-    required RestClient rest,
-  }) : _rest = rest;
+  // final RestClient _rest;
 
   @override
   Future<List<CategoryModel>?> getAll() async {
-    final response = await _rest.auth().get("/categories");
-    if (response.statusCode != 200) {
-      return null;
+    QueryBuilder<ParseObject> query = QueryBuilder<ParseObject>(ParseObject(CategoryModel.className));
+    query.whereEqualTo('status', true);
+    query.orderByAscending('order');
+
+    final response = await query.query();
+
+    if (!response.success) {
+      throw Back4AppException(response.error?.message ?? '');
     } else {
-      return ((response.data as List).map((e) => CategoryModel.fromMap(e))).toList();
+      if (response.count == 0) {
+        return null;
+      }
+      return (response.results as List<ParseObject>).map((p) => CategoryModel.fromParse(p)).toList();
     }
   }
 }

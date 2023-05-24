@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:howabout_coffee/app/data/exceptions/b4app_exception.dart';
-import 'package:howabout_coffee/app/data/exceptions/user_not_found_exception.dart';
+import 'package:howabout_coffee/app/core/exceptions/b4app_exception.dart';
+import 'package:howabout_coffee/app/core/exceptions/user_not_found_exception.dart';
 import 'package:howabout_coffee/app/data/services/auth/auth_service.dart';
 import 'package:howabout_coffee/app/modules/login/state/login_state.dart';
 

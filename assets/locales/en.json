@@ -1,5 +1,21 @@
 {
-
-
-    "boas_vindas.home" : "Bem vindo!"
-}
+    "or": "Or",
+    "presentation.welcome": "Welcome to How About Coffee",
+    "btn.enter": "Enter",
+    "reset.email": "Your password has been reset!\nPlease wait for the email.",
+    "email.emtpy": "Empty email.\nPlease enter an email.",
+    "login.welcome": "Log in to your account!",
+    "login.dont_have_account": "Don't have an account?",
+    "login.sing_up_label": "Sign up here",
+    "login.forgot_password": "Forgot my password",
+    "signup.sign_up_label": "Sign up",
+    "signup.text_creation": "It looks like you don't have an account.\nLet's create a new account by entering your email and password below!",
+    "signup.text_sign_up": "Sign up",
+    "validation.email_empty": "Empty email",
+    "validation.password_empy": "Password is empty",
+    "home_find_coffee": "How About Coffee",
+    "home_special_coffee": "Especially for you",
+    "fields.email": "Email",
+    "fields.password": "Password"
+    }
+    
