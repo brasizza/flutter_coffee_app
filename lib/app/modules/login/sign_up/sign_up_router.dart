@@ -13,7 +13,7 @@ class SignUpRouter {
                     auth: context.read(),
                   )),
         ],
-        builder: (context, child) => SignupPage(translation: context.read()),
+        builder: (context, child) => const SignupPage(),
         // child: const SignupPage(translation: ),
       );
 }

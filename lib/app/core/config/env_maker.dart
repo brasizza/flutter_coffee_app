@@ -10,7 +10,7 @@ class EnvMaker {
     switch (type) {
       case ConfigType.dotenv:
         config = DotEnvConfig();
-        await config.load();
+        config.load();
         return config;
       case ConfigType.remoteConfig:
         throw UnimplementedError();

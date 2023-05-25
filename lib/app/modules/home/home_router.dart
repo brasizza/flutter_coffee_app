@@ -36,6 +36,6 @@ class HomeRouter {
             create: (context) => HomeController(userService: context.read()),
           ),
         ],
-        builder: (context, child) => HomePage(translation: context.read()),
+        builder: (context, child) => const HomePage(),
       );
 }

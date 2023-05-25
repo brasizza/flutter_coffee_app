@@ -9,14 +9,13 @@ class CategoryItem extends StatelessWidget {
   final CategoryModel category;
   final CategoryModel? selected;
   final ProductsController controller;
-  final AppTranslation translate;
 
-  const CategoryItem({Key? key, required this.category, required this.controller, this.selected, required this.translate}) : super(key: key);
+  const CategoryItem({Key? key, required this.category, required this.controller, this.selected}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     String title = '';
-    switch (translate.currentLocale) {
+    switch (AppTranslation.currentLocale) {
       case 'pt':
         title = category.titlePT;
         break;
@@ -33,6 +32,7 @@ class CategoryItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: OutlinedButton(
           style: OutlinedButton.styleFrom(
+            shape: StadiumBorder(),
             side: BorderSide(color: (category == selected) ? ColorsApp.instance.primary : Colors.transparent, width: 2),
           ),
           onPressed: () {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
-import 'package:howabout_coffee/app/core/global/translation/app_translation.dart';
+import 'package:howabout_coffee/app/core/extensions/translate.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/modules/login/login_controller.dart';
@@ -11,8 +11,7 @@ import '../../core/widgets/my_button.dart';
 import '../../core/widgets/my_textfield.dart';
 
 class LoginPage extends StatefulWidget {
-  final AppTranslation translation;
-  const LoginPage({Key? key, required this.translation}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -53,8 +52,8 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
             state.status.matchAny(
               any: (() => hideLoader()),
               loading: (() => showLoader()),
-              resendPassword: (() => showSuccess(widget.translation.translate('reset.email'))),
-              emptyEmail: (() => showError(widget.translation.translate('email.emtpy'))),
+              resendPassword: (() => showSuccess('reset.email'.translate)),
+              emptyEmail: (() => showError('email.emtpy'.translate)),
               error: () {
                 hideLoader();
                 showError(state.errorMessage ?? ' Erro');
@@ -85,11 +84,13 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
                     ),
                   ),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height: context.screenHeight * 0.05),
                       SizedBox(height: context.screenHeight * 0.18),
-                      Text(widget.translation.translate('login.welcome'), style: const TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text('login.welcome'.translate, style: const TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
+                      ),
                       SizedBox(height: context.screenHeight * 0.02),
                       ClipRect(
                         child: Container(
@@ -107,25 +108,25 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
                                   // username textfield
                                   MyTextField(
                                     controller: emailController,
-                                    hintText: widget.translation.translate('fields.email'),
+                                    hintText: 'fields.email'.translate,
                                     obscureText: false,
-                                    validatorText: widget.translation.translate('validation.email_empty'),
+                                    validatorText: 'validation.email_empty'.translate,
                                   ),
 
                                   const SizedBox(height: 20),
 
                                   MyTextField(
                                     controller: passwordController,
-                                    hintText: widget.translation.translate('fields.password'),
+                                    hintText: 'fields.password'.translate,
                                     obscureText: true,
-                                    validatorText: widget.translation.translate('validation.password_empty'),
+                                    validatorText: 'validation.password_empty'.translate,
                                   ),
 
                                   const SizedBox(height: 20),
 
                                   // sign in button
                                   MyButton(
-                                    text: widget.translation.translate('btn.enter'),
+                                    text: 'btn.enter'.translate,
                                     onTap: () => loginUser(),
                                   ),
 
@@ -143,7 +144,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
                                       Padding(
                                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                         child: Text(
-                                          widget.translation.translate('or'),
+                                          'or'.translate,
                                           style: const TextStyle(color: Colors.white, fontSize: 16),
                                         ),
                                       ),
@@ -165,7 +166,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Text(
-                                          widget.translation.translate('login.dont_have_account'),
+                                          'login.dont_have_account'.translate,
                                           style: const TextStyle(color: Colors.white, fontSize: 18),
                                           textAlign: TextAlign.start,
                                         ),
@@ -175,7 +176,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
                                             Navigator.of(context).pushNamed('/login/sign-up');
                                           },
                                           child: Text(
-                                            widget.translation.translate('login.sing_up_label'),
+                                            'login.sing_up_label'.translate,
                                             style: TextStyle(color: ColorsApp.instance.primary, fontWeight: FontWeight.bold, fontSize: 20),
                                           ),
                                         ),
@@ -186,7 +187,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
                                             GestureDetector(
                                               onTap: () => controller.forgotPassword(email: emailController.text),
                                               child: Text(
-                                                widget.translation.translate('login.forgot_password'),
+                                                'login.forgot_password'.translate,
                                                 style: TextStyle(color: ColorsApp.instance.primary, fontWeight: FontWeight.bold, fontSize: 18),
                                               ),
                                             ),

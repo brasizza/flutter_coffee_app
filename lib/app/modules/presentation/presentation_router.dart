@@ -22,6 +22,6 @@ class PresentationRouter {
             create: ((context) => PresentationController(service: context.read())),
           ),
         ],
-        builder: (context, child) => PresentationPage(translation: context.read()),
+        builder: (context, child) => const PresentationPage(),
       );
 }

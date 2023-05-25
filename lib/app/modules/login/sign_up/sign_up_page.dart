@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
-import 'package:howabout_coffee/app/core/global/translation/app_translation.dart';
+import 'package:howabout_coffee/app/core/extensions/translate.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/widgets/my_button.dart';
 import 'package:howabout_coffee/app/modules/login/sign_up/sign_up_controller.dart';
@@ -10,8 +10,7 @@ import 'package:howabout_coffee/app/modules/login/state/login_state.dart';
 import '../../../core/widgets/my_textfield.dart';
 
 class SignupPage extends StatefulWidget {
-  final AppTranslation translation;
-  const SignupPage({super.key, required this.translation});
+  const SignupPage({super.key});
 
   @override
   State<SignupPage> createState() => _SignupPageState();
@@ -88,7 +87,7 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
                     },
                   ),
                   SizedBox(height: context.screenHeight * 0.1),
-                  Text(widget.translation.translate('signup.sign_up_label'), style: const TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
+                  Text('signup.sign_up_label'.translate, style: const TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
                   SizedBox(height: context.screenHeight * 0.02),
                   ClipRect(
                     clipBehavior: Clip.hardEdge,
@@ -107,7 +106,7 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Text(widget.translation.translate('signup.text_creation'),
+                                Text('signup.text_creation'.translate,
                                     // ignore: prefer_const_constructors
                                     style: TextStyle(color: Colors.white, fontSize: 20),
                                     textAlign: TextAlign.start),
@@ -137,7 +136,7 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
                                   children: [
                                     const SizedBox(height: 10),
                                     MyButton(
-                                      text: widget.translation.translate('signup.text_sign_up'),
+                                      text: 'signup.text_sign_up'.translate,
                                       onTap: () {
                                         signUserIn();
                                       },

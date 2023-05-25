@@ -67,10 +67,10 @@ class ClientModel {
       // name: user.displayName ?? '',
       password: '',
       email: user.get('email'),
-      avatar: user.get('avatar'),
+      avatar: null,
       lat: null,
       lng: null,
-      phoneNumber: user.get('phone'),
+      phoneNumber: null,
     );
   }
 

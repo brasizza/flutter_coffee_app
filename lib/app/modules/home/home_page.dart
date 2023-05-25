@@ -1,16 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:howabout_coffee/app/core/global/translation/app_translation.dart';
+import 'package:howabout_coffee/app/core/extensions/translate.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/modules/home/home_controller.dart';
 import 'package:howabout_coffee/app/modules/home/state/home_state.dart';
+import 'package:howabout_coffee/app/modules/home/widgets/menu_drawer.dart';
 import 'package:howabout_coffee/app/modules/products/category_page.dart';
 import 'package:howabout_coffee/app/modules/products/components/product_list.dart';
 
 class HomePage extends StatefulWidget {
-  final AppTranslation translation;
-  const HomePage({Key? key, required this.translation}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -41,6 +42,7 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
             any: (() => false),
             initial: (() => true),
             loaded: (() => true),
+            clientLoaded: (() => true),
           )),
       builder: (context, state) {
         return Scaffold(
@@ -58,22 +60,28 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 10.0),
-                child: Icon(
-                  Icons.person,
-                  weight: 50,
-                  color: ColorsApp.instance.primary,
-                ),
+                child: (state.client?.avatar == null)
+                    ? Icon(
+                        Icons.person,
+                        weight: 50,
+                        color: ColorsApp.instance.primary,
+                      )
+                    : CircleAvatar(backgroundImage: CachedNetworkImageProvider(state.client?.avatar ?? '')),
               )
             ],
           ),
-          drawer: const Drawer(),
+          drawer: Drawer(
+            elevation: 2,
+            backgroundColor: ColorsApp.instance.black.withOpacity(.9),
+            child: MenuDrawer(user: state.client),
+          ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.translation.translate('home_find_coffee'),
+                  'home_find_coffee'.translate,
                   style: const TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
@@ -81,20 +89,20 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
                 ),
 
                 Text(
-                  widget.translation.translate('home_special_coffee'),
+                  'home_special_coffee'.translate,
                   style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
 
-                CategoryPage(translation: widget.translation),
+                const CategoryPage(),
                 const SizedBox(
                   height: 20,
                 ),
 
-                Expanded(
-                  child: ProductList(translation: widget.translation),
+                const Expanded(
+                  child: ProductList(),
                 ),
                 // Expanded(
                 //   // child: ProductsPage(translation: widget.translation),

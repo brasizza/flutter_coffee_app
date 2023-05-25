@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
-import 'package:howabout_coffee/app/core/global/translation/app_translation.dart';
+import 'package:howabout_coffee/app/core/extensions/translate.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/text_styles.dart';
 import 'package:howabout_coffee/app/modules/presentation/presentation_controller.dart';
@@ -13,8 +13,7 @@ import '../../core/ui/styles/color_app.dart';
 import '../../data/services/auth/auth_service.dart';
 
 class PresentationPage extends StatefulWidget {
-  final AppTranslation translation;
-  const PresentationPage({Key? key, required this.translation}) : super(key: key);
+  const PresentationPage({Key? key}) : super(key: key);
 
   @override
   State<PresentationPage> createState() => _PresentationPageState();
@@ -101,7 +100,7 @@ class _PresentationPageState extends BaseState<PresentationPage, PresentationCon
               padding: const EdgeInsets.only(top: 165.0),
               child: Align(
                 alignment: Alignment.topCenter,
-                child: Text(widget.translation.translate('presentation.welcome'), style: context.textStyles.textExtraBold.copyWith(color: ColorsApp.instance.white)),
+                child: Text('presentation.welcome'.translate, style: context.textStyles.textExtraBold.copyWith(color: ColorsApp.instance.white)),
               ),
             ),
             Positioned(
@@ -117,13 +116,13 @@ class _PresentationPageState extends BaseState<PresentationPage, PresentationCon
                         final nav = Navigator.of(context);
                         final user = await controller.autoLogin(authService: context.read<AuthService>());
                         if (user == true) {
-                          nav.pushReplacementNamed('/home');
+                          nav.pushNamedAndRemoveUntil('/home', (route) => false);
                         } else {
-                          nav.pushReplacementNamed('/login');
+                          nav.pushNamedAndRemoveUntil('/login', (route) => false);
                         }
                       },
                       child: Text(
-                        widget.translation.translate('btn.enter'),
+                        'btn.enter'.translate,
                         style: context.textStyles.textExtraBold.copyWith(
                           color: ColorsApp.instance.fontColor,
                         ),

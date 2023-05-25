@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'core/config/base_config.dart';
 import 'core/global/global_context.dart';
 import 'core/local_storage/local_storage.dart';
+import 'core/local_storage/local_storage_impl_shared.dart';
 import 'core/rest/dio/dio_rest_client.dart';
 import 'core/rest/rest_client.dart';
 import 'core/ui/theme/theme_config.dart';
@@ -24,13 +25,9 @@ import 'data/services/user/user_service.dart';
 
 class AppWidget extends StatefulWidget {
   final Env env;
-  final LocalStorage storage;
-  final AppTranslation translation;
   const AppWidget({
     super.key,
     required this.env,
-    required this.storage,
-    required this.translation,
   });
 
   @override
@@ -50,18 +47,22 @@ class _AppWidgetState extends State<AppWidget> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider<LocalStorage>(create: ((context) => LocalStorageImplShared()..init()), lazy: false),
+
+        //  final env = await EnvMaker.create(ConfigType.b4app);
         Provider<Env>(create: ((context) => widget.env)),
-        Provider<AppTranslation>(create: ((context) => widget.translation)),
-        Provider<LocalStorage>(create: ((context) => widget.storage)),
+        Provider<CompanyRepository>(create: (context) => CompanyRepositoryImpl()),
+        Provider<CompanyService>(create: (context) => CompanyServiceImpl(repository: context.read())),
+        Provider<CompanyController>(create: (context) => CompanyController(service: context.read())..init()),
         Provider<RestClient>(create: ((context) => DioRestClient.instance..init(env: context.read(), storage: context.read()))),
         Provider<AuthService>(create: ((context) => AuthServiceImpl())),
         Provider<UserRepository>(create: (context) => UserRepositoryImpl()),
         Provider<UserService>(create: (context) => UserServiceImpl(repository: context.read())),
-        Provider<CompanyRepository>(create: (context) => CompanyRepositoryImpl()),
-        Provider<CompanyService>(create: (context) => CompanyServiceImpl(repository: context.read())),
         Provider<CompanyController>(
-          create: (context) => CompanyController(service: context.read())..init(),
-        ),
+            create: (context) => CompanyController(
+                  service: context.read(),
+                )..init(),
+            lazy: false),
       ],
       child: MaterialApp(
         localizationsDelegates: const [
@@ -80,9 +81,7 @@ class _AppWidgetState extends State<AppWidget> {
           supportedLocales,
         ) {
           if (supportedLocales.contains(Locale(locale!.languageCode))) {
-            widget.storage.setData('locale', locale.languageCode);
-            widget.translation.currentLocale = locale.languageCode;
-
+            AppTranslation.currentLocale = locale.languageCode;
             return locale;
           } else {
             return const Locale('en');

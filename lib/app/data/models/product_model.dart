@@ -19,6 +19,7 @@ class ProductModel {
   final BigInt category;
   final bool status;
   final String? image;
+  final String? imageBig;
   ProductModel({
     required this.id,
     required this.order,
@@ -32,6 +33,7 @@ class ProductModel {
     required this.category,
     required this.status,
     required this.image,
+    this.imageBig,
   });
 
   ProductModel copyWith({
@@ -47,6 +49,7 @@ class ProductModel {
     BigInt? category,
     bool? status,
     String? image,
+    String? imageBig,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -61,6 +64,7 @@ class ProductModel {
       category: category ?? this.category,
       status: status ?? this.status,
       image: image ?? this.image,
+      imageBig: imageBig ?? this.imageBig,
     );
   }
 
@@ -78,12 +82,13 @@ class ProductModel {
       'category': category,
       'status': status,
       'image': image,
+      'imageBig': imageBig,
     };
   }
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
-      id: BigInt.parse(map['id']),
+      id: BigInt.parse(map['id'].toString()),
       order: map['order'] as int,
       titlePT: map['titlePT'] as String,
       titleEN: map['titleEN'] as String,
@@ -92,9 +97,10 @@ class ProductModel {
       descriptionEN: map['descriptionEN'] as String,
       descriptionES: map['descriptionES'] as String,
       price: map['price'] as double,
-      category: BigInt.parse(map['category']),
+      category: BigInt.parse(map['category'].toString()),
       status: map['status'] as bool,
       image: map['image'] != null ? map['image'] as String : null,
+      imageBig: map['imageBig'] != null ? map['imageBig'] as String : null,
     );
   }
 
@@ -112,6 +118,7 @@ class ProductModel {
       category: (parse.get('category_id') == null) ? BigInt.from(0) : BigInt.parse((parse.get('category_id').toString())),
       status: parse.get('status') as bool,
       image: parse.get('image_thumb')?.get('url'),
+      imageBig: parse.get('image_description')?.get('url'),
     );
   }
 
@@ -121,18 +128,18 @@ class ProductModel {
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, order: $order, titlePT: $titlePT, titleEN: $titleEN, titleES: $titleES, descriptionPT: $descriptionPT, descriptionEN: $descriptionEN, descriptionES: $descriptionES, price: $price, category: $category, status: $status, image: $image)';
+    return 'ProductModel(id: $id, order: $order, titlePT: $titlePT, titleEN: $titleEN, titleES: $titleES, descriptionPT: $descriptionPT, descriptionEN: $descriptionEN, descriptionES: $descriptionES, price: $price, category: $category, status: $status, image: $image, imageBig: $imageBig)';
   }
 
   @override
   bool operator ==(covariant ProductModel other) {
     if (identical(this, other)) return true;
 
-    return other.id == id && other.order == order && other.titlePT == titlePT && other.titleEN == titleEN && other.titleES == titleES && other.descriptionPT == descriptionPT && other.descriptionEN == descriptionEN && other.descriptionES == descriptionES && other.price == price && other.category == category && other.status == status && other.image == image;
+    return other.id == id && other.order == order && other.titlePT == titlePT && other.titleEN == titleEN && other.titleES == titleES && other.descriptionPT == descriptionPT && other.descriptionEN == descriptionEN && other.descriptionES == descriptionES && other.price == price && other.category == category && other.status == status && other.image == image && other.imageBig == imageBig;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ order.hashCode ^ titlePT.hashCode ^ titleEN.hashCode ^ titleES.hashCode ^ descriptionPT.hashCode ^ descriptionEN.hashCode ^ descriptionES.hashCode ^ price.hashCode ^ category.hashCode ^ status.hashCode ^ image.hashCode;
+    return id.hashCode ^ order.hashCode ^ titlePT.hashCode ^ titleEN.hashCode ^ titleES.hashCode ^ descriptionPT.hashCode ^ descriptionEN.hashCode ^ descriptionES.hashCode ^ price.hashCode ^ category.hashCode ^ status.hashCode ^ image.hashCode ^ imageBig.hashCode;
   }
 }

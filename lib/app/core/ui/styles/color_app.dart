@@ -11,7 +11,7 @@ class ColorsApp {
     return _instance!;
   }
 
-  Color get primary => Colors.orange;
+  Color get primary => const Color(0xffd17842);
   Color get secondary => Colors.orangeAccent;
   Color get black => '#444444'.hexToColor();
   Color get white => Colors.white;

@@ -6,9 +6,10 @@ import './company_repository.dart';
 class CompanyRepositoryImpl implements CompanyRepository {
   @override
   Future getCompany() async {
-    final result = await ParseObject(CompanyModel.className).getAll();
-    if (result.success) {
-      print(result.result);
+    final response = await ParseObject(CompanyModel.className).getAll();
+    if (response.success) {
+      final company = (response.result as List<ParseObject>).first;
+      return CompanyModel.fromParse(company);
     }
   }
 }
