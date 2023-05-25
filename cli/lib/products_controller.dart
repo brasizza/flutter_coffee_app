@@ -88,7 +88,7 @@ class ProductsController {
 
     product.set('description_pt', arrProduct['description']);
     product.set('description_es', arrProduct['description']);
-    product.set('description_en', arrProduct['title']);
+    product.set('description_en', arrProduct['description']);
     product.set('price', double.parse(arrProduct['gross_price']));
     product.set('category_id', arrProduct['category_id']);
     product.set('order', arrProduct['order']);

@@ -37,7 +37,7 @@ class ProductsController extends Cubit<ProductState> {
   }
 
   void changeCategory(CategoryModel category) {
-    emit(state.copyWith(categorySelected: category));
+    emit(state.copyWith(categorySelected: category, status: ProductStatus.changeCategory));
   }
 }
 

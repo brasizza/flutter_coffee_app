@@ -32,41 +32,39 @@ class _MenuDrawerState extends State<MenuDrawer> with Loader {
                       name: widget.user?.name ?? '',
                       email: widget.user?.email ?? '',
                     ),
-                    Expanded(
-                      child: Container(
-                        padding: MenuDrawer.padding,
-                        child: Column(
-                          children: [
-                            buildMenuItem(
-                              context,
-                              text: 'People',
-                              icon: Icons.people,
-                            ),
-                            const SizedBox(height: 16),
-                            buildMenuItem(
-                              context,
-                              text: 'Favourites',
-                              icon: Icons.favorite_border,
-                            ),
-                            const SizedBox(height: 16),
-                            buildMenuItem(
-                              context,
-                              text: 'Workflow',
-                              icon: Icons.workspaces_outline,
-                            ),
-                            const SizedBox(height: 16),
-                            buildMenuItem(
-                              context,
-                              text: 'Notifications',
-                              icon: Icons.notifications_outlined,
-                            ),
-                            buildMenuItem(
-                              context,
-                              text: 'Favourites',
-                              icon: Icons.favorite_border,
-                            ),
-                          ],
-                        ),
+                    Container(
+                      padding: MenuDrawer.padding,
+                      child: Column(
+                        children: [
+                          buildMenuItem(
+                            context,
+                            text: 'People',
+                            icon: Icons.people,
+                          ),
+                          const SizedBox(height: 16),
+                          buildMenuItem(
+                            context,
+                            text: 'Favourites',
+                            icon: Icons.favorite_border,
+                          ),
+                          const SizedBox(height: 16),
+                          buildMenuItem(
+                            context,
+                            text: 'Workflow',
+                            icon: Icons.workspaces_outline,
+                          ),
+                          const SizedBox(height: 16),
+                          buildMenuItem(
+                            context,
+                            text: 'Notifications',
+                            icon: Icons.notifications_outlined,
+                          ),
+                          buildMenuItem(
+                            context,
+                            text: 'Favourites',
+                            icon: Icons.favorite_border,
+                          ),
+                        ],
                       ),
                     ),
                   ],

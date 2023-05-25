@@ -17,7 +17,14 @@ class _ProductListState extends BaseState<ProductList, ProductsController> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProductsController, ProductState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        state.status.matchAny(
+          any: () {},
+          changeCategory: () {
+            gridController.jumpTo(0);
+          },
+        );
+      },
       builder: (context, state) {
         final products = state.products.where((product) => product.category.toDouble() == state.categorySelected?.id.toDouble()).toList();
         return GridView.builder(

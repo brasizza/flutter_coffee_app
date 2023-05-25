@@ -32,7 +32,7 @@ class CategoryItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: OutlinedButton(
           style: OutlinedButton.styleFrom(
-            shape: StadiumBorder(),
+            shape: const StadiumBorder(),
             side: BorderSide(color: (category == selected) ? ColorsApp.instance.primary : Colors.transparent, width: 2),
           ),
           onPressed: () {
