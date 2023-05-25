@@ -39,6 +39,7 @@ class _CategoryPageState extends BaseState<CategoryPage, ProductsController> {
               any: (() => false),
               initial: (() => true),
               loaded: (() => true),
+              changeCategory: (() => true),
             )),
         builder: (context, state) {
           return SizedBox(
