@@ -5,7 +5,6 @@ import 'package:howabout_coffee/app/core/company/company_controller.dart';
 import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
 import 'package:howabout_coffee/app/data/models/product_model_checkout.dart';
 import 'package:howabout_coffee/app/modules/checkout/checkout_controller.dart';
-import 'package:provider/provider.dart';
 
 import '../../../core/global/translation/app_translation.dart';
 import '../../../core/ui/styles/color_app.dart';
@@ -13,10 +12,14 @@ import '../../../core/ui/styles/color_app.dart';
 class CheckoutProduct extends StatelessWidget {
   final ProductModelCheckout product;
   final CompanyController companyController;
+  final CheckoutController controller;
+  final int index;
   const CheckoutProduct({
     Key? key,
     required this.product,
     required this.companyController,
+    required this.controller,
+    required this.index,
   }) : super(key: key);
 
   @override
@@ -36,7 +39,7 @@ class CheckoutProduct extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: Container(
-        height: 180,
+        height: 170,
         width: context.screenWidth,
         decoration: BoxDecoration(color: const Color(0xff141921), borderRadius: BorderRadius.circular(20)),
         child: Column(
@@ -61,9 +64,6 @@ class CheckoutProduct extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  width: 15,
                 ),
                 Expanded(
                   child: Column(
@@ -92,7 +92,8 @@ class CheckoutProduct extends StatelessWidget {
                         height: 8,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Row(
                             children: [
@@ -104,13 +105,62 @@ class CheckoutProduct extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                (product.price * product.quantity).toStringAsFixed(2),
-                                style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                (product.price).toStringAsFixed(2),
+                                style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                               )
                             ],
                           ),
-                          const SizedBox(
-                            width: 30,
+                          Text(
+                            (product.price * product.quantity).toStringAsFixed(2),
+                            style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            height: 50,
+                            width: 150,
+                            child: SpinBox(
+                                readOnly: true,
+                                incrementIcon: Icon(
+                                  Icons.add,
+                                  color: ColorsApp.instance.primary,
+                                ),
+                                decrementIcon: (product.quantity == 1)
+                                    ? Icon(
+                                        Icons.delete,
+                                        color: ColorsApp.instance.primary,
+                                      )
+                                    : Icon(
+                                        Icons.remove,
+                                        color: ColorsApp.instance.primary,
+                                      ),
+                                textStyle: TextStyle(color: ColorsApp.instance.primary),
+                                decoration: const InputDecoration(
+                                  fillColor: Colors.transparent,
+                                  border: InputBorder.none,
+                                  disabledBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                ),
+                                min: 0,
+                                max: 100,
+                                spacing: 0,
+                                value: product.quantity.toDouble(),
+                                onChanged: (value) {
+                                  print(value);
+                                  if (value == 0) {
+                                    controller.removeItem(index);
+                                  } else {
+                                    controller.updateProduct(product, value.toInt(), index);
+                                  }
+                                  // setState(() {
+                                  //   quantity = value.toInt();
+                                  // });
+                                }),
                           ),
                         ],
                       ),
@@ -118,51 +168,6 @@ class CheckoutProduct extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    height: 50,
-                    width: 200,
-                    child: SpinBox(
-                        readOnly: true,
-                        incrementIcon: Icon(
-                          Icons.add,
-                          color: ColorsApp.instance.primary,
-                        ),
-                        decrementIcon: Icon(
-                          Icons.remove,
-                          color: ColorsApp.instance.primary,
-                        ),
-                        textStyle: TextStyle(color: ColorsApp.instance.primary),
-                        decoration: const InputDecoration(
-                          fillColor: Colors.transparent,
-                          border: InputBorder.none,
-                          disabledBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                        ),
-                        min: 1,
-                        max: 100,
-                        value: product.quantity.toDouble(),
-                        onChanged: (value) {
-                          // setState(() {
-                          //   quantity = value.toInt();
-                          // });
-                        }),
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        context.read<CheckoutController>().removeItem(product);
-                      },
-                      icon: Icon(
-                        Icons.delete,
-                        color: ColorsApp.instance.primary,
-                      ))
-                ],
-              ),
             ),
           ],
         ),

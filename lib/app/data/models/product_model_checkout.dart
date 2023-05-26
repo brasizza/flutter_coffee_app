@@ -90,11 +90,11 @@ class ProductModelCheckout extends ProductModel {
   bool operator ==(covariant ProductModelCheckout other) {
     if (identical(this, other)) return true;
 
-    return other.id == id && other.order == order && other.titlePT == titlePT && other.titleEN == titleEN && other.titleES == titleES && other.descriptionPT == descriptionPT && other.descriptionEN == descriptionEN && other.descriptionES == descriptionES && other.price == price && other.category == category && other.status == status && other.image == image && other.imageBig == imageBig;
+    return other.id == id && other.quantity == quantity && other.order == order && other.titlePT == titlePT && other.titleEN == titleEN && other.titleES == titleES && other.descriptionPT == descriptionPT && other.descriptionEN == descriptionEN && other.descriptionES == descriptionES && other.price == price && other.category == category && other.status == status && other.image == image && other.imageBig == imageBig;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ order.hashCode ^ titlePT.hashCode ^ titleEN.hashCode ^ titleES.hashCode ^ descriptionPT.hashCode ^ descriptionEN.hashCode ^ descriptionES.hashCode ^ price.hashCode ^ category.hashCode ^ status.hashCode ^ image.hashCode ^ imageBig.hashCode;
+    return id.hashCode ^ order.hashCode ^ quantity.hashCode ^ titlePT.hashCode ^ titleEN.hashCode ^ titleES.hashCode ^ descriptionPT.hashCode ^ descriptionEN.hashCode ^ descriptionES.hashCode ^ price.hashCode ^ category.hashCode ^ status.hashCode ^ image.hashCode ^ imageBig.hashCode;
   }
 }

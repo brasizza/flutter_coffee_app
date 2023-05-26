@@ -22,19 +22,25 @@ class CheckoutController extends Cubit<CheckoutState> {
     emit(state.copyWith(status: CheckoutStatus.refresh, transaction: state.transaction.copyWith(totalItems: totalItems, totalTransaction: totalValue)));
   }
 
-  void removeItem(ProductModelCheckout product) async {
-    if (state.transaction.products.contains(product)) {
-      final transaction = state.transaction;
-      transaction.products.remove(product);
-      emit(state.copyWith(status: CheckoutStatus.itemRemoved, transaction: transaction));
-      await Future.delayed(const Duration(milliseconds: 300));
+  void removeItem(index) async {
+    // if (state.transaction.products.contains(product)) {
+    final transaction = state.transaction;
+    transaction.products.removeAt(index);
+    emit(state.copyWith(status: CheckoutStatus.itemRemoved, transaction: transaction));
+    await Future.delayed(const Duration(milliseconds: 300));
 
-      refresh();
-    }
+    refresh();
+    // }
   }
 
   void clear() {
     emit(CheckoutState.initial());
+    refresh();
+  }
+
+  void updateProduct(ProductModelCheckout product, int quantity, int index) {
+    state.transaction.products[index] = state.transaction.products[index].copyWith(quantity: quantity);
+    emit(state.copyWith(status: CheckoutStatus.modifyItem));
     refresh();
   }
 }

@@ -39,6 +39,8 @@ class _CheckoutPageState extends BaseState<CheckoutPage, CheckoutController> {
                       return CheckoutProduct(
                         product: state.transaction.products[index],
                         companyController: context.read(),
+                        controller: controller,
+                        index: index,
                       );
                     },
                     itemCount: state.transaction.products.length,
