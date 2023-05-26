@@ -1,9 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
-import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
 import 'package:howabout_coffee/app/core/extensions/translate.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/data/models/product_model.dart';
@@ -59,11 +59,37 @@ class _CoffeeDetailsPageState extends State<CoffeeDetailsPage> {
           Stack(
             fit: StackFit.passthrough,
             children: [
-              Container(
-                height: 440,
-                width: context.screenWidth,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), image: DecorationImage(image: ((widget.product.imageBig == null) ? const AssetImage('assets/images/logo_coffee.png') : NetworkImage(widget.product.imageBig!)) as ImageProvider, fit: BoxFit.cover)),
+              CachedNetworkImage(
+                imageUrl: widget.product.imageBig ?? '',
+                imageBuilder: (context, imageProvider) => Container(
+                  height: 440,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                placeholder: (context, url) => SizedBox(
+                    height: 440,
+                    child: Image.asset(
+                      color: ColorsApp.instance.primary,
+                      'assets/images/logo_coffee.png',
+                      colorBlendMode: BlendMode.colorBurn,
+                      fit: BoxFit.cover,
+                    )),
+                errorWidget: (context, url, error) => SizedBox(
+                    height: 440,
+                    child: Image.asset(
+                      'assets/images/logo_coffee.png',
+                      fit: BoxFit.cover,
+                    )),
               ),
+              // Container(
+              //   height: 440,
+              //   width: context.screenWidth,
+              //   decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), image: DecorationImage(image: ((widget.product.imageBig == null) ? const AssetImage('assets/images/logo_coffee.png') : CachedNetworkImageProvider(widget.product.imageBig!)) as ImageProvider, fit: BoxFit.cover)),
+              // ),
               Positioned(
                 top: 320,
                 child: BlurryContainer(
