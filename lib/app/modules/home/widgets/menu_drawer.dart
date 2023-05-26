@@ -109,18 +109,18 @@ class _MenuDrawerState extends State<MenuDrawer> with Loader {
         child: InkWell(
           // onTap: () => selectItem(context, NavigationItem.header),
           child: Container(
-            padding: MenuDrawer.padding.add(EdgeInsets.symmetric(vertical: 40)),
+            padding: MenuDrawer.padding.add(const EdgeInsets.symmetric(vertical: 40)),
             child: Column(
               children: [
                 CircleAvatar(radius: 50, backgroundImage: ((widget.user?.avatar == null) ? const AssetImage('assets/images/logo_coffee.png') : NetworkImage(widget.user?.avatar ?? '')) as ImageProvider),
                 Text(
                   name,
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style: const TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   email,
-                  style: TextStyle(fontSize: 14, color: Colors.white),
+                  style: const TextStyle(fontSize: 14, color: Colors.white),
                 ),
               ],
             ),

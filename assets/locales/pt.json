@@ -3,6 +3,7 @@
     "or" : "Ou",
     "presentation.welcome" : "Bem vindo ao How About Coffee",
     "btn.enter" : "Entrar",
+    "btn.close" : "Fechar",
     "reset.email" : "Sua senha foi redefinida!\nAguarde o e-mail.",
     "email.emtpy" : "E-mail vazio.\n Por favor inserir um e-mail.",
     "login.welcome" : "Faça seu login!",
@@ -17,5 +18,12 @@
     "home_find_coffee" : "How About Coffee",
     "home_special_coffee" : "Especialmente para você",
     "fields.email" : "E-mail",
-    "fields.password" : "Senha"
+    "fields.password" : "Senha",
+    "detail_coffee.description" : "Descrição",
+    "detail_coffee.price" : "Preço",
+    "detail_coffee.add" : "Adicionar",
+    "emptycart.message" : "Você ainda não tem nenhum produto no seu carrinho.\n Insira um ou mais produtos para finalizar.",
+    "checkout.total_account" : "Total a pagar",
+    "checkout.pay" : "Finalizar pagamento"
+
 }

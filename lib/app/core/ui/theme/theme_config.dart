@@ -14,7 +14,7 @@ class ThemeConfig {
   );
 
   static final theme = ThemeData(
-    fontFamily: 'Roboto',
+    fontFamily: 'Montserrat',
     primarySwatch: _primarySwatch,
     primaryColor: ColorsApp.instance.primary,
     primaryColorLight: ColorsApp.instance.primary.withOpacity(.8),

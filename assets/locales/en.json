@@ -2,6 +2,7 @@
     "or": "Or",
     "presentation.welcome": "Welcome to How About Coffee",
     "btn.enter": "Enter",
+    "btn_close" : "Close",
     "reset.email": "Your password has been reset!\nPlease wait for the email.",
     "email.emtpy": "Empty email.\nPlease enter an email.",
     "login.welcome": "Log in to your account!",
@@ -16,6 +17,14 @@
     "home_find_coffee": "How About Coffee",
     "home_special_coffee": "Especially for you",
     "fields.email": "Email",
-    "fields.password": "Password"
+    "fields.password": "Password",
+    "detail_coffee.description" : "Description",
+    "detail_coffee.price" : "Price",
+    "detail_coffee.add" : "Add to cart",
+    "emptycart.message" : "You don't have any products in your cart yet.\n Insert one or more products to checkout.",
+    "checkout.total_account" : "Amount due",
+    "checkout.pay" : "Pay now"
+
+
     }
     

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
 import 'package:howabout_coffee/app/core/extensions/translate.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
+import 'package:howabout_coffee/app/core/ui/styles/text_styles.dart';
 import 'package:howabout_coffee/app/core/widgets/my_button.dart';
 import 'package:howabout_coffee/app/modules/login/sign_up/sign_up_controller.dart';
 import 'package:howabout_coffee/app/modules/login/state/login_state.dart';
@@ -68,11 +69,14 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
           child: Stack(
             alignment: Alignment.topCenter,
             children: [
-              Image.asset(
-                'assets/images/coffee_based.jpg',
-                width: context.screenWidth,
-                height: context.screenHeight,
-                fit: BoxFit.cover,
+              Opacity(
+                opacity: _opacity,
+                child: Image.asset(
+                  'assets/images/coffee_based.jpg',
+                  width: context.screenWidth,
+                  height: context.screenHeight,
+                  fit: BoxFit.cover,
+                ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +91,7 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
                     },
                   ),
                   SizedBox(height: context.screenHeight * 0.1),
-                  Text('signup.sign_up_label'.translate, style: const TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
+                  Text('signup.sign_up_label'.translate, style: TextStyle(color: Colors.white, fontSize: context.textStyles.titleSize, fontWeight: FontWeight.bold)),
                   SizedBox(height: context.screenHeight * 0.02),
                   ClipRect(
                     clipBehavior: Clip.hardEdge,
@@ -108,7 +112,7 @@ class _SignupPageState extends BaseState<SignupPage, SignUpController> {
                               children: [
                                 Text('signup.text_creation'.translate,
                                     // ignore: prefer_const_constructors
-                                    style: TextStyle(color: Colors.white, fontSize: 20),
+                                    style: TextStyle(color: Colors.white, fontSize: 18),
                                     textAlign: TextAlign.start),
                                 // ignore: prefer_const_constructors
 

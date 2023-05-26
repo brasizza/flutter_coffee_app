@@ -20,7 +20,6 @@ class PresentationController extends Cubit<PresentationState> {
   }
 
   Future<bool> autoLogin({required AuthService authService}) async {
-    emit(state.copyWith(status: PresentationStatus.loading));
     final isLogged = await authService.isLogged();
     if (!isLogged) {
       return false;

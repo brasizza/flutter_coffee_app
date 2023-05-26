@@ -5,14 +5,14 @@ import 'package:howabout_coffee/app/modules/home/widgets/coffee_card.dart';
 import 'package:howabout_coffee/app/modules/products/products_controller.dart';
 import 'package:howabout_coffee/app/modules/products/state/product_state.dart';
 
-class ProductList extends StatefulWidget {
-  const ProductList({Key? key}) : super(key: key);
+class ProductPage extends StatefulWidget {
+  const ProductPage({Key? key}) : super(key: key);
 
   @override
-  State<ProductList> createState() => _ProductListState();
+  State<ProductPage> createState() => _ProductPageState();
 }
 
-class _ProductListState extends BaseState<ProductList, ProductsController> {
+class _ProductPageState extends BaseState<ProductPage, ProductsController> {
   final ScrollController gridController = ScrollController();
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class _ProductListState extends BaseState<ProductList, ProductsController> {
         return GridView.builder(
           controller: gridController,
           shrinkWrap: true,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10, childAspectRatio: 0.9),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10, childAspectRatio: 0.8),
           itemBuilder: (context, index) {
             final product = products[index];
             return CoffeeCard(

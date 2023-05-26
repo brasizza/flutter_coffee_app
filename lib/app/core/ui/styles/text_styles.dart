@@ -10,6 +10,7 @@ class TextStyles {
     return _instance!;
   }
 
+  double get titleSize => 30;
   String get fontFamily => 'Montserrat';
 
   TextStyle get textLight => TextStyle(fontWeight: FontWeight.w300, fontFamily: fontFamily);

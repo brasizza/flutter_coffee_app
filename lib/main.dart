@@ -11,7 +11,7 @@ void main() async {
 
   await B4aConfig().init();
   await AppTranslation.init();
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   final env = await EnvMaker.create(ConfigType.b4app);
   runApp(AppWidget(

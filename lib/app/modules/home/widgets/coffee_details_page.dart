@@ -4,19 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
+import 'package:howabout_coffee/app/core/extensions/translate.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/data/models/product_model.dart';
+import 'package:howabout_coffee/app/modules/checkout/checkout_controller.dart';
 
 import '../../../core/company/company_controller.dart';
 import '../../../core/global/translation/app_translation.dart';
 
-class CoffeeDetailsPage extends StatelessWidget {
+class CoffeeDetailsPage extends StatefulWidget {
+  final ProductModel product;
+  final CheckoutController? checkoutController;
+
   const CoffeeDetailsPage({
     Key? key,
     required this.product,
+    this.checkoutController,
   }) : super(key: key);
 
-  final ProductModel product;
+  @override
+  State<CoffeeDetailsPage> createState() => _CoffeeDetailsPageState();
+}
+
+class _CoffeeDetailsPageState extends State<CoffeeDetailsPage> {
+  int quantity = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -26,18 +37,18 @@ class CoffeeDetailsPage extends StatelessWidget {
     String description = '';
     switch (AppTranslation.currentLocale) {
       case 'pt':
-        title = product.titlePT;
-        description = product.descriptionPT;
+        title = widget.product.titlePT;
+        description = widget.product.descriptionPT;
         break;
 
       case 'es':
-        title = product.titleES;
-        description = product.descriptionES;
+        title = widget.product.titleES;
+        description = widget.product.descriptionES;
         break;
 
       case 'en':
-        title = product.titleEN;
-        description = product.descriptionEN;
+        title = widget.product.titleEN;
+        description = widget.product.descriptionEN;
         break;
     }
 
@@ -51,7 +62,7 @@ class CoffeeDetailsPage extends StatelessWidget {
               Container(
                 height: 440,
                 width: context.screenWidth,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), image: DecorationImage(image: ((product.imageBig == null) ? const AssetImage('assets/images/logo_coffee.png') : NetworkImage(product.imageBig!)) as ImageProvider, fit: BoxFit.cover)),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), image: DecorationImage(image: ((widget.product.imageBig == null) ? const AssetImage('assets/images/logo_coffee.png') : NetworkImage(widget.product.imageBig!)) as ImageProvider, fit: BoxFit.cover)),
               ),
               Positioned(
                 top: 320,
@@ -80,28 +91,31 @@ class CoffeeDetailsPage extends StatelessWidget {
                         child: SizedBox(
                           height: 50,
                           child: SpinBox(
-                            readOnly: true,
-                            incrementIcon: Icon(
-                              Icons.add,
-                              color: ColorsApp.instance.primary,
-                            ),
-                            decrementIcon: Icon(
-                              Icons.remove,
-                              color: ColorsApp.instance.primary,
-                            ),
-                            textStyle: TextStyle(color: ColorsApp.instance.primary),
-                            decoration: const InputDecoration(
-                              fillColor: Color(0xff141921),
-                              border: InputBorder.none,
-                              disabledBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                            ),
-                            min: 1,
-                            max: 100,
-                            value: 1,
-                            onChanged: (value) => print(value),
-                          ),
+                              readOnly: true,
+                              incrementIcon: Icon(
+                                Icons.add,
+                                color: ColorsApp.instance.primary,
+                              ),
+                              decrementIcon: Icon(
+                                Icons.remove,
+                                color: ColorsApp.instance.primary,
+                              ),
+                              textStyle: TextStyle(color: ColorsApp.instance.primary),
+                              decoration: const InputDecoration(
+                                fillColor: Color(0xff141921),
+                                border: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                              ),
+                              min: 1,
+                              max: 100,
+                              value: 1,
+                              onChanged: (value) {
+                                setState(() {
+                                  quantity = value.toInt();
+                                });
+                              }),
                         ),
                       ),
                     ],
@@ -133,7 +147,7 @@ class CoffeeDetailsPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Description",
+                  "detail_coffee.description".translate,
                   style: TextStyle(color: ColorsApp.instance.white, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
@@ -157,7 +171,7 @@ class CoffeeDetailsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Price",
+                      "detail_coffee.price".translate,
                       style: TextStyle(color: ColorsApp.instance.white, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
@@ -173,7 +187,7 @@ class CoffeeDetailsPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          product.price.toString(),
+                          (widget.product.price * quantity).toStringAsFixed(2),
                           style: const TextStyle(color: Colors.white, fontSize: 21),
                         )
                       ],
@@ -190,9 +204,13 @@ class CoffeeDetailsPage extends StatelessWidget {
                       backgroundColor: ColorsApp.instance.primary),
                   // shape: RoundedRectangleBorder(
                   //     borderRadius: BorderRadius.circular(20)),
-                  onPressed: () {},
+                  onPressed: () async {
+                    final nav = Navigator.of(context);
+                    await widget.checkoutController?.addItem(widget.product, quantity);
+                    nav.pop();
+                  },
                   child: Text(
-                    "Buy Now",
+                    "detail_coffee.add".translate,
                     style: TextStyle(
                       color: ColorsApp.instance.fontColor,
                       fontWeight: FontWeight.bold,

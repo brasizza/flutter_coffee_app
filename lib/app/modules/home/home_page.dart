@@ -6,9 +6,9 @@ import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/modules/home/home_controller.dart';
 import 'package:howabout_coffee/app/modules/home/state/home_state.dart';
+import 'package:howabout_coffee/app/modules/home/widgets/app_bottom_bar.dart';
 import 'package:howabout_coffee/app/modules/home/widgets/menu_drawer.dart';
-import 'package:howabout_coffee/app/modules/products/category_page.dart';
-import 'package:howabout_coffee/app/modules/products/components/product_list.dart';
+import 'package:howabout_coffee/app/modules/products/product_router.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -66,7 +66,11 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
                         weight: 50,
                         color: ColorsApp.instance.primary,
                       )
-                    : CircleAvatar(backgroundImage: CachedNetworkImageProvider(state.client?.avatar ?? '')),
+                    : CircleAvatar(
+                        backgroundImage: CachedNetworkImageProvider(
+                          state.client?.avatar ?? '',
+                        ),
+                      ),
               )
             ],
           ),
@@ -87,7 +91,6 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
                 const SizedBox(
                   height: 10,
                 ),
-
                 Text(
                   'home_special_coffee'.translate,
                   style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
@@ -95,44 +98,13 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
                 const SizedBox(
                   height: 20,
                 ),
-
-                const CategoryPage(),
-                const SizedBox(
-                  height: 20,
+                Expanded(
+                  child: ProductRouter.page,
                 ),
-
-                const Expanded(
-                  child: ProductList(),
-                ),
-                // Expanded(
-                //   // child: ProductsPage(translation: widget.translation),
-                // ),
-
-                // SpecialCoffeeCard(coffeeName: [
-                //   'AAAA'
-                // ], ingredients: [
-                //   'BBB'
-                // ], price: [
-                //   "3.00"
-                // ], specialImages: [
-                //   "assets/images/coffee_based.jpg",
-                //   "assets/images/coffee.jpg",
-                //   "assets/images/lattee.jpg",
-                // ]),
               ],
             ),
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-              BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: ""),
-              BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ""),
-            ],
-            currentIndex: 0,
-            onTap: (index) {},
-          ),
+          bottomNavigationBar: const AppBottomBar(),
         );
       },
     );

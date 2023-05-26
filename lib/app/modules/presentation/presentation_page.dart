@@ -113,6 +113,7 @@ class _PresentationPageState extends BaseState<PresentationPage, PresentationCon
                     width: context.screenWidth,
                     child: TextButton(
                       onPressed: () async {
+                        showLoader();
                         final nav = Navigator.of(context);
                         final user = await controller.autoLogin(authService: context.read<AuthService>());
                         if (user == true) {

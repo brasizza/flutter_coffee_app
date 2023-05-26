@@ -10,6 +10,6 @@ class LoginRouter {
         providers: [
           Provider(create: (context) => LoginController(authService: context.read())),
         ],
-        builder: (context, child) => LoginPage(),
+        builder: (context, child) => const LoginPage(),
       );
 }

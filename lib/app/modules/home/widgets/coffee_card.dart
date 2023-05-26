@@ -4,15 +4,16 @@ import 'package:howabout_coffee/app/core/company/company_controller.dart';
 import 'package:howabout_coffee/app/core/global/translation/app_translation.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/data/models/product_model.dart';
+import 'package:howabout_coffee/app/modules/checkout/checkout_controller.dart';
 import 'package:howabout_coffee/app/modules/home/widgets/coffee_details_page.dart';
 
 class CoffeeCard extends StatelessWidget {
   final ProductModel product;
-
   const CoffeeCard({super.key, required this.product});
   @override
   Widget build(BuildContext context) {
     final CompanyController companyController = context.read();
+    final CheckoutController checkoutController = context.read<CheckoutController>();
     String title = '';
     switch (AppTranslation.currentLocale) {
       case 'pt':
@@ -26,7 +27,14 @@ class CoffeeCard extends StatelessWidget {
         break;
     }
     return GestureDetector(
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CoffeeDetailsPage(product: product))),
+      onLongPress: () => checkoutController.addItem(product, 1),
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => CoffeeDetailsPage(
+                    product: product,
+                    checkoutController: checkoutController,
+                  ))),
       child: Container(
         height: 250,
         width: 160,
@@ -73,12 +81,12 @@ class CoffeeCard extends StatelessWidget {
                             padding: const EdgeInsets.only(right: 8.0, left: 8.0),
                             child: Text(
                               companyController.company?.moneySymbol ?? r'$',
-                              style: TextStyle(color: ColorsApp.instance.primary, fontWeight: FontWeight.bold, fontSize: 20),
+                              style: TextStyle(color: ColorsApp.instance.primary, fontWeight: FontWeight.bold, fontSize: 18),
                             ),
                           ),
                           Text(
-                            "${product.price}",
-                            style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                            "${product.price.toDouble()}",
+                            style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                           )
                         ],
                       ),
