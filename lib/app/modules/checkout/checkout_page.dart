@@ -8,6 +8,7 @@ import 'package:howabout_coffee/app/modules/checkout/state/checkout_state.dart';
 import 'package:howabout_coffee/app/modules/checkout/widgets/checkout_product.dart';
 import 'package:howabout_coffee/app/modules/checkout/widgets/empty_cart.dart';
 import 'package:howabout_coffee/app/modules/checkout/widgets/total_widget.dart';
+import 'package:transformable_list_view/transformable_list_view.dart';
 
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({
@@ -34,7 +35,8 @@ class _CheckoutPageState extends BaseState<CheckoutPage, CheckoutController> {
               children: [
                 TotalWidget(transaction: state.transaction, companyController: context.read()),
                 Expanded(
-                  child: ListView.builder(
+                  child: TransformableListView.builder(
+                    getTransformMatrix: getTransformMatrix,
                     itemBuilder: (context, index) {
                       return CheckoutProduct(
                         product: state.transaction.products[index],
@@ -56,5 +58,29 @@ class _CheckoutPageState extends BaseState<CheckoutPage, CheckoutController> {
         },
       ),
     );
+  }
+
+  Matrix4 getTransformMatrix(TransformableListItem item) {
+    /// final scale of child when the animation is completed
+    const endScaleBound = 0.3;
+
+    /// 0 when animation completed and [scale] == [endScaleBound]
+    /// 1 when animation starts and [scale] == 1
+    final animationProgress = item.visibleExtent / item.size.height;
+
+    /// result matrix
+    final paintTransform = Matrix4.identity();
+
+    /// animate only if item is on edge
+    if (item.position != TransformableListItemPosition.middle) {
+      final scale = endScaleBound + ((1 - endScaleBound) * animationProgress);
+
+      paintTransform
+        ..translate(item.size.width / 2)
+        ..scale(scale)
+        ..translate(-item.size.width / 2);
+    }
+
+    return paintTransform;
   }
 }
