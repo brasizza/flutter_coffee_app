@@ -42,54 +42,47 @@ class _AppBottomBarState extends BaseState<AppBottomBar, CheckoutController> {
             refresh: (() => true),
           )),
       builder: (context, state) {
-        return SizedBox(
-          height: 60,
-          child: BottomNavigationBar(
-            elevation: 0,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            items: [
-              const BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-              BottomNavigationBarItem(
-                  icon: Badge(
-                    isLabelVisible: (state.transaction.totalItems > 0),
-                    offset: const Offset(10, -10),
-                    largeSize: 15,
-                    smallSize: 15,
-                    label: Text(state.transaction.totalItems.toString()),
-                    backgroundColor: (state.status == CheckoutStatus.itemAdd || state.status == CheckoutStatus.itemRemoved) ? ColorsApp.instance.secondary : ColorsApp.instance.primary,
-                    child: const Icon(
-                      Icons.shopping_bag,
-                    ),
+        return BottomNavigationBar(
+          elevation: 0,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: [
+            const BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
+            BottomNavigationBarItem(
+                icon: Badge(
+                  isLabelVisible: (state.transaction.totalItems > 0),
+                  offset: const Offset(10, -10),
+                  largeSize: 15,
+                  smallSize: 15,
+                  label: Text(state.transaction.totalItems.toString()),
+                  backgroundColor: (state.status == CheckoutStatus.itemAdd || state.status == CheckoutStatus.itemRemoved) ? ColorsApp.instance.secondary : ColorsApp.instance.primary,
+                  child: const Icon(
+                    Icons.shopping_bag,
                   ),
-                  label: ""),
-            ],
-            currentIndex: bottomIndex,
-            onTap: (index) async {
-              setState(() {
-                bottomIndex = index;
-              });
-              if (index == 1) {
-                _bottomSheetOpen = true;
-                await showBottomSheet(
-                    context: context,
-                    builder: (_) {
-                      return const CheckoutPage();
-                    }).closed.whenComplete(() {
-                  _bottomSheetOpen = false;
-
-                  setState(() {
-                    bottomIndex = 0;
+                ),
+                label: ""),
+          ],
+          currentIndex: bottomIndex,
+          onTap: (index) async {
+            setState(() {
+              bottomIndex = index;
+            });
+            if (index == 1) {
+              _bottomSheetOpen = true;
+              await showModalBottomSheet(
+                  isDismissible: false,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (_) {
+                    return const CheckoutPage();
                   });
-                });
-              } else {
-                if (_bottomSheetOpen) {
-                  _bottomSheetOpen = false;
-                  Navigator.of(context).pop();
-                }
+            } else {
+              if (_bottomSheetOpen) {
+                _bottomSheetOpen = false;
+                Navigator.of(context).pop();
               }
-            },
-          ),
+            }
+          },
         );
       },
     );

@@ -14,6 +14,7 @@ class ClientModel {
   final String? phoneNumber;
   final double? lat;
   final double? lng;
+  final double? totalCredit;
   ClientModel({
     required this.id,
     this.name,
@@ -23,6 +24,7 @@ class ClientModel {
     this.phoneNumber,
     this.lat,
     this.lng,
+    this.totalCredit,
   });
 
   ClientModel copyWith({
@@ -34,6 +36,7 @@ class ClientModel {
     String? phoneNumber,
     double? lat,
     double? lng,
+    double? totalCredit,
   }) {
     return ClientModel(
       id: id ?? this.id,
@@ -44,6 +47,7 @@ class ClientModel {
       phoneNumber: phoneNumber ?? this.phoneNumber,
       lat: lat ?? this.lat,
       lng: lng ?? this.lng,
+      totalCredit: totalCredit ?? this.totalCredit,
     );
   }
 
@@ -57,6 +61,7 @@ class ClientModel {
       'phone_number': phoneNumber,
       'lat': lat,
       'lng': lng,
+      'total_credit': totalCredit,
     };
   }
 
@@ -76,14 +81,15 @@ class ClientModel {
 
   factory ClientModel.fromMap(Map<String, dynamic> map) {
     return ClientModel(
-      id: map['id'],
+      id: map['id'] != null ? map['id'] as String : null,
       name: map['name'] != null ? map['name'] as String : null,
-      password: map['password'] != null ? map['password'] as String : '',
+      password: map['password'] as String,
       email: map['email'] as String,
       avatar: map['avatar'] != null ? map['avatar'] as String : null,
       phoneNumber: map['phone_number'] != null ? map['phone_number'] as String : null,
-      lat: map['lat'] != null ? map['lat'] as double? : null,
+      lat: map['lat'] != null ? map['lat'] as double : null,
       lng: map['lng'] != null ? map['lng'] as double : null,
+      totalCredit: map['total_credit'] != null ? map['total_credit'] as double : null,
     );
   }
 
@@ -95,16 +101,16 @@ class ClientModel {
   bool operator ==(covariant ClientModel other) {
     if (identical(this, other)) return true;
 
-    return other.id == id && other.name == name && other.password == password && other.email == email && other.avatar == avatar && other.phoneNumber == phoneNumber && other.lat == lat && other.lng == lng;
+    return other.id == id && other.name == name && other.password == password && other.email == email && other.avatar == avatar && other.phoneNumber == phoneNumber && other.lat == lat && other.lng == lng && other.totalCredit == totalCredit;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ name.hashCode ^ password.hashCode ^ email.hashCode ^ avatar.hashCode ^ phoneNumber.hashCode ^ lat.hashCode ^ lng.hashCode;
+    return id.hashCode ^ name.hashCode ^ password.hashCode ^ email.hashCode ^ avatar.hashCode ^ phoneNumber.hashCode ^ lat.hashCode ^ lng.hashCode ^ totalCredit.hashCode;
   }
 
   @override
   String toString() {
-    return 'ClientModel(id: $id,  name: $name, password: $password, email: $email, avatar: $avatar, phoneNumber: $phoneNumber, lat: $lat, lng: $lng)';
+    return 'ClientModel(id: $id, name: $name, password: $password, email: $email, avatar: $avatar, phoneNumber: $phoneNumber, lat: $lat, lng: $lng, totalCredit: $totalCredit)';
   }
 }

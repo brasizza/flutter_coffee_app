@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:howabout_coffee/app/core/company/company_controller.dart';
 import 'package:howabout_coffee/app/core/global/translation/app_translation.dart';
+import 'package:howabout_coffee/app/core/location/location_service.dart';
 import 'package:howabout_coffee/app/data/repositories/company/company_repository.dart';
 import 'package:howabout_coffee/app/data/repositories/company/company_repository_impl.dart';
 import 'package:howabout_coffee/app/data/services/company/company_service.dart';
@@ -22,6 +23,7 @@ import 'data/services/auth/auth_service.dart';
 import 'data/services/auth/auth_service_impl.dart';
 import 'data/services/user/user_repository_impl.dart';
 import 'data/services/user/user_service.dart';
+import 'modules/checkout/checkout_controller.dart';
 
 class AppWidget extends StatefulWidget {
   final Env env;
@@ -47,22 +49,25 @@ class _AppWidgetState extends State<AppWidget> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<LocalStorage>(create: ((context) => LocalStorageImplShared()..init()), lazy: false),
-
-        //  final env = await EnvMaker.create(ConfigType.b4app);
         Provider<Env>(create: ((context) => widget.env)),
+        Provider<LocationService>(create: (context) => LocationService()),
+        Provider<UserRepository>(create: (context) => UserRepositoryImpl()),
+        Provider<UserService>(create: (context) => UserServiceImpl(repository: context.read())),
+        Provider<LocalStorage>(create: ((context) => LocalStorageImplShared()..init()), lazy: false),
         Provider<CompanyRepository>(create: (context) => CompanyRepositoryImpl()),
         Provider<CompanyService>(create: (context) => CompanyServiceImpl(repository: context.read())),
         Provider<CompanyController>(create: (context) => CompanyController(service: context.read())..init()),
+        Provider(
+          create: (context) => CheckoutController(
+            userService: context.read(),
+            locationService: context.read(),
+            companyController: context.read(),
+            env: context.read(),
+          ),
+        ),
         Provider<RestClient>(create: ((context) => DioRestClient.instance..init(env: context.read(), storage: context.read()))),
         Provider<AuthService>(create: ((context) => AuthServiceImpl())),
-        Provider<UserRepository>(create: (context) => UserRepositoryImpl()),
-        Provider<UserService>(create: (context) => UserServiceImpl(repository: context.read())),
-        Provider<CompanyController>(
-            create: (context) => CompanyController(
-                  service: context.read(),
-                )..init(),
-            lazy: false),
+        Provider<CompanyController>(create: (context) => CompanyController(service: context.read())..init(), lazy: false),
       ],
       child: MaterialApp(
         localizationsDelegates: const [

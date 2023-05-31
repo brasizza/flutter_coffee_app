@@ -1,10 +1,23 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:howabout_coffee/app/core/company/company_controller.dart';
+import 'package:howabout_coffee/app/core/config/base_config.dart';
+import 'package:howabout_coffee/app/core/location/location_service.dart';
 import 'package:howabout_coffee/app/data/models/product_model.dart';
 import 'package:howabout_coffee/app/data/models/product_model_checkout.dart';
+import 'package:howabout_coffee/app/data/services/user/user_service.dart';
 import 'package:howabout_coffee/app/modules/checkout/state/checkout_state.dart';
 
 class CheckoutController extends Cubit<CheckoutState> {
-  CheckoutController() : super(CheckoutState.initial());
+  final UserService _userService;
+  final CompanyController _companyController;
+  final LocationService _locationService;
+  final Env _env;
+  CheckoutController({required UserService userService, required LocationService locationService, required CompanyController companyController, required Env env})
+      : _userService = userService,
+        _companyController = companyController,
+        _locationService = locationService,
+        _env = env,
+        super(CheckoutState.initial());
 
   Future<void> addItem(ProductModel product, int quantity) async {
     emit(state.copyWith(status: CheckoutStatus.loading));
@@ -12,7 +25,7 @@ class CheckoutController extends Cubit<CheckoutState> {
     final transaction = state.transaction;
     transaction.products.add(productCheckout);
     emit(state.copyWith(status: CheckoutStatus.itemAdd, transaction: transaction));
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 100));
     refresh();
   }
 
@@ -42,5 +55,22 @@ class CheckoutController extends Cubit<CheckoutState> {
     state.transaction.products[index] = state.transaction.products[index].copyWith(quantity: quantity);
     emit(state.copyWith(status: CheckoutStatus.modifyItem));
     refresh();
+  }
+
+  void validatePayment() async {
+    await _locationService.init();
+    final location = await _locationService.currentPosition();
+    if (location == null) {
+      emit(state.copyWith(errorMessage: 'error.location', status: CheckoutStatus.error));
+    } else {
+      final lat = _companyController.company?.lat ?? 0;
+      final lng = _companyController.company?.lng ?? 0;
+      final distance = _locationService.calculateDistance(lat, lng, location);
+      final range = (_env['max_range']);
+
+      if (distance > range) {
+        emit(state.copyWith(errorMessage: 'error.range', status: CheckoutStatus.errorRange));
+      }
+    }
   }
 }

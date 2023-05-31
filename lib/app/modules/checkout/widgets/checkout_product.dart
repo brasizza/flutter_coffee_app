@@ -151,7 +151,6 @@ class CheckoutProduct extends StatelessWidget {
                                 spacing: 0,
                                 value: product.quantity.toDouble(),
                                 onChanged: (value) {
-                                  print(value);
                                   if (value == 0) {
                                     controller.removeItem(index);
                                   } else {

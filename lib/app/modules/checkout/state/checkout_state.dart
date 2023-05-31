@@ -7,7 +7,7 @@ import 'package:uuid/uuid.dart';
 part 'checkout_state.g.dart';
 
 @match
-enum CheckoutStatus { initial, loading, loaded, error, itemAdd, itemRemoved, modifyItem, refresh }
+enum CheckoutStatus { initial, loading, loaded, error, itemAdd, itemRemoved, modifyItem, refresh, errorRange }
 
 class CheckoutState extends Equatable {
   final String? errorMessage;

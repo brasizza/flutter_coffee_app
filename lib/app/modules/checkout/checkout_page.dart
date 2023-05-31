@@ -22,40 +22,60 @@ class CheckoutPage extends StatefulWidget {
 class _CheckoutPageState extends BaseState<CheckoutPage, CheckoutController> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocConsumer<CheckoutController, CheckoutState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
-        builder: (context, state) {
-          return Visibility(
-            visible: state.transaction.products.isNotEmpty,
-            replacement: const EmptyCart(),
-            child: Column(
-              children: [
-                TotalWidget(transaction: state.transaction, companyController: context.read()),
-                Expanded(
-                  child: TransformableListView.builder(
-                    getTransformMatrix: getTransformMatrix,
-                    itemBuilder: (context, index) {
-                      return CheckoutProduct(
-                        product: state.transaction.products[index],
-                        companyController: context.read(),
-                        controller: controller,
-                        index: index,
-                      );
-                    },
-                    itemCount: state.transaction.products.length,
+    return SafeArea(
+      top: true,
+      bottom: false,
+      child: Scaffold(
+        appBar: AppBar(),
+        body: BlocConsumer<CheckoutController, CheckoutState>(
+          listener: (context, state) {
+            state.status.matchAny(
+              any: (() => hideLoader()),
+              loading: (() => showLoader()),
+              error: () {
+                hideLoader();
+                showError(state.errorMessage ?? ' Erro');
+              },
+              errorRange: () {
+                hideLoader();
+                showError(state.errorMessage ?? ' Erro');
+              },
+            );
+          },
+          builder: (context, state) {
+            return Visibility(
+              visible: state.transaction.products.isNotEmpty,
+              replacement: const EmptyCart(),
+              child: Column(
+                children: [
+                  TotalWidget(transaction: state.transaction, companyController: context.read()),
+                  Expanded(
+                    child: TransformableListView.builder(
+                      getTransformMatrix: getTransformMatrix,
+                      itemBuilder: (context, index) {
+                        return CheckoutProduct(
+                          product: state.transaction.products[index],
+                          companyController: context.read(),
+                          controller: controller,
+                          index: index,
+                        );
+                      },
+                      itemCount: state.transaction.products.length,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: MyButton(onTap: () {}, text: 'checkout.pay'.translate),
-                ),
-              ],
-            ),
-          );
-        },
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: MyButton(
+                        onTap: () async {
+                          controller.validatePayment();
+                        },
+                        text: 'checkout.pay'.translate),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

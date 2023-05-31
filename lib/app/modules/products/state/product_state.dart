@@ -16,7 +16,13 @@ class ProductState extends Equatable {
   final CategoryModel? categorySelected;
   final String? errorMessage;
 
-  const ProductState({required this.status, this.categories = const [], this.errorMessage, this.products = const [], this.categorySelected});
+  const ProductState({
+    required this.status,
+    this.categories = const [],
+    this.errorMessage,
+    this.products = const [],
+    this.categorySelected,
+  });
 
   const ProductState.initial()
       : status = ProductStatus.initial,

@@ -2,7 +2,7 @@
     "or": "Or",
     "presentation.welcome": "Welcome to How About Coffee",
     "btn.enter": "Enter",
-    "btn_close" : "Close",
+    "btn.close" : "Close",
     "reset.email": "Your password has been reset!\nPlease wait for the email.",
     "email.emtpy": "Empty email.\nPlease enter an email.",
     "login.welcome": "Log in to your account!",
@@ -23,7 +23,11 @@
     "detail_coffee.add" : "Add to cart",
     "emptycart.message" : "You don't have any products in your cart yet.\n Insert one or more products to checkout.",
     "checkout.total_account" : "Amount due",
-    "checkout.pay" : "Pay now"
+    "checkout.pay" : "Pay now",
+    "wallet.id" :"User id: ",
+    "wallet.ballance" : "Balance: ",
+    "wallet.description" : "My wallet"
+
 
 
     }

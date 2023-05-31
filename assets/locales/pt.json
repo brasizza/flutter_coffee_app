@@ -24,6 +24,11 @@
     "detail_coffee.add" : "Adicionar",
     "emptycart.message" : "Você ainda não tem nenhum produto no seu carrinho.\n Insira um ou mais produtos para finalizar.",
     "checkout.total_account" : "Total a pagar",
-    "checkout.pay" : "Finalizar pagamento"
+    "checkout.pay" : "Finalizar pagamento",
+    "wallet.id" :"Id do usuário: ",
+    "wallet.ballance" : "Créditos: ",
+    "wallet.description" : "Minha carteira"
+
+
 
 }

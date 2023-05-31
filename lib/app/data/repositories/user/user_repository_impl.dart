@@ -18,14 +18,16 @@ class UserRepositoryImpl implements UserRepository {
       throw UserNotFoundException('User not found');
     }
     final ClientModel client = ClientModel.fromParse(parseUser);
-
     final userProfileResponse = await ParseObject('UserProfile').getObject(parseUser.get('userProfile')?.objectId);
     if (userProfileResponse.success) {
       final ParseObject userProfile = userProfileResponse.result;
 
       final avatar = (userProfile.get('avatar')?.get('url')) as String?;
       final phone = userProfile.get('phone_number') as String?;
-      return client.copyWith(avatar: avatar, phoneNumber: phone);
+      final totalCredit = userProfile.get('total_credit').toString();
+
+      print(totalCredit);
+      return client.copyWith(avatar: avatar, phoneNumber: phone, totalCredit: double.tryParse(totalCredit) ?? 0);
     }
     return client;
   }

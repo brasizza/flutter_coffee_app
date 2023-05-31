@@ -15,7 +15,8 @@ extension CheckoutStatusMatch on CheckoutStatus {
       required T Function() itemAdd,
       required T Function() itemRemoved,
       required T Function() modifyItem,
-      required T Function() refresh}) {
+      required T Function() refresh,
+      required T Function() errorRange}) {
     final v = this;
     if (v == CheckoutStatus.initial) {
       return initial();
@@ -49,6 +50,10 @@ extension CheckoutStatusMatch on CheckoutStatus {
       return refresh();
     }
 
+    if (v == CheckoutStatus.errorRange) {
+      return errorRange();
+    }
+
     throw Exception('CheckoutStatus.match failed, found no match for: $this');
   }
 
@@ -61,7 +66,8 @@ extension CheckoutStatusMatch on CheckoutStatus {
       T Function()? itemAdd,
       T Function()? itemRemoved,
       T Function()? modifyItem,
-      T Function()? refresh}) {
+      T Function()? refresh,
+      T Function()? errorRange}) {
     final v = this;
     if (v == CheckoutStatus.initial && initial != null) {
       return initial();
@@ -93,6 +99,10 @@ extension CheckoutStatusMatch on CheckoutStatus {
 
     if (v == CheckoutStatus.refresh && refresh != null) {
       return refresh();
+    }
+
+    if (v == CheckoutStatus.errorRange && errorRange != null) {
+      return errorRange();
     }
 
     return any();

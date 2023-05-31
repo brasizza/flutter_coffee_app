@@ -7,6 +7,7 @@ import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/modules/home/home_controller.dart';
 import 'package:howabout_coffee/app/modules/home/state/home_state.dart';
 import 'package:howabout_coffee/app/modules/home/widgets/app_bottom_bar.dart';
+import 'package:howabout_coffee/app/modules/home/widgets/float_button_credit.dart';
 import 'package:howabout_coffee/app/modules/home/widgets/menu_drawer.dart';
 import 'package:howabout_coffee/app/modules/products/product_router.dart';
 
@@ -46,6 +47,8 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
           )),
       builder: (context, state) {
         return Scaffold(
+          floatingActionButton: FloatButtonCredit(client: state.client),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           key: scaffoldKey,
           drawerEnableOpenDragGesture: false,
           appBar: AppBar(

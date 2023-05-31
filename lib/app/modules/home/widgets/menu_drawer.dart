@@ -36,6 +36,7 @@ class _MenuDrawerState extends State<MenuDrawer> with Loader {
                       padding: MenuDrawer.padding,
                       child: Column(
                         children: [
+                          Text(widget.user?.totalCredit?.toString() ?? ''),
                           buildMenuItem(
                             context,
                             text: 'People',

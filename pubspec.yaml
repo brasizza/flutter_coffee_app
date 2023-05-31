@@ -55,6 +55,8 @@ dependencies:
   flutter_spinbox: ^0.13.1
   uuid: ^3.0.7
   transformable_list_view: ^0.3.0
+  pretty_qr_code: ^2.0.3
+  geolocator: ^9.0.2
   
   
 

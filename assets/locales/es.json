@@ -2,7 +2,7 @@
     "or": "Or",
     "presentation.welcome": "Welcome to How About Coffee",
     "btn.enter": "Enter",
-    "btn_close" : "Close",
+    "btn.close": "Close",
     "reset.email": "Your password has been reset!\nPlease wait for the email.",
     "email.emtpy": "Empty email.\nPlease enter an email.",
     "login.welcome": "Log in to your account!",
@@ -18,13 +18,14 @@
     "home_special_coffee": "Especially for you",
     "fields.email": "Email",
     "fields.password": "Password",
-    "detail_coffee.description" : "Descrição",
-    "detail_coffee.price" : "Preço",
-    "detail_coffee.add" : "Adicionar",
-    "emptycart.message" : "Você ainda não tem nenhum produto no seu carrinho.\n Insira um ou mais produtos para finalizar.",
-    "checkout.total_account" : "Amount due",
-    "checkout.pay" : "Finalizar pagamento"
+    "detail_coffee.description": "Descrição",
+    "detail_coffee.price": "Preço",
+    "detail_coffee.add": "Adicionar",
+    "emptycart.message": "Você ainda não tem nenhum produto no seu carrinho.\n Insira um ou mais produtos para finalizar.",
+    "checkout.total_account": "Amount due",
+    "checkout.pay": "Finalizar pagamento",
+    "wallet.id": "Meu id de usuário: ",
+    "wallet.ballance": "Créditos: ",
+    "wallet.description" : "Minha carteira"
 
-
-
-    }
+}
