@@ -24,7 +24,7 @@ class ProductModelCheckout extends ProductModel {
 
   @override
   ProductModelCheckout copyWith({
-    BigInt? id,
+    int? id,
     int? order,
     String? titlePT,
     String? titleEN,
@@ -33,7 +33,7 @@ class ProductModelCheckout extends ProductModel {
     String? descriptionEN,
     String? descriptionES,
     double? price,
-    BigInt? category,
+    int? category,
     bool? status,
     String? image,
     String? imageBig,
@@ -65,7 +65,7 @@ class ProductModelCheckout extends ProductModel {
   factory ProductModelCheckout.fromMap(Map<String, dynamic> map) {
     return ProductModelCheckout(
       quantity: map['quantity'] ?? 0,
-      id: BigInt.parse(map['id'].toString()),
+      id: int.parse(map['id'].toString()),
       order: map['order'] as int,
       titlePT: map['titlePT'] as String,
       titleEN: map['titleEN'] as String,
@@ -74,7 +74,7 @@ class ProductModelCheckout extends ProductModel {
       descriptionEN: map['descriptionEN'] as String,
       descriptionES: map['descriptionES'] as String,
       price: map['price'] as double,
-      category: BigInt.parse(map['category'].toString()),
+      category: int.parse(map['category'].toString()),
       status: map['status'] as bool,
       image: map['image'] != null ? map['image'] as String : null,
       imageBig: map['imageBig'] != null ? map['imageBig'] as String : null,

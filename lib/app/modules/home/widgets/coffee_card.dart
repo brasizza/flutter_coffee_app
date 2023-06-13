@@ -85,7 +85,7 @@ class CoffeeCard extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "${product.price.toDouble()}",
+                            product.price.toStringAsFixed(2),
                             style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                           )
                         ],

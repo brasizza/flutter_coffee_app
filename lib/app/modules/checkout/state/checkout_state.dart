@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-import 'package:howabout_coffee/app/data/dto/transaction_model.dart';
 import 'package:howabout_coffee/app/data/models/product_model_checkout.dart';
+import 'package:howabout_coffee/app/data/models/transaction_model.dart';
 import 'package:match/match.dart';
 import 'package:uuid/uuid.dart';
 
@@ -21,6 +21,9 @@ enum CheckoutStatus {
   askToRemove,
   askToClearAll,
   cancelProcess,
+  askToProceedCheckout,
+  proceedCheckout,
+  checkoutFinished,
 }
 
 class CheckoutState extends Equatable {

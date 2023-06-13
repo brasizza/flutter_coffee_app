@@ -6,7 +6,7 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 class ProductModel {
   static String className = 'Product';
 
-  final BigInt id;
+  final int id;
   final int order;
   final String titlePT;
   final String titleEN;
@@ -16,7 +16,7 @@ class ProductModel {
   final String descriptionEN;
   final String descriptionES;
   final double price;
-  final BigInt category;
+  final int category;
   final bool status;
   final String? image;
   final String? imageBig;
@@ -37,7 +37,7 @@ class ProductModel {
   });
 
   ProductModel copyWith({
-    BigInt? id,
+    int? id,
     int? order,
     String? titlePT,
     String? titleEN,
@@ -46,7 +46,7 @@ class ProductModel {
     String? descriptionEN,
     String? descriptionES,
     double? price,
-    BigInt? category,
+    int? category,
     bool? status,
     String? image,
     String? imageBig,
@@ -88,7 +88,7 @@ class ProductModel {
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
-      id: BigInt.parse(map['id'].toString()),
+      id: int.parse(map['id'].toString()),
       order: map['order'] as int,
       titlePT: map['titlePT'] as String,
       titleEN: map['titleEN'] as String,
@@ -97,7 +97,7 @@ class ProductModel {
       descriptionEN: map['descriptionEN'] as String,
       descriptionES: map['descriptionES'] as String,
       price: map['price'] as double,
-      category: BigInt.parse(map['category'].toString()),
+      category: int.parse(map['category'].toString()),
       status: map['status'] as bool,
       image: map['image'] != null ? map['image'] as String : null,
       imageBig: map['imageBig'] != null ? map['imageBig'] as String : null,
@@ -106,7 +106,7 @@ class ProductModel {
 
   factory ProductModel.fromParse(ParseObject parse) {
     return ProductModel(
-      id: BigInt.from(parse.get('product_id') as int),
+      id: (parse.get('product_id') as int),
       order: parse.get('order') as int,
       titlePT: parse.get('title_pt') as String,
       titleEN: parse.get('title_en') as String,
@@ -115,7 +115,7 @@ class ProductModel {
       descriptionES: parse.get('description_es') as String,
       descriptionPT: parse.get('description_pt') as String,
       price: double.tryParse(parse.get('price').toString()) ?? 0.0,
-      category: (parse.get('category_id') == null) ? BigInt.from(0) : BigInt.parse((parse.get('category_id').toString())),
+      category: (parse.get('category_id') == null) ? 0 : int.parse((parse.get('category_id').toString())),
       status: parse.get('status') as bool,
       image: parse.get('image_thumb')?.get('url'),
       imageBig: parse.get('image_description')?.get('url'),

@@ -31,8 +31,11 @@
     "checkout.remove.product_description" :  "Você realmente quer tirar o produto %%ITEM%% do carrinho ?",
     "checkout.remove.all" : "Remover tudo",
     "checkout.remove.all_description" : "Quer remover todos os itens selecionados ?",
-    "checkout.error.range" : "Você está muito longe do café (xxx meters).\nVocê  precisa estar ao menos a xxx meters para finalizar.",
+    "checkout.error.range" : "Você está muito longe do café (%%IAMNOW%% metros).\nVocê  precisa estar ao menos a %%LIMITDISTANCE%%  para finalizar.",
     "checkout.error.limite" : "You don't have enougth credit to proceed.\nPlease arrange your list or get more credits!",
+    "checkout.finish_checkout" : "Finalizar sua seu pedido",
+    "checkout.finish_checkout_description" : "Você tem certeza que deseja utilizar %%CREDIT_SPEND%% creditos?",
+    "checkout.finish_checkout_completed" : "Seu pedido foi finalizado com sucesso!\nVá para o estabelecimento para pegar seus itens!",
     "wallet.id" :"Id do usuário: ",
     "wallet.ballance" : "Créditos: ",
     "wallet.description" : "Minha carteira"

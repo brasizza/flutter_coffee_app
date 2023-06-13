@@ -34,8 +34,6 @@ class FloatButtonCredit extends StatelessWidget {
               ],
               builder: (context, child) => WalletPage(client: client),
             );
-            // WalletRouter.client = client;
-            // return WalletRouter.page;
           },
         );
         homeController.refreshUser(client);

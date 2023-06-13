@@ -19,7 +19,10 @@ extension CheckoutStatusMatch on CheckoutStatus {
       required T Function() errorRange,
       required T Function() askToRemove,
       required T Function() askToClearAll,
-      required T Function() cancelProcess}) {
+      required T Function() cancelProcess,
+      required T Function() askToProceedCheckout,
+      required T Function() proceedCheckout,
+      required T Function() checkoutFinished}) {
     final v = this;
     if (v == CheckoutStatus.initial) {
       return initial();
@@ -69,6 +72,18 @@ extension CheckoutStatusMatch on CheckoutStatus {
       return cancelProcess();
     }
 
+    if (v == CheckoutStatus.askToProceedCheckout) {
+      return askToProceedCheckout();
+    }
+
+    if (v == CheckoutStatus.proceedCheckout) {
+      return proceedCheckout();
+    }
+
+    if (v == CheckoutStatus.checkoutFinished) {
+      return checkoutFinished();
+    }
+
     throw Exception('CheckoutStatus.match failed, found no match for: $this');
   }
 
@@ -85,7 +100,10 @@ extension CheckoutStatusMatch on CheckoutStatus {
       T Function()? errorRange,
       T Function()? askToRemove,
       T Function()? askToClearAll,
-      T Function()? cancelProcess}) {
+      T Function()? cancelProcess,
+      T Function()? askToProceedCheckout,
+      T Function()? proceedCheckout,
+      T Function()? checkoutFinished}) {
     final v = this;
     if (v == CheckoutStatus.initial && initial != null) {
       return initial();
@@ -133,6 +151,19 @@ extension CheckoutStatusMatch on CheckoutStatus {
 
     if (v == CheckoutStatus.cancelProcess && cancelProcess != null) {
       return cancelProcess();
+    }
+
+    if (v == CheckoutStatus.askToProceedCheckout &&
+        askToProceedCheckout != null) {
+      return askToProceedCheckout();
+    }
+
+    if (v == CheckoutStatus.proceedCheckout && proceedCheckout != null) {
+      return proceedCheckout();
+    }
+
+    if (v == CheckoutStatus.checkoutFinished && checkoutFinished != null) {
+      return checkoutFinished();
     }
 
     return any();

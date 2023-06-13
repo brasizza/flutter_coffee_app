@@ -5,8 +5,8 @@ import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
 import 'package:howabout_coffee/app/core/extensions/translate.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/core/ui/styles/text_styles.dart';
-import 'package:howabout_coffee/app/data/dto/transaction_model.dart';
 import 'package:howabout_coffee/app/data/models/client_model.dart';
+import 'package:howabout_coffee/app/data/models/transaction_model.dart';
 
 import '../checkout_controller.dart';
 
@@ -70,20 +70,19 @@ class TotalWidget extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.only(right: 25.0, left: 25.0),
               child: Chip(
                 backgroundColor: ColorsApp.instance.primary,
                 label: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0, left: 8.0),
-                      child: Text(
-                        companyController.company?.moneySymbol ?? r'$',
-                        style: context.textStyles.textButtonLabel.copyWith(color: ColorsApp.instance.fontColor),
-                      ),
+                    Text(
+                      'wallet.ballance'.translate,
+                      style: context.textStyles.textButtonLabel.copyWith(color: ColorsApp.instance.fontColor),
                     ),
                     Text(
-                      client.totalCredit!.toStringAsFixed(2),
+                      "${companyController.company?.moneySymbol ?? r'$ '} ${client.totalCredit!.toStringAsFixed(2)}",
                       style: context.textStyles.textButtonLabel.copyWith(color: ColorsApp.instance.fontColor),
                     )
                   ],

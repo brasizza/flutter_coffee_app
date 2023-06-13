@@ -7,6 +7,7 @@ mixin Messages<T extends StatefulWidget> on State<T> {
     showTopSnackBar(
       Overlay.of(context),
       CustomSnackBar.error(
+        maxLines: 10,
         message: mensagem,
       ),
     );
@@ -16,6 +17,7 @@ mixin Messages<T extends StatefulWidget> on State<T> {
     showTopSnackBar(
       Overlay.of(context),
       CustomSnackBar.info(
+        maxLines: 10,
         message: mensagem,
       ),
     );
@@ -25,6 +27,7 @@ mixin Messages<T extends StatefulWidget> on State<T> {
     showTopSnackBar(
       Overlay.of(context),
       CustomSnackBar.success(
+        maxLines: 10,
         message: mensagem,
       ),
     );

@@ -1,30 +1,28 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:howabout_coffee/app/data/models/product_model_checkout.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 class TransactionModel {
   final String transactionId;
   final int totalItems;
   final double totalTransaction;
+  final int status;
   final List<ProductModelCheckout> products;
-  TransactionModel({
-    required this.transactionId,
-    required this.totalItems,
-    required this.totalTransaction,
-    required this.products,
-  });
+  TransactionModel({required this.transactionId, required this.totalItems, required this.totalTransaction, required this.products, this.status = 1});
 
   TransactionModel copyWith({
     String? transactionId,
     int? totalItems,
+    int? status,
     double? totalTransaction,
     List<ProductModelCheckout>? products,
   }) {
     return TransactionModel(
       transactionId: transactionId ?? this.transactionId,
       totalItems: totalItems ?? this.totalItems,
+      status: status ?? this.status,
       totalTransaction: totalTransaction ?? this.totalTransaction,
       products: products ?? this.products,
     );
@@ -35,6 +33,7 @@ class TransactionModel {
       'transactionId': transactionId,
       'totalItems': totalItems,
       'totalTransaction': totalTransaction,
+      'status': status,
       'products': products.map((x) => x.toMap()).toList(),
     };
   }
@@ -43,6 +42,7 @@ class TransactionModel {
     return TransactionModel(
       transactionId: map['transactionId'] as String,
       totalItems: map['totalItems'] as int,
+      status: map['status'] as int,
       totalTransaction: map['totalTransaction'] as double,
       products: List<ProductModelCheckout>.from(
         (map['products'] as List).map<ProductModelCheckout>(
@@ -50,6 +50,16 @@ class TransactionModel {
         ),
       ),
     );
+  }
+
+  static ParseObject toParse(TransactionModel model) {
+    final object = ParseObject('Transaction');
+    object.set('transaction_id', model.transactionId);
+    object.set('total_items', model.totalItems);
+    object.set('total_transaction', model.totalTransaction);
+    object.set('products', (model.products));
+    object.set('status', model.status);
+    return object;
   }
 
   String toJson() => json.encode(toMap());

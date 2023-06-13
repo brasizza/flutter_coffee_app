@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/modules/checkout/checkout_controller.dart';
-import 'package:howabout_coffee/app/modules/checkout/checkout_page.dart';
 import 'package:howabout_coffee/app/modules/checkout/state/checkout_state.dart';
+import 'package:howabout_coffee/app/modules/checkout/widgets/checkout_router.dart';
 import 'package:howabout_coffee/app/modules/home/home_controller.dart';
-import 'package:provider/provider.dart';
 
 import '../../../core/ui/styles/color_app.dart';
 
@@ -59,19 +58,13 @@ class _AppBottomBarState extends BaseState<AppBottomBar, CheckoutController> {
             });
             if (index == 1) {
               final homeController = context.read<HomeController>();
+              final checkoutController = context.read<CheckoutController>();
               await showModalBottomSheet(
                   isDismissible: false,
                   isScrollControlled: true,
                   context: context,
                   builder: (_) {
-                    return MultiProvider(
-                      providers: [
-                        Provider<CheckoutController>(
-                          create: (_) => context.read(),
-                        ),
-                      ],
-                      builder: (__, ___) => CheckoutPage(client: context.read<HomeController>().state.client!),
-                    );
+                    return CheckoutRouter.page(checkoutController: checkoutController, client: homeController.state.client!);
                   });
 
               homeController.refreshUser(homeController.state.client);

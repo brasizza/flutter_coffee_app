@@ -3,21 +3,31 @@ import 'package:howabout_coffee/app/core/company/company_controller.dart';
 import 'package:howabout_coffee/app/core/config/base_config.dart';
 import 'package:howabout_coffee/app/core/extensions/translate.dart';
 import 'package:howabout_coffee/app/core/location/location_service.dart';
+import 'package:howabout_coffee/app/data/models/client_model.dart';
 import 'package:howabout_coffee/app/data/models/product_model.dart';
 import 'package:howabout_coffee/app/data/models/product_model_checkout.dart';
+import 'package:howabout_coffee/app/data/models/transaction_model.dart';
+import 'package:howabout_coffee/app/data/services/checkout/checkout_service.dart';
 import 'package:howabout_coffee/app/data/services/user/user_service.dart';
 import 'package:howabout_coffee/app/modules/checkout/state/checkout_state.dart';
 
 class CheckoutController extends Cubit<CheckoutState> {
   final UserService _userService;
+  final CheckoutService _service;
   final CompanyController _companyController;
   final LocationService _locationService;
   final Env _env;
-  CheckoutController({required UserService userService, required LocationService locationService, required CompanyController companyController, required Env env})
-      : _userService = userService,
+  CheckoutController({
+    required UserService userService,
+    required LocationService locationService,
+    required CompanyController companyController,
+    required Env env,
+    required CheckoutService service,
+  })  : _userService = userService,
         _companyController = companyController,
         _locationService = locationService,
         _env = env,
+        _service = service,
         super(CheckoutState.initial());
 
   Future<void> addItem(ProductModel product, int quantity) async {
@@ -90,9 +100,34 @@ class CheckoutController extends Cubit<CheckoutState> {
       final range = (_env['max_range']);
 
       if (distance > range) {
-        emit(state.copyWith(errorMessage: 'error.range', status: CheckoutStatus.errorRange));
+        emit(state.copyWith(errorMessage: 'checkout.error.range'.translate.replaceFirst('%%IAMNOW%%', (distance.toInt()).toString()).replaceFirst('%%LIMITDISTANCE%%', range.toString()), status: CheckoutStatus.errorRange));
         emit(state.copyWith(status: CheckoutStatus.initial));
+      } else {
+        emit(state.copyWith(status: CheckoutStatus.loading));
+        final user = await _userService.getUser();
+        emit(state.copyWith(status: CheckoutStatus.loaded));
+
+        if (user != null) {
+          if ((user.totalCredit ?? 0) < state.transaction.totalTransaction) {
+            emit(state.copyWith(status: CheckoutStatus.error, errorMessage: 'checkout.error.limite'.translate));
+          } else {
+            emit(state.copyWith(
+              status: CheckoutStatus.askToProceedCheckout,
+            ));
+          }
+        }
       }
+    }
+  }
+
+  void checkout({required TransactionModel transaction, required ClientModel client}) async {
+    emit(state.copyWith(status: CheckoutStatus.loading));
+    try {
+      await _service.saveTransaction(transaction: transaction, client: client);
+      clear();
+      emit(state.copyWith(status: CheckoutStatus.checkoutFinished));
+    } catch (e) {
+      emit(state.copyWith(status: CheckoutStatus.error, errorMessage: ' Falha'));
     }
   }
 
