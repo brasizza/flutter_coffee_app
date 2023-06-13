@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:howabout_coffee/app/modules/home/home_router.dart';
 import 'package:howabout_coffee/app/modules/login/sign_up/sign_up_router.dart';
+import 'package:howabout_coffee/app/modules/profile/profile_router.dart';
 
 import '../modules/login/login_router.dart';
 import '../modules/presentation/presentation_router.dart';
@@ -22,6 +23,7 @@ class Routes {
       '/login': (context) => LoginRouter.page,
       '/login/sign-up': (context) => SignUpRouter.page,
       '/home': (context) => HomeRouter.page,
+      '/home/profile': (context) => ProfileRouter.page,
     };
   }
 }
