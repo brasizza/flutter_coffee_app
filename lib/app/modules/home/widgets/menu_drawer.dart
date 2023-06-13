@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:howabout_coffee/app/core/extensions/translate.dart';
 import 'package:howabout_coffee/app/core/mixins/loader.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/data/models/client_model.dart';
@@ -36,34 +37,22 @@ class _MenuDrawerState extends State<MenuDrawer> with Loader {
                       padding: MenuDrawer.padding,
                       child: Column(
                         children: [
-                          Text(widget.user?.totalCredit?.toString() ?? ''),
                           buildMenuItem(
                             context,
-                            text: 'People',
+                            text: 'drawer.profile'.translate,
                             icon: Icons.people,
                           ),
                           const SizedBox(height: 16),
                           buildMenuItem(
                             context,
-                            text: 'Favourites',
-                            icon: Icons.favorite_border,
+                            text: 'drawer.favorites'.translate,
+                            icon: Icons.favorite,
                           ),
                           const SizedBox(height: 16),
                           buildMenuItem(
                             context,
-                            text: 'Workflow',
-                            icon: Icons.workspaces_outline,
-                          ),
-                          const SizedBox(height: 16),
-                          buildMenuItem(
-                            context,
-                            text: 'Notifications',
+                            text: 'drawer.notification'.translate,
                             icon: Icons.notifications_outlined,
-                          ),
-                          buildMenuItem(
-                            context,
-                            text: 'Favourites',
-                            icon: Icons.favorite_border,
                           ),
                         ],
                       ),
@@ -73,7 +62,7 @@ class _MenuDrawerState extends State<MenuDrawer> with Loader {
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: buildMenuItem(context, text: 'Logout', icon: Icons.logout, tap: () async {
+                child: buildMenuItem(context, text: 'drawer.logout'.translate, icon: Icons.logout, tap: () async {
                   showLoader();
                   final nav = Navigator.of(context);
                   await context.read<AuthService>().signOut();

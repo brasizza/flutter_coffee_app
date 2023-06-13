@@ -13,7 +13,7 @@ class DialogProceedCheckout extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text('checkout.finish_checkout'.translate),
-      content: Text('checkout.finish_checkout_description'.translate.replaceFirst('%%CREDIT_SPEND%%', controller.state.transaction.totalTransaction.toString())),
+      content: Text('checkout.finish_checkout_description'.translate.replaceFirst('%%CREDIT_SPEND%%', controller.state.transaction.totalTransaction.toStringAsFixed(2))),
       actions: [
         ElevatedButton(
           onPressed: () {

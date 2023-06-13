@@ -1,4 +1,9 @@
 {
+    "drawer.profile" : "Profile",
+    "drawer.favorites" : "My favorites",
+    "drawer.history" : "Orders",
+    "drawer.notification" : "Notifications",
+    "drawer.logout" : "Logout",
     "or": "Or",
     "label.yes" : "Yes",
     "label.no" : "No",
@@ -7,7 +12,7 @@
     "btn.close" : "Close",
     "reset.email": "Your password has been reset!\nPlease wait for the email.",
     "email.emtpy": "Empty email.\nPlease enter an email.",
-    "login.welcome": "Log in to your account!",
+    "login.welcome": "Log in!",
     "login.dont_have_account": "Don't have an account?",
     "login.sing_up_label": "Sign up here",
     "login.forgot_password": "Forgot my password",

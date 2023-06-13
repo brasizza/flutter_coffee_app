@@ -1,4 +1,9 @@
 {
+    "drawer.profile" : "Profile",
+    "drawer.favorites" : "My favorites",
+    "drawer.history" : "Orders",
+    "drawer.notification" : "Notifications",
+    "drawer.logout" : "Logout",
     "or": "Or",
     "label.yes" : "Si",
     "label.no" : "No",
