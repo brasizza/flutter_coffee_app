@@ -36,7 +36,10 @@ class _PresentationPageState extends BaseState<PresentationPage, PresentationCon
               listener: (context, state) {
                 state.status.matchAny(
                   any: (() => hideLoader()),
-                  loading: (() => showLoader()),
+                  loading: (() {
+                    hideLoader();
+                    showLoader();
+                  }),
                   error: () {
                     hideLoader();
                     showError(state.errorMessage ?? ' Erro');

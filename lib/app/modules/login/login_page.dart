@@ -33,13 +33,11 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
   }
 
   void loginUser() async {
-    final nav = Navigator.of(context);
+    final nav = Navigator.of(context, rootNavigator: true);
     if (formKey.currentState!.validate()) {
       final user = await controller.loginUser(email: emailController.text, password: passwordController.text);
       if (user) {
-        nav.pushReplacementNamed('/home');
-      } else {
-        nav.pushReplacementNamed('/presentation');
+        nav.pushNamedAndRemoveUntil('/home', (route) => false);
       }
     }
   }

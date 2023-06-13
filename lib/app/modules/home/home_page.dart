@@ -53,27 +53,30 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
           drawerEnableOpenDragGesture: false,
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            leading: GestureDetector(
-              onTap: () => scaffoldKey.currentState?.openDrawer(),
-              child: Icon(
-                Icons.menu,
-                color: ColorsApp.instance.primary,
-              ),
-            ),
+            // leading: GestureDetector(
+            //   onTap: () => scaffoldKey.currentState?.openDrawer(),
+            //   child: Icon(
+            //     Icons.menu,
+            //     color: ColorsApp.instance.primary,
+            //   ),
+            // ),
             actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10.0),
-                child: (state.client?.avatar == null)
-                    ? Icon(
-                        Icons.person,
-                        weight: 50,
-                        color: ColorsApp.instance.primary,
-                      )
-                    : CircleAvatar(
-                        backgroundImage: CachedNetworkImageProvider(
-                          state.client?.avatar ?? '',
+              GestureDetector(
+                onTap: () => scaffoldKey.currentState?.openDrawer(),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10.0),
+                  child: (state.client?.avatar == null)
+                      ? Icon(
+                          Icons.person,
+                          weight: 50,
+                          color: ColorsApp.instance.primary,
+                        )
+                      : CircleAvatar(
+                          backgroundImage: CachedNetworkImageProvider(
+                            state.client?.avatar ?? '',
+                          ),
                         ),
-                      ),
+                ),
               )
             ],
           ),

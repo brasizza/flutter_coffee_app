@@ -11,8 +11,6 @@ import 'package:howabout_coffee/app/modules/wallet/state/wallet_state.dart';
 import 'package:howabout_coffee/app/modules/wallet/wallet_controller.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 
-import '../home/home_controller.dart';
-
 class WalletPage extends StatefulWidget {
   final ClientModel? client;
   const WalletPage({Key? key, this.client}) : super(key: key);
@@ -59,9 +57,7 @@ class _WalletPageState extends BaseState<WalletPage, WalletController> {
                   ),
                   IconButton(
                       onPressed: () async {
-                        final controllerHome = context.read<HomeController>();
-                        final user = await controller.refreshUser();
-                        controllerHome.refreshUser(user);
+                        await controller.refreshUser();
                       },
                       icon: Icon(Icons.refresh, color: ColorsApp.instance.fontColor)),
                 ],
@@ -115,9 +111,9 @@ class _WalletPageState extends BaseState<WalletPage, WalletController> {
                 padding: const EdgeInsets.only(top: 20),
                 child: PrettyQr(
                   elementColor: ColorsApp.instance.fontColor,
-                  image: AssetImage('assets/images/logo_coffee_transparente.png'),
+                  image: const AssetImage('assets/images/logo_coffee_transparente.png'),
                   typeNumber: 5,
-                  size: context.screenWidth * .8,
+                  size: context.screenWidth * .6,
                   data: state.client?.id ?? '',
                   errorCorrectLevel: QrErrorCorrectLevel.M,
                   roundEdges: true,

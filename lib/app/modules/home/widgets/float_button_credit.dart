@@ -2,8 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/data/models/client_model.dart';
+import 'package:howabout_coffee/app/modules/home/home_controller.dart';
+import 'package:provider/provider.dart';
 
-import '../../wallet/wallet_router.dart';
+import '../../wallet/wallet_controller.dart';
+import '../../wallet/wallet_page.dart';
 
 class FloatButtonCredit extends StatelessWidget {
   final ClientModel? client;
@@ -14,28 +17,28 @@ class FloatButtonCredit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool? isOpen = false;
     return FloatingActionButton(
       backgroundColor: ColorsApp.instance.primary,
       onPressed: () async {
-        if (isOpen == false) {
-          isOpen = true;
-          showBottomSheet(
-            enableDrag: false,
-            elevation: 0,
-            context: context,
-            builder: (context) {
-              WalletRouter.client = client;
-              return StatefulBuilder(
-                builder: (context, setState) {
-                  return WalletRouter.page;
-                },
-              );
-            },
-          ).closed.then((value) => isOpen = false);
-        } else {
-          Navigator.maybePop(context);
-        }
+        final homeController = context.read<HomeController>();
+        await showModalBottomSheet(
+          enableDrag: false,
+          elevation: 0,
+          context: context,
+          builder: (context) {
+            return MultiProvider(
+              providers: [
+                Provider(
+                  create: ((context) => WalletController(userService: context.read())..addUser(client)),
+                ),
+              ],
+              builder: (context, child) => WalletPage(client: client),
+            );
+            // WalletRouter.client = client;
+            // return WalletRouter.page;
+          },
+        );
+        homeController.refreshUser(client);
       },
       child: const Icon(
         Icons.qr_code_scanner_sharp,

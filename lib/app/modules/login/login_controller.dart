@@ -16,9 +16,6 @@ class LoginController extends Cubit<LoginState> {
     emit(state.copyWith(status: LoginStatus.loading));
     try {
       await _authService.signIn(email: email, password: password);
-      // if (user != null) {
-      // return await _userService.auth(ClientModel.fromJson(''));
-      // }
       return true;
     } catch (e) {
       emit(state.copyWith(status: LoginStatus.error, errorMessage: e.toString()));

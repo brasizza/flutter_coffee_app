@@ -1,5 +1,7 @@
 {
     "or": "Or",
+    "label.yes" : "Si",
+    "label.no" : "No",
     "presentation.welcome": "Welcome to How About Coffee",
     "btn.enter": "Enter",
     "btn.close": "Close",
@@ -24,6 +26,12 @@
     "emptycart.message": "Você ainda não tem nenhum produto no seu carrinho.\n Insira um ou mais produtos para finalizar.",
     "checkout.total_account": "Amount due",
     "checkout.pay": "Finalizar pagamento",
+    "checkout.remove.product" :"Remover item",
+    "checkout.remove.product_description" : "Tem certeza que quer remover o item  %%ITEM%% ?",
+    "checkout.remove.all" : "Remove all",
+    "checkout.remove.all_description" : "Are you sure you want to remove all items ?",
+    "checkout.error.range" : "You are too far from the coffe (xxx meters).\n You need to be at least xxx meters  to proceed",
+    "checkout.error.limite" : "You don't have enougth credit to proceed.\nPlease arrange your list or get more credits!",
     "wallet.id": "Meu id de usuário: ",
     "wallet.ballance": "Créditos: ",
     "wallet.description" : "Minha carteira"

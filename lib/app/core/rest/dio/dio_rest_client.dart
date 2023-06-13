@@ -52,7 +52,7 @@ class DioRestClient implements RestClient {
       );
 
       return _dioResponseConverter(response);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       _throwRestClientException(e);
     }
   }
@@ -67,7 +67,7 @@ class DioRestClient implements RestClient {
       );
 
       return _dioResponseConverter(response);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       _throwRestClientException(e);
     }
   }
@@ -82,7 +82,7 @@ class DioRestClient implements RestClient {
       );
 
       return _dioResponseConverter(response);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       _throwRestClientException(e);
     }
   }
@@ -98,7 +98,7 @@ class DioRestClient implements RestClient {
       );
 
       return _dioResponseConverter(response);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       _throwRestClientException(e);
     }
   }
@@ -113,7 +113,7 @@ class DioRestClient implements RestClient {
       );
 
       return _dioResponseConverter(response);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       _throwRestClientException(e);
     }
   }
@@ -127,7 +127,7 @@ class DioRestClient implements RestClient {
         options: Options(headers: headers),
       );
       return _dioResponseConverter(response);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       _throwRestClientException(e);
     }
   }
@@ -140,7 +140,7 @@ class DioRestClient implements RestClient {
     );
   }
 
-  Never _throwRestClientException(DioError dioError) {
+  Never _throwRestClientException(DioException dioError) {
     final response = dioError.response;
 
     throw RestClientException(

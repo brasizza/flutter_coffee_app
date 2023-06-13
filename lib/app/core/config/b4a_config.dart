@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 class B4aConfig {
@@ -10,9 +11,9 @@ class B4aConfig {
       keyParseServerUrl,
       clientKey: keyClientKey,
       autoSendSessionId: true,
-      debug: true,
+      debug: kDebugMode ? true : false,
     );
-    await parse.healthCheck(debug: true);
+    await parse.healthCheck(debug: kDebugMode ? true : false);
     return parse;
   }
 }

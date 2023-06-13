@@ -27,9 +27,10 @@ class HomeController extends Cubit<HomeState> {
     }
   }
 
-  refreshUser(ClientModel? client) {
+  refreshUser(ClientModel? client) async {
     if (client != null) {
       emit(state.copyWith(status: HomeStatus.initial));
+      final client = await _userService.getUser();
       emit(state.copyWith(status: HomeStatus.clientLoaded, client: client));
     } else {
       addUser(refresh: false);

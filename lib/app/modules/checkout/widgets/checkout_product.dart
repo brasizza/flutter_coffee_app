@@ -150,12 +150,16 @@ class CheckoutProduct extends StatelessWidget {
                                 max: 100,
                                 spacing: 0,
                                 value: product.quantity.toDouble(),
-                                onChanged: (value) {
+                                canChange: (value) {
                                   if (value == 0) {
-                                    controller.removeItem(index);
+                                    controller.askToRemove(index);
+                                    return false;
                                   } else {
-                                    controller.updateProduct(product, value.toInt(), index);
+                                    return true;
                                   }
+                                },
+                                onChanged: (value) {
+                                  controller.updateProduct(product, value.toInt(), index);
                                   // setState(() {
                                   //   quantity = value.toInt();
                                   // });

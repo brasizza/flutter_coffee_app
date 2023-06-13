@@ -23,7 +23,6 @@ import 'data/services/auth/auth_service.dart';
 import 'data/services/auth/auth_service_impl.dart';
 import 'data/services/user/user_repository_impl.dart';
 import 'data/services/user/user_service.dart';
-import 'modules/checkout/checkout_controller.dart';
 
 class AppWidget extends StatefulWidget {
   final Env env;
@@ -57,14 +56,6 @@ class _AppWidgetState extends State<AppWidget> {
         Provider<CompanyRepository>(create: (context) => CompanyRepositoryImpl()),
         Provider<CompanyService>(create: (context) => CompanyServiceImpl(repository: context.read())),
         Provider<CompanyController>(create: (context) => CompanyController(service: context.read())..init()),
-        Provider(
-          create: (context) => CheckoutController(
-            userService: context.read(),
-            locationService: context.read(),
-            companyController: context.read(),
-            env: context.read(),
-          ),
-        ),
         Provider<RestClient>(create: ((context) => DioRestClient.instance..init(env: context.read(), storage: context.read()))),
         Provider<AuthService>(create: ((context) => AuthServiceImpl())),
         Provider<CompanyController>(create: (context) => CompanyController(service: context.read())..init(), lazy: false),

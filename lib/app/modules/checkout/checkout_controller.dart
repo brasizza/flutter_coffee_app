@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:howabout_coffee/app/core/company/company_controller.dart';
 import 'package:howabout_coffee/app/core/config/base_config.dart';
+import 'package:howabout_coffee/app/core/extensions/translate.dart';
 import 'package:howabout_coffee/app/core/location/location_service.dart';
 import 'package:howabout_coffee/app/data/models/product_model.dart';
 import 'package:howabout_coffee/app/data/models/product_model_checkout.dart';
@@ -23,7 +24,19 @@ class CheckoutController extends Cubit<CheckoutState> {
     emit(state.copyWith(status: CheckoutStatus.loading));
     final productCheckout = ProductModelCheckout.fromMap(product.toMap()).copyWith(quantity: quantity);
     final transaction = state.transaction;
-    transaction.products.add(productCheckout);
+
+    final findProduct = transaction.products.indexWhere((productList) => productList.id == product.id);
+    if (findProduct == -1) {
+      transaction.products.add(productCheckout);
+    } else {
+      final productList = transaction.products[findProduct];
+
+      int quantityToChange = productList.quantity + quantity;
+
+      transaction.products[findProduct] = transaction.products[findProduct].copyWith(quantity: quantityToChange);
+    }
+
+    // transaction.products.add(productCheckout);
     emit(state.copyWith(status: CheckoutStatus.itemAdd, transaction: transaction));
     await Future.delayed(const Duration(milliseconds: 100));
     refresh();
@@ -35,15 +48,23 @@ class CheckoutController extends Cubit<CheckoutState> {
     emit(state.copyWith(status: CheckoutStatus.refresh, transaction: state.transaction.copyWith(totalItems: totalItems, totalTransaction: totalValue)));
   }
 
-  void removeItem(index) async {
-    // if (state.transaction.products.contains(product)) {
-    final transaction = state.transaction;
-    transaction.products.removeAt(index);
-    emit(state.copyWith(status: CheckoutStatus.itemRemoved, transaction: transaction));
-    await Future.delayed(const Duration(milliseconds: 300));
+  void askToRemove(index) {
+    emit(state.copyWith(status: CheckoutStatus.askToRemove, removedItem: state.transaction.products.elementAt(index)));
+  }
 
-    refresh();
-    // }
+  void askToClearAll() {
+    emit(state.copyWith(status: CheckoutStatus.askToClearAll));
+  }
+
+  void removeItem(ProductModelCheckout product) async {
+    final transaction = state.transaction;
+    if (transaction.products.remove(product)) {
+      emit(state.copyWith(status: CheckoutStatus.itemRemoved, transaction: transaction));
+      await Future.delayed(const Duration(milliseconds: 300));
+      refresh();
+    } else {
+      emit(state.copyWith(status: CheckoutStatus.error, errorMessage: 'error.delete'.translate));
+    }
   }
 
   void clear() {
@@ -70,7 +91,12 @@ class CheckoutController extends Cubit<CheckoutState> {
 
       if (distance > range) {
         emit(state.copyWith(errorMessage: 'error.range', status: CheckoutStatus.errorRange));
+        emit(state.copyWith(status: CheckoutStatus.initial));
       }
     }
+  }
+
+  void cancelProcess() {
+    emit(state.copyWith(status: CheckoutStatus.cancelProcess));
   }
 }

@@ -3,16 +3,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:howabout_coffee/app/core/extensions/translate.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/widgets/my_button.dart';
+import 'package:howabout_coffee/app/data/models/client_model.dart';
 import 'package:howabout_coffee/app/modules/checkout/checkout_controller.dart';
 import 'package:howabout_coffee/app/modules/checkout/state/checkout_state.dart';
 import 'package:howabout_coffee/app/modules/checkout/widgets/checkout_product.dart';
+import 'package:howabout_coffee/app/modules/checkout/widgets/dialog_remove_all_items.dart';
 import 'package:howabout_coffee/app/modules/checkout/widgets/empty_cart.dart';
 import 'package:howabout_coffee/app/modules/checkout/widgets/total_widget.dart';
 import 'package:transformable_list_view/transformable_list_view.dart';
 
+import 'widgets/dialog_remove_item.dart';
+
 class CheckoutPage extends StatefulWidget {
+  final ClientModel client;
   const CheckoutPage({
     Key? key,
+    required this.client,
   }) : super(key: key);
 
   @override
@@ -40,6 +46,8 @@ class _CheckoutPageState extends BaseState<CheckoutPage, CheckoutController> {
                 hideLoader();
                 showError(state.errorMessage ?? ' Erro');
               },
+              askToRemove: () async => await showDialog(barrierDismissible: false, context: context, builder: (_) => DialogRemoveItem(controller: controller)),
+              askToClearAll: () async => await showDialog(barrierDismissible: false, context: context, builder: (_) => DialogToRemoveAllItems(controller: controller)),
             );
           },
           builder: (context, state) {
@@ -48,7 +56,11 @@ class _CheckoutPageState extends BaseState<CheckoutPage, CheckoutController> {
               replacement: const EmptyCart(),
               child: Column(
                 children: [
-                  TotalWidget(transaction: state.transaction, companyController: context.read()),
+                  TotalWidget(
+                    transaction: state.transaction,
+                    companyController: context.read(),
+                    client: widget.client,
+                  ),
                   Expanded(
                     child: TransformableListView.builder(
                       getTransformMatrix: getTransformMatrix,
@@ -67,7 +79,11 @@ class _CheckoutPageState extends BaseState<CheckoutPage, CheckoutController> {
                     padding: const EdgeInsets.only(top: 10),
                     child: MyButton(
                         onTap: () async {
-                          controller.validatePayment();
+                          if (state.transaction.totalTransaction > (widget.client.totalCredit ?? 0.00)) {
+                            showError('Sem limite');
+                          } else {
+                            controller.validatePayment();
+                          }
                         },
                         text: 'checkout.pay'.translate),
                   ),

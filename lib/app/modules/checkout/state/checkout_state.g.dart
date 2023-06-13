@@ -16,7 +16,10 @@ extension CheckoutStatusMatch on CheckoutStatus {
       required T Function() itemRemoved,
       required T Function() modifyItem,
       required T Function() refresh,
-      required T Function() errorRange}) {
+      required T Function() errorRange,
+      required T Function() askToRemove,
+      required T Function() askToClearAll,
+      required T Function() cancelProcess}) {
     final v = this;
     if (v == CheckoutStatus.initial) {
       return initial();
@@ -54,6 +57,18 @@ extension CheckoutStatusMatch on CheckoutStatus {
       return errorRange();
     }
 
+    if (v == CheckoutStatus.askToRemove) {
+      return askToRemove();
+    }
+
+    if (v == CheckoutStatus.askToClearAll) {
+      return askToClearAll();
+    }
+
+    if (v == CheckoutStatus.cancelProcess) {
+      return cancelProcess();
+    }
+
     throw Exception('CheckoutStatus.match failed, found no match for: $this');
   }
 
@@ -67,7 +82,10 @@ extension CheckoutStatusMatch on CheckoutStatus {
       T Function()? itemRemoved,
       T Function()? modifyItem,
       T Function()? refresh,
-      T Function()? errorRange}) {
+      T Function()? errorRange,
+      T Function()? askToRemove,
+      T Function()? askToClearAll,
+      T Function()? cancelProcess}) {
     final v = this;
     if (v == CheckoutStatus.initial && initial != null) {
       return initial();
@@ -103,6 +121,18 @@ extension CheckoutStatusMatch on CheckoutStatus {
 
     if (v == CheckoutStatus.errorRange && errorRange != null) {
       return errorRange();
+    }
+
+    if (v == CheckoutStatus.askToRemove && askToRemove != null) {
+      return askToRemove();
+    }
+
+    if (v == CheckoutStatus.askToClearAll && askToClearAll != null) {
+      return askToClearAll();
+    }
+
+    if (v == CheckoutStatus.cancelProcess && cancelProcess != null) {
+      return cancelProcess();
     }
 
     return any();

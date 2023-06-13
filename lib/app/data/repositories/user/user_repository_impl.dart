@@ -26,7 +26,6 @@ class UserRepositoryImpl implements UserRepository {
       final phone = userProfile.get('phone_number') as String?;
       final totalCredit = userProfile.get('total_credit').toString();
 
-      print(totalCredit);
       return client.copyWith(avatar: avatar, phoneNumber: phone, totalCredit: double.tryParse(totalCredit) ?? 0);
     }
     return client;

@@ -4,6 +4,8 @@ import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/modules/checkout/checkout_controller.dart';
 import 'package:howabout_coffee/app/modules/checkout/checkout_page.dart';
 import 'package:howabout_coffee/app/modules/checkout/state/checkout_state.dart';
+import 'package:howabout_coffee/app/modules/home/home_controller.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/ui/styles/color_app.dart';
 
@@ -15,23 +17,11 @@ class AppBottomBar extends StatefulWidget {
 }
 
 class _AppBottomBarState extends BaseState<AppBottomBar, CheckoutController> {
-  bool _bottomSheetOpen = false;
   int bottomIndex = 0;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CheckoutController, CheckoutState>(
-      listener: (context, state) {
-        // state.status.matchAny(
-        //   any: () {},
-        //   refresh: () {
-        //     if (state.transaction.totalItems == 0) {
-        //       if (_bottomSheetOpen) {
-        //         Navigator.of(context).pop();
-        //       }
-        //     }
-        //   },
-        // );
-      },
+      listener: (context, state) {},
       buildWhen: ((previous, current) => current.status.matchAny(
             any: (() => false),
             initial: (() => true),
@@ -68,19 +58,23 @@ class _AppBottomBarState extends BaseState<AppBottomBar, CheckoutController> {
               bottomIndex = index;
             });
             if (index == 1) {
-              _bottomSheetOpen = true;
+              final homeController = context.read<HomeController>();
               await showModalBottomSheet(
                   isDismissible: false,
                   isScrollControlled: true,
                   context: context,
                   builder: (_) {
-                    return const CheckoutPage();
+                    return MultiProvider(
+                      providers: [
+                        Provider<CheckoutController>(
+                          create: (_) => context.read(),
+                        ),
+                      ],
+                      builder: (__, ___) => CheckoutPage(client: context.read<HomeController>().state.client!),
+                    );
                   });
-            } else {
-              if (_bottomSheetOpen) {
-                _bottomSheetOpen = false;
-                Navigator.of(context).pop();
-              }
+
+              homeController.refreshUser(homeController.state.client);
             }
           },
         );

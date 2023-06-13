@@ -1,6 +1,8 @@
 {
 
     "or" : "Ou",
+    "label.yes" : "Sim",
+    "label.no" : "Não",
     "presentation.welcome" : "Bem vindo ao How About Coffee",
     "btn.enter" : "Entrar",
     "btn.close" : "Fechar",
@@ -25,6 +27,12 @@
     "emptycart.message" : "Você ainda não tem nenhum produto no seu carrinho.\n Insira um ou mais produtos para finalizar.",
     "checkout.total_account" : "Total a pagar",
     "checkout.pay" : "Finalizar pagamento",
+    "checkout.remove.product" :"Remover produto",
+    "checkout.remove.product_description" :  "Você realmente quer tirar o produto %%ITEM%% do carrinho ?",
+    "checkout.remove.all" : "Remover tudo",
+    "checkout.remove.all_description" : "Quer remover todos os itens selecionados ?",
+    "checkout.error.range" : "Você está muito longe do café (xxx meters).\nVocê  precisa estar ao menos a xxx meters para finalizar.",
+    "checkout.error.limite" : "You don't have enougth credit to proceed.\nPlease arrange your list or get more credits!",
     "wallet.id" :"Id do usuário: ",
     "wallet.ballance" : "Créditos: ",
     "wallet.description" : "Minha carteira"
