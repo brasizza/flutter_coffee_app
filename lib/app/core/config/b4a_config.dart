@@ -17,9 +17,7 @@ class B4aConfig {
       debug: kDebugMode ? true : false,
     );
     await parse.healthCheck(debug: kDebugMode ? true : false);
-    final ParseInstallation installation = await ParseInstallation.currentInstallation();
-    installation.deviceToken = installation.deviceToken;
-    final ParseResponse response = await installation.create();
+
     return parse;
   }
 }

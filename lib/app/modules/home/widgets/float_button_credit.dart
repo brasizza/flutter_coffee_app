@@ -29,7 +29,7 @@ class FloatButtonCredit extends StatelessWidget {
             return MultiProvider(
               providers: [
                 Provider(
-                  create: ((context) => WalletController(userService: context.read())..addUser(client)),
+                  create: ((context) => WalletController(userService: context.read())),
                 ),
               ],
               builder: (context, child) => WalletPage(client: client),

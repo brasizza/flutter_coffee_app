@@ -12,6 +12,7 @@ class AuthServiceImpl implements AuthService {
   @override
   Future<bool> isLogged() async {
     final parseUser = await ParseUser.currentUser() as ParseUser?;
+    // ParseCloudFunction('sendPush').execute(parameters: {'userId': parseUser?.objectId, 'title': 'OI', 'message': 'oi2'});
     return parseUser != null;
   }
 
@@ -25,7 +26,9 @@ class AuthServiceImpl implements AuthService {
         throw InvalidEmailException(parseResponse.error?.message ?? 'Fail to login1');
       }
     }
-
+    final installation = await ParseInstallation.currentInstallation();
+    installation.set('user', user);
+    await installation.save();
     return ClientModel.fromParse(parseResponse.results?.first);
   }
 

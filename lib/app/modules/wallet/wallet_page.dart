@@ -21,6 +21,11 @@ class WalletPage extends StatefulWidget {
 
 class _WalletPageState extends BaseState<WalletPage, WalletController> {
   @override
+  void onReady() {
+    controller.addUser(widget.client);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<WalletController, WalletState>(
       listener: (context, state) {
