@@ -45,7 +45,6 @@ class FirebaseMessagingApp {
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      debugPrint('Got a message whilst in the foreground!');
       if (message.notification != null && message.notification?.android != null) {
         LocalNotificationService().showNotifications(code: message.hashCode, title: message.notification!.title!, body: message.notification!.body!, payload: jsonEncode(message.data));
       }

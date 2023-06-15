@@ -55,8 +55,8 @@
 		<string>We need your location to see if you are near to the coffee shop. Is that ok for you?</string>
 		<key>NSLocationTemporaryUsageDescriptionDictionary</key>
 		<dict>
-		<key>HOWABOUTCOFFEEKEY</key>
-		<string>We need to inform your location to the shop to start to prepare your order.</string>
+			<key>HOWABOUTCOFFEEKEY</key>
+			<string>We need to inform your location to the shop to start to prepare your order.</string>
 		</dict>
 	</dict>
 </plist>

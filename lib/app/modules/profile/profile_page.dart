@@ -14,7 +14,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends BaseState<ProfilePage, ProfileController> {
   @override
   void onReady() {
-    final client = (ModalRoute.of(context)?.settings.arguments as Map)['client'] ?? null;
+    final client = (ModalRoute.of(context)?.settings.arguments as Map)['client'];
     if (client != null) {
       controller.addUser(client);
     }

@@ -12,7 +12,9 @@ class AuthServiceImpl implements AuthService {
   @override
   Future<bool> isLogged() async {
     final parseUser = await ParseUser.currentUser() as ParseUser?;
-    // ParseCloudFunction('sendPush').execute(parameters: {'userId': parseUser?.objectId, 'title': 'OI', 'message': 'oi2'});
+    final installation = await ParseInstallation.currentInstallation();
+    installation.set('user', parseUser);
+    await installation.save();
     return parseUser != null;
   }
 

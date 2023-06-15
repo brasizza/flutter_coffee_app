@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 
 class LocalNotificationService {
   //Singleton pattern
@@ -22,12 +23,12 @@ class LocalNotificationService {
   Stream<Map<String, dynamic>> get streamPayload => controllerPayload.stream;
 
   Future<void> init() async {
-    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('ic_stat_push');
 
     const DarwinInitializationSettings initializationSettingsIOS = DarwinInitializationSettings(
-      requestSoundPermission: false,
-      requestBadgePermission: false,
-      requestAlertPermission: false,
+      requestSoundPermission: true,
+      requestBadgePermission: true,
+      requestAlertPermission: true,
     );
 
     const InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS, macOS: null);
@@ -35,13 +36,17 @@ class LocalNotificationService {
     await flutterLocalNotificationsPlugin.initialize(initializationSettings, onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
   }
 
-  final AndroidNotificationDetails _androidNotificationDetails = const AndroidNotificationDetails(
+  final AndroidNotificationDetails _androidNotificationDetails = AndroidNotificationDetails(
     channelId,
     channelName,
     channelDescription: channelDescription,
     playSound: true,
     priority: Priority.high,
     importance: Importance.high,
+    colorized: true,
+    color: ColorsApp.instance.black,
+    enableLights: true,
+    enableVibration: true,
   );
 
   Future<void> showNotifications({required int code, required String title, required String body, String? payload}) async {
