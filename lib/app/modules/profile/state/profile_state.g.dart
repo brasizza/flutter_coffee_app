@@ -12,7 +12,9 @@ extension ProfileStatusMatch on ProfileStatus {
       required T Function() loading,
       required T Function() loaded,
       required T Function() error,
-      required T Function() clientLoaded}) {
+      required T Function() clientLoaded,
+      required T Function() photoChanged,
+      required T Function() clientUpdated}) {
     final v = this;
     if (v == ProfileStatus.initial) {
       return initial();
@@ -34,6 +36,14 @@ extension ProfileStatusMatch on ProfileStatus {
       return clientLoaded();
     }
 
+    if (v == ProfileStatus.photoChanged) {
+      return photoChanged();
+    }
+
+    if (v == ProfileStatus.clientUpdated) {
+      return clientUpdated();
+    }
+
     throw Exception('ProfileStatus.match failed, found no match for: $this');
   }
 
@@ -43,7 +53,9 @@ extension ProfileStatusMatch on ProfileStatus {
       T Function()? loading,
       T Function()? loaded,
       T Function()? error,
-      T Function()? clientLoaded}) {
+      T Function()? clientLoaded,
+      T Function()? photoChanged,
+      T Function()? clientUpdated}) {
     final v = this;
     if (v == ProfileStatus.initial && initial != null) {
       return initial();
@@ -63,6 +75,14 @@ extension ProfileStatusMatch on ProfileStatus {
 
     if (v == ProfileStatus.clientLoaded && clientLoaded != null) {
       return clientLoaded();
+    }
+
+    if (v == ProfileStatus.photoChanged && photoChanged != null) {
+      return photoChanged();
+    }
+
+    if (v == ProfileStatus.clientUpdated && clientUpdated != null) {
+      return clientUpdated();
     }
 
     return any();

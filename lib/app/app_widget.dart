@@ -21,8 +21,8 @@ import 'data/repositories/user/user_repository.dart';
 import 'data/repositories/user/user_repository_impl.dart';
 import 'data/services/auth/auth_service.dart';
 import 'data/services/auth/auth_service_impl.dart';
-import 'data/services/user/user_repository_impl.dart';
 import 'data/services/user/user_service.dart';
+import 'data/services/user/user_service_impl.dart';
 
 class AppWidget extends StatefulWidget {
   final Env env;

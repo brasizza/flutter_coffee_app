@@ -53,7 +53,12 @@
 		<string>We need your location to see if you are near to the coffee shop. Is that ok for you?</string>
 		<key>NSLocationAlwaysUsageDescription</key>
 		<string>We need your location to see if you are near to the coffee shop. Is that ok for you?</string>
+		<key>NSCameraUsageDescription</key>
+		<string>We need to access your camera to update your profile picture</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>We need to access your gallery to update your profile picture</string>
 		<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+
 		<dict>
 			<key>HOWABOUTCOFFEEKEY</key>
 			<string>We need to inform your location to the shop to start to prepare your order.</string>

@@ -22,7 +22,8 @@ class FloatButtonCredit extends StatelessWidget {
       onPressed: () async {
         final homeController = context.read<HomeController>();
         await showModalBottomSheet(
-          enableDrag: false,
+          enableDrag: true,
+          isScrollControlled: true,
           elevation: 0,
           context: context,
           builder: (context) {

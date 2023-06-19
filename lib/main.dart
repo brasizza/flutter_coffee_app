@@ -22,20 +22,30 @@ Future _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  await B4aConfig().init();
-  await FirebaseConfig().init();
+    await B4aConfig().init();
 
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  await LocalNotificationService().init();
-  await AppTranslation.init();
-  await FirebaseMessagingApp().init();
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    await FirebaseConfig().init();
 
-  final env = await EnvMaker.create(ConfigType.b4app);
-  runApp(AppWidget(
-    env: env,
-  ));
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+    await LocalNotificationService().init();
+
+    await AppTranslation.init();
+
+    await FirebaseMessagingApp().init();
+
+    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
+    final env = await EnvMaker.create(ConfigType.b4app);
+
+    runApp(AppWidget(
+      env: env,
+    ));
+  } on Exception catch (e) {
+    runApp(Text(e.toString()));
+  }
 }

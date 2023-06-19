@@ -40,7 +40,12 @@ class _MenuDrawerState extends State<MenuDrawer> with Loader {
                         children: [
                           buildMenuItem(
                             tap: () async {
-                              await Navigator.of(context).pushNamed('/home/profile', arguments: {'client': context.read<HomeController>().state.client});
+                              final homeController = context.read<HomeController>();
+                              final nav = Navigator.of(context);
+                              // final client =
+                              final client = await Navigator.of(context).pushNamed('/home/profile', arguments: {'client': context.read<HomeController>().state.client});
+                              homeController.refreshUser(client as ClientModel);
+                              nav.pop();
                             },
                             context,
                             text: 'drawer.profile'.translate,
