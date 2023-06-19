@@ -6,6 +6,7 @@ import 'package:howabout_coffee/app/core/extensions/size_extensions.dart';
 import 'package:howabout_coffee/app/core/extensions/translate.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/text_styles.dart';
+import 'package:howabout_coffee/app/data/services/user/user_service.dart';
 import 'package:howabout_coffee/app/modules/presentation/presentation_controller.dart';
 import 'package:howabout_coffee/app/modules/presentation/state/presentation_state.dart';
 
@@ -118,8 +119,10 @@ class _PresentationPageState extends BaseState<PresentationPage, PresentationCon
                       onPressed: () async {
                         showLoader();
                         final nav = Navigator.of(context);
+                        final userService = context.read<UserService>();
                         final user = await controller.autoLogin(authService: context.read<AuthService>());
                         if (user == true) {
+                          await userService.getUser();
                           nav.pushNamedAndRemoveUntil('/home', (route) => false);
                         } else {
                           nav.pushNamedAndRemoveUntil('/login', (route) => false);

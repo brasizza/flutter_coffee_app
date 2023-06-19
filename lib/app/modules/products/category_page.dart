@@ -19,7 +19,6 @@ class _CategoryPageState extends BaseState<CategoryPage, ProductsController> {
   @override
   void onReady() {
     super.onReady();
-    controller.getProducts();
   }
 
   @override

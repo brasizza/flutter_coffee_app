@@ -12,7 +12,9 @@ extension ProductStatusMatch on ProductStatus {
       required T Function() loading,
       required T Function() loaded,
       required T Function() error,
-      required T Function() changeCategory}) {
+      required T Function() changeCategory,
+      required T Function() unfavoriteProduct,
+      required T Function() favoriteProduct}) {
     final v = this;
     if (v == ProductStatus.initial) {
       return initial();
@@ -34,6 +36,14 @@ extension ProductStatusMatch on ProductStatus {
       return changeCategory();
     }
 
+    if (v == ProductStatus.unfavoriteProduct) {
+      return unfavoriteProduct();
+    }
+
+    if (v == ProductStatus.favoriteProduct) {
+      return favoriteProduct();
+    }
+
     throw Exception('ProductStatus.match failed, found no match for: $this');
   }
 
@@ -43,7 +53,9 @@ extension ProductStatusMatch on ProductStatus {
       T Function()? loading,
       T Function()? loaded,
       T Function()? error,
-      T Function()? changeCategory}) {
+      T Function()? changeCategory,
+      T Function()? unfavoriteProduct,
+      T Function()? favoriteProduct}) {
     final v = this;
     if (v == ProductStatus.initial && initial != null) {
       return initial();
@@ -63,6 +75,14 @@ extension ProductStatusMatch on ProductStatus {
 
     if (v == ProductStatus.changeCategory && changeCategory != null) {
       return changeCategory();
+    }
+
+    if (v == ProductStatus.unfavoriteProduct && unfavoriteProduct != null) {
+      return unfavoriteProduct();
+    }
+
+    if (v == ProductStatus.favoriteProduct && favoriteProduct != null) {
+      return favoriteProduct();
     }
 
     return any();

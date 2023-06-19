@@ -18,6 +18,7 @@ class ProductModelCheckout extends ProductModel {
     required super.category,
     required super.status,
     required super.image,
+    super.favorite,
     super.imageBig,
     this.quantity = 0,
   });
@@ -38,6 +39,7 @@ class ProductModelCheckout extends ProductModel {
     String? image,
     String? imageBig,
     int? quantity,
+    bool? favorite,
   }) {
     return ProductModelCheckout(
       id: id ?? this.id,
@@ -54,6 +56,7 @@ class ProductModelCheckout extends ProductModel {
       image: image ?? this.image,
       imageBig: imageBig ?? this.imageBig,
       quantity: quantity ?? this.quantity,
+      favorite: favorite ?? this.favorite,
     );
   }
 

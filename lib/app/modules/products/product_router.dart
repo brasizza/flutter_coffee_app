@@ -7,6 +7,7 @@ import 'package:howabout_coffee/app/data/services/categories/categories_service.
 import 'package:howabout_coffee/app/data/services/categories/categories_service_impl.dart';
 import 'package:howabout_coffee/app/data/services/products/products_service.dart';
 import 'package:howabout_coffee/app/data/services/products/products_service_impl.dart';
+import 'package:howabout_coffee/app/data/services/user/user_service.dart';
 import 'package:howabout_coffee/app/modules/products/product_page.dart';
 import 'package:howabout_coffee/app/modules/products/products_controller.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +32,7 @@ class ProductRouter {
             create: (context) => ProductsServiceImpl(repository: context.read()),
           ),
           Provider(
-            create: (context) => ProductsController(categoriesService: context.read(), productsService: context.read()),
+            create: (context) => ProductsController(categoriesService: context.read(), productsService: context.read(), userService: context.read())..getProducts(client: context.read<UserService>().currentUser),
           ),
         ],
         builder: (context, child) => const Column(

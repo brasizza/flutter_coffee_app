@@ -5,6 +5,7 @@ import 'package:howabout_coffee/app/core/extensions/translate.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/core/ui/styles/text_styles.dart';
+import 'package:howabout_coffee/app/data/services/user/user_service.dart';
 import 'package:howabout_coffee/app/modules/login/login_controller.dart';
 import 'package:howabout_coffee/app/modules/login/state/login_state.dart';
 
@@ -35,8 +36,11 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
   void loginUser() async {
     final nav = Navigator.of(context, rootNavigator: true);
     if (formKey.currentState!.validate()) {
+      final userService = context.read<UserService>();
+
       final user = await controller.loginUser(email: emailController.text, password: passwordController.text);
       if (user) {
+        await userService.getUser();
         nav.pushNamedAndRemoveUntil('/home', (route) => false);
       }
     }

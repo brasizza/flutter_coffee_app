@@ -8,13 +8,18 @@ import 'user_service.dart';
 
 class UserServiceImpl implements UserService {
   final UserRepository _repository;
+
+  ClientModel? _currentUser;
+
   UserServiceImpl({
     required UserRepository repository,
   }) : _repository = repository;
 
   @override
   Future<ClientModel?> getUser() async {
-    return await _repository.getUser();
+    final user = await _repository.getUser();
+    _currentUser = user;
+    return user;
   }
 
   @override
@@ -24,6 +29,21 @@ class UserServiceImpl implements UserService {
 
   @override
   Future<ClientModel> updateUser({required ClientModel client, File? profilePicture}) async {
-    return await _repository.updateUser(client: client, profilePicture: profilePicture);
+    final user = await _repository.updateUser(client: client, profilePicture: profilePicture);
+    _currentUser = user;
+    return user;
+  }
+
+  @override
+  Future<List<int>> getFavoriteUser(ClientModel? user) async {
+    return await _repository.getFavoriteUser(user);
+  }
+
+  @override
+  ClientModel? get currentUser => _currentUser;
+
+  @override
+  Future<List<int>> manageFavorites(ClientModel client, int productId) async {
+    return await _repository.manageFavorites(client, productId);
   }
 }

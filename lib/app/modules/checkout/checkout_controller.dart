@@ -106,7 +106,6 @@ class CheckoutController extends Cubit<CheckoutState> {
         emit(state.copyWith(status: CheckoutStatus.loading));
         final user = await _userService.getUser();
         emit(state.copyWith(status: CheckoutStatus.loaded));
-
         if (user != null) {
           if ((user.totalCredit ?? 0) < state.transaction.totalTransaction) {
             emit(state.copyWith(status: CheckoutStatus.error, errorMessage: 'checkout.error.limite'.translate));

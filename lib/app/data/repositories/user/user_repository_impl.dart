@@ -65,4 +65,37 @@ class UserRepositoryImpl implements UserRepository {
 
     return client;
   }
+
+  Future<ParseObject?> _getFavorite(ClientModel? user) async {
+    QueryBuilder<ParseObject> query = QueryBuilder<ParseObject>(ParseObject('UserFavorite'));
+    query.whereEqualTo('user', user?.id ?? '');
+    final response = await query.query();
+    if (response.success) {
+      if (response.count == 0) {
+        return null;
+      }
+      return (response.results as List).first as ParseObject?;
+    }
+    return null;
+  }
+
+  @override
+  Future<List<int>> getFavoriteUser(ClientModel? user) async {
+    final favorite = await _getFavorite(user);
+    return (favorite?.get('favorites') as List).map<int>((e) => int.parse(e.toString())).toList();
+  }
+
+  @override
+  Future<List<int>> manageFavorites(ClientModel client, int productId) async {
+    final favoriteUser = await _getFavorite(client);
+    final favorites = (favoriteUser?.get('favorites') as List).map<int>((e) => int.parse(e.toString())).toList();
+    if (favorites.contains(productId)) {
+      favorites.remove(productId);
+    } else {
+      favorites.add(productId);
+    }
+    favoriteUser?.set('favorites', favorites);
+    favoriteUser?.save();
+    return favorites;
+  }
 }

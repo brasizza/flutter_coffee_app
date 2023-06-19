@@ -33,7 +33,12 @@ class _ProductPageState extends BaseState<ProductPage, ProductsController> {
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10, childAspectRatio: 0.8),
           itemBuilder: (context, index) {
             final product = products[index];
+
             return CoffeeCard(
+              productController: context.read(),
+              companyController: context.read(),
+              checkoutController: context.read(),
+              favorite: (state.favorites.contains(product.id)),
               product: product,
             );
           },

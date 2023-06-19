@@ -31,6 +31,7 @@ class AuthServiceImpl implements AuthService {
     final installation = await ParseInstallation.currentInstallation();
     installation.set('user', user);
     await installation.save();
+
     return ClientModel.fromParse(parseResponse.results?.first);
   }
 

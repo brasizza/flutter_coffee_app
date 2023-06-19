@@ -20,21 +20,8 @@ class ProductModel {
   final bool status;
   final String? image;
   final String? imageBig;
-  ProductModel({
-    required this.id,
-    required this.order,
-    required this.titlePT,
-    required this.titleEN,
-    required this.titleES,
-    required this.descriptionPT,
-    required this.descriptionEN,
-    required this.descriptionES,
-    required this.price,
-    required this.category,
-    required this.status,
-    required this.image,
-    this.imageBig,
-  });
+  final bool? favorite;
+  ProductModel({required this.id, required this.order, required this.titlePT, required this.titleEN, required this.titleES, required this.descriptionPT, required this.descriptionEN, required this.descriptionES, required this.price, required this.category, required this.status, required this.image, this.imageBig, this.favorite = false});
 
   ProductModel copyWith({
     int? id,
@@ -50,6 +37,7 @@ class ProductModel {
     bool? status,
     String? image,
     String? imageBig,
+    bool? favorite,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -65,6 +53,7 @@ class ProductModel {
       status: status ?? this.status,
       image: image ?? this.image,
       imageBig: imageBig ?? this.imageBig,
+      favorite: favorite ?? this.favorite,
     );
   }
 
@@ -83,6 +72,7 @@ class ProductModel {
       'status': status,
       'image': image,
       'imageBig': imageBig,
+      'favorite': favorite,
     };
   }
 
@@ -101,6 +91,7 @@ class ProductModel {
       status: map['status'] as bool,
       image: map['image'] != null ? map['image'] as String : null,
       imageBig: map['imageBig'] != null ? map['imageBig'] as String : null,
+      favorite: map['favorite'],
     );
   }
 

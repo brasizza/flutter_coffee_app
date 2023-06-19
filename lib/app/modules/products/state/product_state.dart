@@ -7,12 +7,13 @@ import 'package:match/match.dart';
 part 'product_state.g.dart';
 
 @match
-enum ProductStatus { initial, loading, loaded, error, changeCategory }
+enum ProductStatus { initial, loading, loaded, error, changeCategory, unfavoriteProduct, favoriteProduct }
 
 class ProductState extends Equatable {
   final ProductStatus status;
   final List<CategoryModel> categories;
   final List<ProductModel> products;
+  final List<int> favorites;
   final CategoryModel? categorySelected;
   final String? errorMessage;
 
@@ -21,6 +22,7 @@ class ProductState extends Equatable {
     this.categories = const [],
     this.errorMessage,
     this.products = const [],
+    this.favorites = const [],
     this.categorySelected,
   });
 
@@ -29,7 +31,8 @@ class ProductState extends Equatable {
         errorMessage = '',
         categorySelected = null,
         products = const [],
-        categories = const [];
+        categories = const [],
+        favorites = const [];
 
   @override
   List<Object?> get props => [status, products, categories, categorySelected];
@@ -39,6 +42,7 @@ class ProductState extends Equatable {
     List<CategoryModel>? categories,
     List<ProductModel>? products,
     CategoryModel? categorySelected,
+    List<int>? favorites,
     String? errorMessage,
   }) {
     return ProductState(
@@ -47,6 +51,7 @@ class ProductState extends Equatable {
       products: products ?? this.products,
       categorySelected: categorySelected ?? this.categorySelected,
       errorMessage: errorMessage ?? this.errorMessage,
+      favorites: favorites ?? this.favorites,
     );
   }
 }

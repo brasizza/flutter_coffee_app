@@ -5,6 +5,7 @@ import 'package:howabout_coffee/app/core/mixins/loader.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/data/models/client_model.dart';
 import 'package:howabout_coffee/app/data/services/auth/auth_service.dart';
+import 'package:howabout_coffee/app/data/services/user/user_service.dart';
 import 'package:howabout_coffee/app/modules/home/home_controller.dart';
 
 class MenuDrawer extends StatefulWidget {
@@ -42,9 +43,10 @@ class _MenuDrawerState extends State<MenuDrawer> with Loader {
                             tap: () async {
                               final homeController = context.read<HomeController>();
                               final nav = Navigator.of(context);
-                              // final client =
-                              final client = await Navigator.of(context).pushNamed('/home/profile', arguments: {'client': context.read<HomeController>().state.client});
-                              homeController.refreshUser(client as ClientModel);
+                              final client = await Navigator.of(context).pushNamed('/home/profile', arguments: {'client': context.read<UserService>().currentUser});
+                              if (client != null) {
+                                homeController.refreshUser(client as ClientModel);
+                              }
                               nav.pop();
                             },
                             context,
