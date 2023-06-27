@@ -46,7 +46,9 @@
     "checkout.finish_checkout_completed" : "Seu pedido foi finalizado com sucesso!\nVá para o estabelecimento para pegar seus itens!",
     "wallet.id" :"Id do usuário: ",
     "wallet.ballance" : "Créditos: ",
-    "wallet.description" : "Minha carteira"
+    "wallet.description" : "Minha carteira",
+    "products.favorites" :"Meus favoritos!",
+    "empty.favorites.message" : "Você não tem nenhum produto favorito ainda!"
 
 
 

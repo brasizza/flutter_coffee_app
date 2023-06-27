@@ -13,7 +13,7 @@ class CoffeeCard extends StatelessWidget {
   final ProductModel product;
   final CompanyController companyController;
   final CheckoutController checkoutController;
-  final ProductsController productController;
+  final ProductsController? productController;
   final bool favorite;
   const CoffeeCard({super.key, required this.product, this.favorite = false, required this.companyController, required this.checkoutController, required this.productController});
   @override
@@ -32,7 +32,7 @@ class CoffeeCard extends StatelessWidget {
     }
     return GestureDetector(
       onLongPress: () => checkoutController.addItem(product, 1),
-      onDoubleTap: () => productController.changeFavoriteProduct(productId: product.id, client: context.read<UserService>().currentUser),
+      onDoubleTap: () => productController?.changeFavoriteProduct(productId: product.id, client: context.read<UserService>().currentUser),
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
@@ -106,12 +106,15 @@ class CoffeeCard extends StatelessWidget {
               ],
             ),
           ),
-          Positioned(
-            bottom: 10,
-            right: 10,
-            child: Icon(
-              (favorite) ? Icons.favorite : Icons.favorite_border,
-              color: (favorite) ? Colors.red : ColorsApp.instance.fontColor,
+          Visibility(
+            visible: productController != null,
+            child: Positioned(
+              bottom: 10,
+              right: 10,
+              child: Icon(
+                (favorite) ? Icons.favorite : Icons.favorite_border,
+                color: (favorite) ? Colors.red : ColorsApp.instance.fontColor,
+              ),
             ),
           ),
         ],

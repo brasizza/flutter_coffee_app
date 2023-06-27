@@ -66,7 +66,6 @@ class _AppBottomBarState extends BaseState<AppBottomBar, CheckoutController> {
                   builder: (_) {
                     return CheckoutRouter.page(checkoutController: checkoutController, client: homeController.state.client!);
                   });
-
               homeController.refreshUser(homeController.state.client);
             }
           },

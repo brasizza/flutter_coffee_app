@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:howabout_coffee/app/core/exceptions/user_not_found_exception.dart';
 import 'package:howabout_coffee/app/data/models/client_model.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import 'package:uuid/uuid.dart';
 
@@ -37,7 +38,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<ClientModel> updateUser({required ClientModel client, File? profilePicture}) async {
+  Future<ClientModel> updateUser({required ClientModel client, XFile? profilePicture}) async {
     final parseUser = await ParseUser.currentUser() as ParseUser?;
     if (parseUser == null) {
       throw UserNotFoundException('User not found');
@@ -49,7 +50,7 @@ class UserRepositoryImpl implements UserRepository {
       userProfile.set('name', client.name);
       userProfile.set('phone_number', client.phoneNumber);
       if (profilePicture != null) {
-        userProfile.set('avatar', (kIsWeb) ? ParseWebFile(profilePicture.readAsBytesSync(), name: const Uuid().v4()) : ParseFile(profilePicture));
+        userProfile.set('avatar', (kIsWeb) ? ParseWebFile(await profilePicture.readAsBytes(), name: const Uuid().v4()) : ParseFile(File(profilePicture.path), name: const Uuid().v4()));
       }
 
       final saveResponse = await userProfile.save();
@@ -80,22 +81,33 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<List<int>> getFavoriteUser(ClientModel? user) async {
+  Future<List<int>?> getFavoriteUser(ClientModel? user) async {
     final favorite = await _getFavorite(user);
-    return (favorite?.get('favorites') as List).map<int>((e) => int.parse(e.toString())).toList();
+    if (favorite == null) {
+      return null;
+    }
+    return (favorite.get('favorites') as List).map<int>((e) => int.parse(e.toString())).toList();
   }
 
   @override
   Future<List<int>> manageFavorites(ClientModel client, int productId) async {
-    final favoriteUser = await _getFavorite(client);
-    final favorites = (favoriteUser?.get('favorites') as List).map<int>((e) => int.parse(e.toString())).toList();
+    var favorites = <int>[];
+    var favoriteUser = await _getFavorite(client);
+    if (favoriteUser == null) {
+      favorites.clear();
+    } else {
+      favorites.clear();
+      favorites = (favoriteUser.get('favorites') as List).map<int>((e) => int.parse(e.toString())).toList();
+    }
     if (favorites.contains(productId)) {
       favorites.remove(productId);
     } else {
       favorites.add(productId);
     }
-    favoriteUser?.set('favorites', favorites);
-    favoriteUser?.save();
+
+    favoriteUser ??= ParseObject('UserFavorite')..set('user', client.id);
+    favoriteUser.set('favorites', favorites);
+    favoriteUser.save();
     return favorites;
   }
 }

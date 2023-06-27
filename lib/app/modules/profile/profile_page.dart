@@ -75,7 +75,7 @@ class _ProfilePageState extends BaseState<ProfilePage, ProfileController> {
               children: [
                 Column(
                   children: [
-                    Visibility(visible: state.photoProfile == null, replacement: CircleAvatar(radius: 60, backgroundImage: AssetImage(state.photoProfile?.path ?? '')), child: CircleAvatar(radius: 60, backgroundImage: ((state.client?.avatar == null) ? const AssetImage('assets/images/logo_coffee.png') : NetworkImage(state.client?.avatar ?? '')) as ImageProvider)),
+                    Visibility(visible: state.photoProfile == null, replacement: CircleAvatar(radius: 60, backgroundImage: (state.photoProfile?.image)), child: CircleAvatar(radius: 60, backgroundImage: ((state.client?.avatar == null) ? const AssetImage('assets/images/logo_coffee.png') : NetworkImage(state.client?.avatar ?? '')) as ImageProvider)),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -137,7 +137,6 @@ class _ProfilePageState extends BaseState<ProfilePage, ProfileController> {
                         final nav = Navigator.of(context);
                         final clientChanged = await controller.changeProfile(
                           client: state.client!.copyWith(name: nameEC.text, phoneNumber: phoneEC.text),
-                          profilePicture: state.photoProfile,
                         );
                         if (clientChanged != null) {
                           hideLoader();

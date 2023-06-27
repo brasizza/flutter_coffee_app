@@ -6,6 +6,7 @@ import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/data/models/client_model.dart';
 import 'package:howabout_coffee/app/data/services/auth/auth_service.dart';
 import 'package:howabout_coffee/app/data/services/user/user_service.dart';
+import 'package:howabout_coffee/app/modules/favorite/favorite_route.dart';
 import 'package:howabout_coffee/app/modules/home/home_controller.dart';
 
 class MenuDrawer extends StatefulWidget {
@@ -54,11 +55,18 @@ class _MenuDrawerState extends State<MenuDrawer> with Loader {
                             icon: Icons.people,
                           ),
                           const SizedBox(height: 16),
-                          buildMenuItem(
-                            context,
-                            text: 'drawer.favorites'.translate,
-                            icon: Icons.favorite,
-                          ),
+                          buildMenuItem(context, text: 'drawer.favorites'.translate, icon: Icons.favorite, tap: () async {
+                            final nav = Navigator.of(context);
+
+                            await showModalBottomSheet(
+                                isDismissible: false,
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (_) {
+                                  return FavoriteRoute.page(checkoutController: context.read(), homeController: context.read());
+                                });
+                            nav.pop();
+                          }),
                           const SizedBox(height: 16),
                           buildMenuItem(
                             context,

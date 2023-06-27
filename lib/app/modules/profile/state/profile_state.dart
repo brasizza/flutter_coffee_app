@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:io';
-
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:howabout_coffee/app/data/models/client_model.dart';
 import 'package:match/match.dart';
 
@@ -12,7 +11,7 @@ enum ProfileStatus { initial, loading, loaded, error, clientLoaded, photoChanged
 
 class ProfileState extends Equatable {
   final ClientModel? client;
-  final File? photoProfile;
+  final Image? photoProfile;
   final ProfileStatus status;
   final String? errorMessage;
   const ProfileState({required this.status, this.errorMessage = '', this.client, this.photoProfile});
@@ -33,7 +32,7 @@ class ProfileState extends Equatable {
     ProfileStatus? status,
     ClientModel? client,
     String? errorMessage,
-    File? photoProfile,
+    Image? photoProfile,
   }) {
     return ProfileState(
       status: status ?? this.status,

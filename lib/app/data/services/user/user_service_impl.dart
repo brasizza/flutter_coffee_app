@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:io';
 
 import 'package:howabout_coffee/app/data/models/client_model.dart';
 import 'package:howabout_coffee/app/data/repositories/user/user_repository.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'user_service.dart';
 
@@ -28,14 +28,14 @@ class UserServiceImpl implements UserService {
   }
 
   @override
-  Future<ClientModel> updateUser({required ClientModel client, File? profilePicture}) async {
+  Future<ClientModel> updateUser({required ClientModel client, XFile? profilePicture}) async {
     final user = await _repository.updateUser(client: client, profilePicture: profilePicture);
     _currentUser = user;
     return user;
   }
 
   @override
-  Future<List<int>> getFavoriteUser(ClientModel? user) async {
+  Future<List<int>?> getFavoriteUser(ClientModel? user) async {
     return await _repository.getFavoriteUser(user);
   }
 

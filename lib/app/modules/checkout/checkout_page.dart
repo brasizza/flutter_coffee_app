@@ -65,7 +65,7 @@ class _CheckoutPageState extends BaseState<CheckoutPage, CheckoutController> {
           builder: (context, state) {
             return Visibility(
               visible: state.transaction.products.isNotEmpty,
-              replacement: const EmptyCart(),
+              replacement: EmptyCart(message: 'emptycart.message'.translate),
               child: Column(
                 children: [
                   TotalWidget(

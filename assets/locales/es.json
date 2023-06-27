@@ -46,6 +46,10 @@
     "checkout.finish_checkout_completed" : "Your order has been succeeded!\nYou can go to the coffe shop to get your items!",
     "wallet.id": "Meu id de usuário: ",
     "wallet.ballance": "Créditos: ",
-    "wallet.description" : "Minha carteira"
+    "wallet.description" : "Minha carteira",
+    "products.favorites" :"Meus favoritos!",
+    "empty.favorites.message" : "Você não tem nenhum produto favorito ainda!"
+
+
 
 }

@@ -46,7 +46,6 @@ class _WalletPageState extends BaseState<WalletPage, WalletController> {
           )),
       builder: (context, state) {
         return SizedBox(
-          height: context.screenHeight * .7,
           child: Scaffold(
             appBar: AppBar(),
             body: Column(
@@ -115,7 +114,7 @@ class _WalletPageState extends BaseState<WalletPage, WalletController> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(top: 20, bottom: 30),
                   child: PrettyQr(
                     elementColor: ColorsApp.instance.fontColor,
                     image: const AssetImage('assets/images/logo_coffee_transparente.png'),

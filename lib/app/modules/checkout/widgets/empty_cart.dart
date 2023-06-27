@@ -5,7 +5,8 @@ import 'package:howabout_coffee/app/core/ui/styles/text_styles.dart';
 import 'package:howabout_coffee/app/core/widgets/my_button.dart';
 
 class EmptyCart extends StatelessWidget {
-  const EmptyCart({Key? key}) : super(key: key);
+  final String message;
+  const EmptyCart({Key? key, required this.message}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +21,12 @@ class EmptyCart extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 30),
               child: Text(
-                'emptycart.message'.translate,
+                message,
                 style: context.textStyles.textMedium.copyWith(
                   color: ColorsApp.instance.fontColor,
                   fontSize: 20,
                 ),
-                textAlign: TextAlign.start,
+                textAlign: TextAlign.center,
               ),
             ),
             Padding(
