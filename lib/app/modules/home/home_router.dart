@@ -25,12 +25,10 @@ class HomeRouter {
             create: (context) => NotificationServiceImpl(repository: context.read()),
           ),
           Provider(
-            create: (context) => NotificationController(
-              userService: context.read(),
-              service: context.read(),
-            )..init(),
-            lazy: false,
-          ),
+              create: (context) => NotificationController(
+                    userService: context.read(),
+                    service: context.read(),
+                  )),
           Provider(
             create: (context) => HomeController(userService: context.read()),
           ),

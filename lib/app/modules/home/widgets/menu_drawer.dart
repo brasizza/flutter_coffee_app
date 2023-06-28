@@ -8,6 +8,7 @@ import 'package:howabout_coffee/app/data/services/auth/auth_service.dart';
 import 'package:howabout_coffee/app/data/services/user/user_service.dart';
 import 'package:howabout_coffee/app/modules/favorite/favorite_route.dart';
 import 'package:howabout_coffee/app/modules/home/home_controller.dart';
+import 'package:howabout_coffee/app/modules/notification/notification_router.dart';
 
 class MenuDrawer extends StatefulWidget {
   final ClientModel? user;
@@ -68,11 +69,18 @@ class _MenuDrawerState extends State<MenuDrawer> with Loader {
                             nav.pop();
                           }),
                           const SizedBox(height: 16),
-                          buildMenuItem(
-                            context,
-                            text: 'drawer.notification'.translate,
-                            icon: Icons.notifications_outlined,
-                          ),
+                          buildMenuItem(context, text: 'drawer.notification'.translate, icon: Icons.notifications_outlined, tap: () async {
+                            final nav = Navigator.of(context);
+
+                            await showModalBottomSheet(
+                                isDismissible: false,
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (_) {
+                                  return NotificationRouter.page(notificationController: context.read());
+                                });
+                            nav.pop();
+                          }),
                         ],
                       ),
                     ),

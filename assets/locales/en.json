@@ -48,7 +48,9 @@
     "wallet.ballance" : "Balance: ",
     "wallet.description" : "My wallet",
     "products.favorites" :"My favorites!",
-    "empty.favorites.message" : "Você não tem nenhum produto favorito ainda!"
+    "empty.favorites.message" : "You don't have any favorites.",
+    "user.zero_notification" : "There is no notification for you."
+
 
 
     

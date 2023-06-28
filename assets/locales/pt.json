@@ -48,7 +48,8 @@
     "wallet.ballance" : "Créditos: ",
     "wallet.description" : "Minha carteira",
     "products.favorites" :"Meus favoritos!",
-    "empty.favorites.message" : "Você não tem nenhum produto favorito ainda!"
+    "empty.favorites.message" : "Você não tem nenhum produto favorito ainda!",
+    "user.zero_notification" : "Nenhuma notificação no momento"
 
 
 

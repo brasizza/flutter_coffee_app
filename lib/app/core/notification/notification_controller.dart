@@ -15,22 +15,25 @@ class NotificationController extends Cubit<NotificationState> {
         _userService = userService,
         super(const NotificationState.initial());
 
-  void init() {
-    _service.init(client: _userService.currentUser!).listen((notificationModel) {
-      List<NotificationModel> notifications = List.from(state.notifications);
-      final indexOf = notifications.indexWhere((notification) => notification.id == notificationModel.id);
-      if (indexOf < 0) {
-        if (notificationModel.type != 'delete') {
-          notifications.add(notificationModel);
-        }
-      } else {
-        if (notificationModel.type == 'delete') {
-          notifications.removeAt(indexOf);
+  void init() async {
+    final user = await _userService.getUser();
+    if (user != null) {
+      _service.init(client: user).listen((notificationModel) async {
+        List<NotificationModel> notifications = List.from(state.notifications);
+        final indexOf = notifications.indexWhere((notification) => notification.id == notificationModel.id);
+        if (indexOf < 0) {
+          if (notificationModel.type != 'delete') {
+            notifications.add(notificationModel);
+          }
         } else {
-          notifications[indexOf] = notificationModel;
+          if (notificationModel.type == 'delete') {
+            notifications.removeAt(indexOf);
+          } else {
+            notifications[indexOf] = notificationModel;
+          }
         }
-      }
-      emit(state.copyWith(status: NotificationStatus.newNotification, notifications: notifications));
-    });
+        emit(state.copyWith(status: NotificationStatus.newNotification, notifications: notifications));
+      });
+    }
   }
 }

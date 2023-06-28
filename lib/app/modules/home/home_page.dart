@@ -26,6 +26,7 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
   @override
   void onReady() {
     controller.addUser();
+    context.read<NotificationController>().init();
   }
 
   @override

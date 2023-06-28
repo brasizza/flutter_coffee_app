@@ -24,19 +24,12 @@ Future _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
-
-    await B4aConfig().init();
-
-    await FirebaseConfig().init();
-
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-    await LocalNotificationService().init();
-
     await AppTranslation.init();
-
+    await B4aConfig().init();
+    await FirebaseConfig().init();
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    await LocalNotificationService().init();
     await FirebaseMessagingApp().init();
-
     await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
