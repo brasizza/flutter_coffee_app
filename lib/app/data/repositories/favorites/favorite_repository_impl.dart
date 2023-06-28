@@ -11,7 +11,7 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
     if (ids == null) {
       return null;
     }
-    query.whereContainedIn('product_id', ids as List<dynamic>);
+    query.whereContainedIn('product_id', ids);
     query.setLimit(1000000);
     query.orderByAscending('order');
 

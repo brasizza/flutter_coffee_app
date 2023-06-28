@@ -110,4 +110,9 @@ class UserRepositoryImpl implements UserRepository {
     favoriteUser.save();
     return favorites;
   }
+
+  @override
+  Future<ParseUser?> getParseUser() async {
+    return await ParseUser.currentUser() as ParseUser?;
+  }
 }

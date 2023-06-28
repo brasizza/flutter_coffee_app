@@ -6,7 +6,13 @@ class B4aConfig {
     const keyClientKey = String.fromEnvironment('CLIENT_ID');
     const keyParseServerUrl = 'https://parseapi.back4app.com';
     const liveQueryUrl = String.fromEnvironment('LIVE_QUERY_URL');
-    final parse = await Parse().initialize(keyApplicationId, keyParseServerUrl, clientKey: keyClientKey, liveQueryUrl: liveQueryUrl, autoSendSessionId: true, debug: true);
+    final parse = await Parse().initialize(
+      keyApplicationId,
+      keyParseServerUrl,
+      clientKey: keyClientKey,
+      liveQueryUrl: liveQueryUrl,
+      autoSendSessionId: true,
+    );
     await parse.healthCheck(debug: true);
     return parse;
   }

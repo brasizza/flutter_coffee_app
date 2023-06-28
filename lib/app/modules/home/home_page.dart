@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:howabout_coffee/app/core/extensions/translate.dart';
+import 'package:howabout_coffee/app/core/notification/notification_controller.dart';
+import 'package:howabout_coffee/app/core/notification/state/notification_state.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/modules/home/home_controller.dart';
@@ -53,29 +55,39 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
           drawerEnableOpenDragGesture: false,
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            // leading: GestureDetector(
-            //   onTap: () => scaffoldKey.currentState?.openDrawer(),
-            //   child: Icon(
-            //     Icons.menu,
-            //     color: ColorsApp.instance.primary,
-            //   ),
-            // ),
+            elevation: 0,
             actions: [
-              GestureDetector(
-                onTap: () => scaffoldKey.currentState?.openDrawer(),
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
-                  child: (state.client?.avatar == null)
-                      ? Icon(
-                          Icons.person,
-                          weight: 50,
-                          color: ColorsApp.instance.primary,
-                        )
-                      : CircleAvatar(
-                          backgroundImage: CachedNetworkImageProvider(
-                            state.client?.avatar ?? '',
-                          ),
-                        ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20, right: 20),
+                child: BlocConsumer<NotificationController, NotificationState>(
+                  listener: (context, state) {},
+                  builder: (context, stateNotification) {
+                    final totalBadges = stateNotification.notifications.where((not) => not.read == false).length;
+                    return Badge(
+                      backgroundColor: ColorsApp.instance.primary,
+                      textColor: ColorsApp.instance.fontColor,
+                      isLabelVisible: (totalBadges > 0),
+                      textStyle: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                      label: Text(totalBadges.toString()),
+                      child: GestureDetector(
+                        onTap: () => scaffoldKey.currentState?.openDrawer(),
+                        child: (state.client?.avatar == null)
+                            ? Icon(
+                                Icons.person,
+                                weight: 50,
+                                color: ColorsApp.instance.primary,
+                              )
+                            : CircleAvatar(
+                                backgroundImage: CachedNetworkImageProvider(
+                                  state.client?.avatar ?? '',
+                                ),
+                              ),
+                      ),
+                    );
+                  },
                 ),
               )
             ],

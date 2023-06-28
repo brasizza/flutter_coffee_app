@@ -17,11 +17,6 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryPageState extends BaseState<CategoryPage, ProductsController> {
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProductsController, ProductState>(
         listener: (context, state) {
