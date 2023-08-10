@@ -53,11 +53,11 @@ class TransactionModel {
   }
 
   static ParseObject toParse(TransactionModel model) {
-    final products = <ParseObject>[];
+    final products = <String>[];
 
     for (var productsModel in model.products) {
       for (int i = 0; i < productsModel.quantity; i++) {
-        products.add(ParseObject('Product')..objectId = productsModel.objectId);
+        products.add(productsModel.objectId);
       }
     }
 
@@ -65,7 +65,7 @@ class TransactionModel {
     object.set('transaction_id', model.transactionId);
     object.set('total_items', model.totalItems);
     object.set('total_transaction', model.totalTransaction);
-    object.addRelation('products', (products));
+    object.set('products', (products));
     object.set('status', model.status);
     return object;
   }
