@@ -89,6 +89,7 @@ class CheckoutController extends Cubit<CheckoutState> {
   }
 
   void validatePayment() async {
+    emit(state.copyWith(status: CheckoutStatus.loading));
     await _locationService.init();
     final location = await _locationService.currentPosition();
     if (location == null) {
@@ -122,9 +123,14 @@ class CheckoutController extends Cubit<CheckoutState> {
   void checkout({required TransactionModel transaction, required ClientModel client}) async {
     emit(state.copyWith(status: CheckoutStatus.loading));
     try {
-      await _service.saveTransaction(transaction: transaction, client: client);
-      clear();
-      emit(state.copyWith(status: CheckoutStatus.checkoutFinished));
+      final savedTransaction = await _service.saveTransaction(transaction: transaction, client: client);
+
+      if (savedTransaction == true) {
+        clear();
+        emit(state.copyWith(status: CheckoutStatus.checkoutFinished));
+      } else {
+        emit(state.copyWith(status: CheckoutStatus.error, errorMessage: ' Falha ao efetuar a venda'));
+      }
     } catch (e) {
       emit(state.copyWith(status: CheckoutStatus.error, errorMessage: ' Falha'));
     }

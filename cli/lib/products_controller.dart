@@ -37,8 +37,11 @@ class ProductsController {
     //     // await prod.delete();
     //   }
     // }
+
+    var productsParse = <ParseObject>[];
     var apiResponse = await query.query();
     if (apiResponse.success) {
+      productsParse = apiResponse.results as List<ParseObject>;
       if (apiResponse.count == 0) {
         for (var key in keys) {
           await insertProduct(products, key);
@@ -54,10 +57,25 @@ class ProductsController {
         // print(toIsert.length);
         // print(keysProducts.length);
         // // print(keysProducts);
-        toIsert.removeWhere((element) => keysProducts.contains(element));
-        if (toIsert.isNotEmpty) {
-          for (var key in toIsert) {
+        final elContain = toIsert.where((element) => keysProducts.contains(element));
+        final elNotContain = toIsert.where((element) => !keysProducts.contains(element));
+        if (elNotContain.isNotEmpty) {
+          for (var key in elNotContain) {
             await insertProduct(products, key);
+          }
+        }
+
+        if (elContain.isNotEmpty) {
+          for (var key in elContain) {
+            try {
+              var prods = productsParse.where((element) => element.get('product_id') == key).first;
+
+              await updateProduct(prods, products[key]);
+            } catch (e) {
+              print(e);
+            }
+
+            //  await updateProduct(products[key], key);
           }
         }
         // keys.removeWhere((element) => toIsert.contains(element));
@@ -65,6 +83,14 @@ class ProductsController {
     }
 
     return true;
+  }
+
+  Future<void> updateProduct(ParseObject product, productUpdate) async {
+    if (num.parse(product.get<num>('price').toString()) != num.parse(productUpdate['gross_price'].toString())) {
+      product.set('price', double.parse(productUpdate['gross_price'].toString()));
+      await product.save();
+      print("Produto  ${product.get('title_pt').toString()} atualizado ");
+    }
   }
 
   Future<void> insertProduct(Map<int, dynamic> products, int key) async {

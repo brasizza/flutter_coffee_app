@@ -2,6 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/data/models/client_model.dart';
+import 'package:howabout_coffee/app/data/repositories/direct_sales/direct_sale_repository.dart';
+import 'package:howabout_coffee/app/data/repositories/direct_sales/direct_sale_repository_impl.dart';
+import 'package:howabout_coffee/app/data/services/direct_sale/directsale_service.dart';
+import 'package:howabout_coffee/app/data/services/direct_sale/directsale_service_impl.dart';
+import 'package:howabout_coffee/app/modules/direct_sale/direct_sale_controller.dart';
 import 'package:howabout_coffee/app/modules/home/home_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -31,6 +36,15 @@ class FloatButtonCredit extends StatelessWidget {
               providers: [
                 Provider(
                   create: ((context) => WalletController(userService: context.read())),
+                ),
+                Provider<DirectSaleRepository>(
+                  create: ((context) => DirectSaleRepositoryImpl()),
+                ),
+                Provider<DirectsaleService>(
+                  create: ((context) => DirectsaleServiceImpl(repository: context.read())),
+                ),
+                Provider(
+                  create: ((context) => DirectSaleController(userService: context.read(), service: context.read())),
                 ),
               ],
               builder: (context, child) => WalletPage(client: client),

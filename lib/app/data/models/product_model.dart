@@ -11,7 +11,7 @@ class ProductModel {
   final String titlePT;
   final String titleEN;
   final String titleES;
-
+  final String objectId;
   final String descriptionPT;
   final String descriptionEN;
   final String descriptionES;
@@ -21,7 +21,25 @@ class ProductModel {
   final String? image;
   final String? imageBig;
   final bool? favorite;
-  ProductModel({required this.id, required this.order, required this.titlePT, required this.titleEN, required this.titleES, required this.descriptionPT, required this.descriptionEN, required this.descriptionES, required this.price, required this.category, required this.status, required this.image, this.imageBig, this.favorite = false});
+  final bool? directSale;
+  ProductModel({
+    required this.id,
+    required this.order,
+    required this.titlePT,
+    required this.titleEN,
+    required this.titleES,
+    required this.descriptionPT,
+    required this.descriptionEN,
+    required this.descriptionES,
+    required this.price,
+    required this.category,
+    required this.status,
+    required this.image,
+    this.imageBig,
+    this.favorite = false,
+    this.directSale = false,
+    required this.objectId,
+  });
 
   ProductModel copyWith({
     int? id,
@@ -38,8 +56,11 @@ class ProductModel {
     String? image,
     String? imageBig,
     bool? favorite,
+    bool? directSale,
+    String? objectId,
   }) {
     return ProductModel(
+      objectId: objectId ?? this.objectId,
       id: id ?? this.id,
       order: order ?? this.order,
       titlePT: titlePT ?? this.titlePT,
@@ -54,12 +75,14 @@ class ProductModel {
       image: image ?? this.image,
       imageBig: imageBig ?? this.imageBig,
       favorite: favorite ?? this.favorite,
+      directSale: directSale ?? this.directSale,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
+      'objectId': objectId,
       'order': order,
       'titlePT': titlePT,
       'titleEN': titleEN,
@@ -73,6 +96,8 @@ class ProductModel {
       'image': image,
       'imageBig': imageBig,
       'favorite': favorite,
+      'directSale': directSale,
+      'objectId': objectId,
     };
   }
 
@@ -80,6 +105,7 @@ class ProductModel {
     return ProductModel(
       id: int.parse(map['id'].toString()),
       order: map['order'] as int,
+      objectId: map['objectId'] as String,
       titlePT: map['titlePT'] as String,
       titleEN: map['titleEN'] as String,
       titleES: map['titleES'] as String,
@@ -91,12 +117,14 @@ class ProductModel {
       status: map['status'] as bool,
       image: map['image'] != null ? map['image'] as String : null,
       imageBig: map['imageBig'] != null ? map['imageBig'] as String : null,
+      directSale: map['directSale'] as bool,
       favorite: map['favorite'],
     );
   }
 
   factory ProductModel.fromParse(ParseObject parse) {
     return ProductModel(
+      objectId: parse.objectId ?? '',
       id: (parse.get('product_id') as int),
       order: parse.get('order') as int,
       titlePT: parse.get('title_pt') as String,
@@ -108,6 +136,7 @@ class ProductModel {
       price: double.tryParse(parse.get('price').toString()) ?? 0.0,
       category: (parse.get('category_id') == null) ? 0 : int.parse((parse.get('category_id').toString())),
       status: parse.get('status') as bool,
+      directSale: parse.get('status') == null ? false : parse.get('status') as bool,
       image: parse.get('image_thumb')?.get('url'),
       imageBig: parse.get('image_description')?.get('url'),
     );

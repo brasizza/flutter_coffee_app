@@ -6,7 +6,7 @@ import 'package:match/match.dart';
 part 'home_state.g.dart';
 
 @match
-enum HomeStatus { initial, loading, loaded, error, clientLoaded }
+enum HomeStatus { initial, loading, loaded, error, clientLoaded, transactionStarted }
 
 class HomeState extends Equatable {
   final HomeStatus status;

@@ -1,3 +1,4 @@
+import 'package:cli/categories_controller.dart';
 import 'package:cli/consts.dart';
 import 'package:cli/products_controller.dart';
 import 'package:dio/dio.dart';
@@ -12,8 +13,8 @@ void main(List<String> arguments) async {
     clientKey: Consts.keyClientKey,
     debug: true,
   );
-  // final CategoriesController categoriesController = CategoriesController(dio: dio);
-  // await categoriesController.getAll();
+  final CategoriesController categoriesController = CategoriesController(dio: dio);
+  await categoriesController.getAll();
 
   final ProductsController productsController = ProductsController(dio: dio);
   await productsController.getAll();

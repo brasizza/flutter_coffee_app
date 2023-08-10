@@ -21,21 +21,12 @@ class TotalWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Container(
-        height: 150,
         width: context.screenWidth,
         decoration: BoxDecoration(color: const Color(0xff141921).withOpacity(.3), borderRadius: BorderRadius.circular(20)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            IconButton(
-                onPressed: () {
-                  context.read<CheckoutController>().askToClearAll();
-                },
-                icon: Icon(
-                  Icons.delete,
-                  color: ColorsApp.instance.primary,
-                )),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -67,10 +58,18 @@ class TotalWidget extends StatelessWidget {
                     ),
                   ),
                 ),
+                IconButton(
+                    onPressed: () {
+                      context.read<CheckoutController>().askToClearAll();
+                    },
+                    icon: Icon(
+                      Icons.delete,
+                      color: ColorsApp.instance.primary,
+                    )),
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 25.0, left: 25.0),
+              padding: const EdgeInsets.only(right: 25.0, left: 25.0, top: 20),
               child: Chip(
                 backgroundColor: ColorsApp.instance.primary,
                 label: Row(

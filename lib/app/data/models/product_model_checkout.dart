@@ -1,27 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:howabout_coffee/app/data/models/product_model.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 class ProductModelCheckout extends ProductModel {
   final int quantity;
 
-  ProductModelCheckout({
-    required super.id,
-    required super.order,
-    required super.titlePT,
-    required super.titleEN,
-    required super.titleES,
-    required super.descriptionPT,
-    required super.descriptionEN,
-    required super.descriptionES,
-    required super.price,
-    required super.category,
-    required super.status,
-    required super.image,
-    super.favorite,
-    super.imageBig,
-    this.quantity = 0,
-  });
+  ProductModelCheckout({required super.id, required super.order, required super.titlePT, required super.titleEN, required super.titleES, required super.descriptionPT, required super.descriptionEN, required super.descriptionES, required super.price, required super.category, required super.status, required super.image, super.favorite, super.imageBig, this.quantity = 0, required super.directSale, required super.objectId});
 
   @override
   ProductModelCheckout copyWith({
@@ -38,10 +23,13 @@ class ProductModelCheckout extends ProductModel {
     bool? status,
     String? image,
     String? imageBig,
+    String? objectId,
     int? quantity,
     bool? favorite,
+    bool? directSale,
   }) {
     return ProductModelCheckout(
+      objectId: objectId ?? this.objectId,
       id: id ?? this.id,
       order: order ?? this.order,
       titlePT: titlePT ?? this.titlePT,
@@ -57,6 +45,7 @@ class ProductModelCheckout extends ProductModel {
       imageBig: imageBig ?? this.imageBig,
       quantity: quantity ?? this.quantity,
       favorite: favorite ?? this.favorite,
+      directSale: directSale ?? this.directSale,
     );
   }
 
@@ -69,6 +58,7 @@ class ProductModelCheckout extends ProductModel {
     return ProductModelCheckout(
       quantity: map['quantity'] ?? 0,
       id: int.parse(map['id'].toString()),
+      objectId: map['objectId'] as String,
       order: map['order'] as int,
       titlePT: map['titlePT'] as String,
       titleEN: map['titleEN'] as String,
@@ -79,8 +69,29 @@ class ProductModelCheckout extends ProductModel {
       price: map['price'] as double,
       category: int.parse(map['category'].toString()),
       status: map['status'] as bool,
+      directSale: (map['directSale'] == null) ? false : map['directSale'],
       image: map['image'] != null ? map['image'] as String : null,
       imageBig: map['imageBig'] != null ? map['imageBig'] as String : null,
+    );
+  }
+
+  factory ProductModelCheckout.fromParse(ParseObject parse) {
+    return ProductModelCheckout(
+      objectId: parse.objectId ?? '',
+      id: (parse.get('product_id') as int),
+      order: parse.get('order') as int,
+      titlePT: parse.get('title_pt') as String,
+      titleEN: parse.get('title_en') as String,
+      titleES: parse.get('title_es') as String,
+      descriptionEN: parse.get('description_en') as String,
+      descriptionES: parse.get('description_es') as String,
+      descriptionPT: parse.get('description_pt') as String,
+      price: double.tryParse(parse.get('price').toString()) ?? 0.0,
+      category: (parse.get('category_id') == null) ? 0 : int.parse((parse.get('category_id').toString())),
+      status: parse.get('status') as bool,
+      directSale: parse.get('status') == null ? false : parse.get('status') as bool,
+      image: parse.get('image_thumb')?.get('url'),
+      imageBig: parse.get('image_description')?.get('url'),
     );
   }
 

@@ -11,11 +11,22 @@ import './auth_service.dart';
 class AuthServiceImpl implements AuthService {
   @override
   Future<bool> isLogged() async {
-    final parseUser = await ParseUser.currentUser() as ParseUser?;
-    final installation = await ParseInstallation.currentInstallation();
-    installation.set('user', parseUser);
-    await installation.save();
-    return parseUser != null;
+    ParseUser? currentUser = await ParseUser.currentUser() as ParseUser?;
+    if (currentUser == null) {
+      return false;
+    }
+    //Checks whether the user's session token is valid
+    final ParseResponse? parseResponse = await ParseUser.getCurrentUserFromServer(currentUser.sessionToken!);
+    if (parseResponse?.success == null || !parseResponse!.success) {
+      //Invalid session. Logout
+      await currentUser.logout();
+      return false;
+    } else {
+      final installation = await ParseInstallation.currentInstallation();
+      installation.set('user', currentUser);
+      await installation.save();
+      return true;
+    }
   }
 
   @override
@@ -61,7 +72,7 @@ class AuthServiceImpl implements AuthService {
     ParseResponse? parseResponse;
 
     try {
-      final user = ParseUser(email, null, email);
+      final user = ParseUser(email.trim(), null, email.trim());
 
       parseResponse = await user.requestPasswordReset();
       if (parseResponse.error != null) {

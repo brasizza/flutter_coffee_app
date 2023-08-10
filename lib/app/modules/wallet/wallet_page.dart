@@ -7,6 +7,7 @@ import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/core/ui/styles/text_styles.dart';
 import 'package:howabout_coffee/app/data/models/client_model.dart';
+import 'package:howabout_coffee/app/modules/direct_sale/direct_sale_page.dart';
 import 'package:howabout_coffee/app/modules/wallet/state/wallet_state.dart';
 import 'package:howabout_coffee/app/modules/wallet/wallet_controller.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
@@ -125,6 +126,7 @@ class _WalletPageState extends BaseState<WalletPage, WalletController> {
                     roundEdges: true,
                   ),
                 ),
+                const Expanded(child: DirectSalePage()),
               ],
             ),
           ),

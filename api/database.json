@@ -2,9 +2,25 @@
     "users": [
         {
             "id": 1,
+            "id_firebase": "HvfIE9inm9UM6d6O3tILtBJB6VE3",
             "name": "Marcus Brasizza",
-            "code": "HC-10",
-            "password": "123456"
+            "password": "123123",
+            "email": "mvbdesenvolvimento@gmail.com",
+            "avatar": "",
+            "phone_number": null,
+            "lat": null,
+            "lng": null
+        },
+        {
+            "id": 2,
+            "id_firebase": "zapfhKDHPCTpkEeERsMlNHnyxdO2",
+            "name": "meucadastro",
+            "password": "123123",
+            "email": "meu@cadastro.com.br",
+            "avatar": "",
+            "phone_number": null,
+            "lat": null,
+            "lng": null
         }
     ],
     "promotions": [
@@ -19,6 +35,120 @@
         },
         {
             "image": "https://img.freepik.com/free-photo/latte-coffee-cup_1203-7771.jpg?t=st=1684280449~exp=1684281049~hmac=3480a7d85e9f7f7b6aa0cb6af81a04432554aa53ef6a109c285b81a51eb20ef0"
+        }
+    ],
+    "orders": [
+        {
+            "id": 1,
+            "date": "2023-04-27T00:00:00.000",
+            "status": "F",
+            "products": [
+                {
+                    "id": 1,
+                    "amount": 2,
+                    "total_price": 38.0
+                },
+                {
+                    "id": 2,
+                    "amount": 1,
+                    "total_price": 19.0
+                }
+            ],
+            "total_order": 57.0,
+            "user_id": 1
+        },
+        {
+            "id": 2,
+            "date": "2023-04-27T00:00:00.000",
+            "status": "A",
+            "products": [
+                {
+                    "id": 1,
+                    "amount": 2,
+                    "total_price": 38.0
+                },
+                {
+                    "id": 2,
+                    "amount": 1,
+                    "total_price": 19.0
+                }
+            ],
+            "user_id": 1,
+            "total_order": 57.0
+        },
+        {
+            "id": 3,
+            "date": "2023-04-27T00:00:00.000",
+            "status": "F",
+            "products": [
+                {
+                    "id": 1,
+                    "amount": 2,
+                    "total_price": 38.0
+                },
+                {
+                    "id": 2,
+                    "amount": 1,
+                    "total_price": 19.0
+                },
+                {
+                    "id": 3,
+                    "amount": 2,
+                    "total_price": 19.0
+                }
+            ],
+            "total_order": 76.0,
+            "user_id": 1
+        },
+        {
+            "id": 6,
+            "date": "2023-05-16T00:00:00.000",
+            "status": "R",
+            "products": [
+                {
+                    "id": 1,
+                    "amount": 2,
+                    "total_price": 38.0
+                },
+                {
+                    "id": 2,
+                    "amount": 1,
+                    "total_price": 19.0
+                },
+                {
+                    "id": 3,
+                    "amount": 2,
+                    "total_price": 19.0
+                }
+            ],
+            "user_id": 1,
+            "total_order": 76.0
+        },
+        {
+            "id": 7,
+            "date": "2023-05-16T00:00:00.000",
+            "status": "F",
+            "products": [
+                {
+                    "id": 1,
+                    "amount": 2,
+                    "total_price": 38.0
+                },
+                {
+                    "id": 2,
+                    "amount": 1,
+                    "total_price": 19.0
+                },
+                {
+                    "id": 3,
+                    "amount": 2,
+                    "total_price": 19.0
+                }
+            ],
+            "user_id": 1,
+            "address": "Av Paulista, 51 São Paulo",
+            "CPF": 1234156464,
+            "payment_method_id": 1
         }
     ],
     "company": {
