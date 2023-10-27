@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 abstract class UserService {
   Future<bool> save(ClientModel client);
   Future<ClientModel?> getUser();
+  Future<ClientModel?> getUseAnonimous();
   Future<ClientModel> updateUser({required ClientModel client, XFile? profilePicture});
   Future<List<int>?> getFavoriteUser(ClientModel? user);
   ClientModel? get currentUser;

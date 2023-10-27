@@ -18,6 +18,7 @@ class CoffeeCard extends StatelessWidget {
   const CoffeeCard({super.key, required this.product, this.favorite = false, required this.companyController, required this.checkoutController, required this.productController});
   @override
   Widget build(BuildContext context) {
+    final user = context.read<UserService>().currentUser;
     String title = '';
     switch (AppTranslation.currentLocale) {
       case 'pt':
@@ -32,13 +33,14 @@ class CoffeeCard extends StatelessWidget {
     }
     return GestureDetector(
       onLongPress: () => checkoutController.addItem(product, 1),
-      onDoubleTap: () => productController?.changeFavoriteProduct(productId: product.id, client: context.read<UserService>().currentUser),
+      onDoubleTap: () => (user?.anonymous == true) ? null : productController?.changeFavoriteProduct(productId: product.id, client: user),
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => CoffeeDetailsPage(
                     product: product,
                     checkoutController: checkoutController,
+                    user: user
                   ))),
       child: Stack(
         fit: StackFit.expand,
@@ -106,7 +108,9 @@ class CoffeeCard extends StatelessWidget {
               ],
             ),
           ),
-          Visibility(
+          (user?.anonymous == true)
+              ? const SizedBox()
+              : Visibility(
             visible: productController != null,
             child: Positioned(
               bottom: 10,

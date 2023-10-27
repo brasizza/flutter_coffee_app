@@ -50,4 +50,6 @@ class ProfileController extends Cubit<ProfileState> {
 
     return null;
   }
+
+  removeAccount() {}
 }

@@ -8,6 +8,8 @@
     "fields.name" : "Tu nombre",
     "fields.phone" : "Tu teléfono",
     "fields.update" : "Actualizar",
+    "fields.account.delete" : "Remover conta",
+
     "or" : "O",
     "label.yes" : "Sí",
     "label.no" : "No",
@@ -17,6 +19,7 @@
     "reset.email" : "¡Tu contraseña ha sido restablecida!\nPor favor espera el correo electrónico.",
     "email.emtpy" : "Correo electrónico vacío.\nPor favor ingresa un correo electrónico.",
     "login.welcome" : "¡Inicia sesión!",
+    "login.welcome.description" : "Parece que no has iniciado sesión.\nPara realizar el pedido y finalizar la cuenta, ¡debes identificarte!\n¿Quieres iniciar sesión?",
     "login.dont_have_account" : "¿No tienes una cuenta registrada?",
     "login.sing_up_label" : "Regístrate aquí",
     "login.forgot_password" :"Olvidé mi contraseña",
@@ -55,5 +58,7 @@
     "user.zero_notification" : "No hay notificaciones en este momento",
     "notification.remove" : "Eliminar notificación",
     "notification.remove.description" : "¿Realmente quieres eliminar la notificación seleccionada?",
-    "notification.title" : "Mis notificaciones"
+    "notification.title" : "Mis notificaciones",
+    "profile.remove.account" :"Elimina tu cuenta",
+    "profile.remove.account.description" : "¿Realmente deseas eliminar tu cuenta?\nPerderás todas tus compras, historial y créditos en tu cuenta.\n¿Realmente deseas continuar?"
     }

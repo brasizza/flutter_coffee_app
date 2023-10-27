@@ -83,4 +83,15 @@ class AuthServiceImpl implements AuthService {
       throw Back4AppException(parseResponse?.error?.message ?? 'Erro login', stack: s);
     }
   }
+
+  @override
+  Future<bool> removeAccount() async {
+    ParseUser? currentUser = await ParseUser.currentUser() as ParseUser?;
+    final response = await currentUser?.delete();
+    if ((response?.success ?? false) == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

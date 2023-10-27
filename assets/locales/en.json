@@ -8,10 +8,13 @@
     "fields.name" : "Your name",
     "fields.phone" : "Your phone",
     "fields.update" : "Update",
+    "fields.account.delete" : "Delete account",
     "or" : "Or",
     "label.yes" : "Yes",
     "label.no" : "No",
     "presentation.welcome" : "Welcome to How About Coffee",
+    "login.welcome.description" : "It appears that you have not logged in.\nTo place the order and finalize the account, you must identify yourself!\nDo you want to log in?",
+
     "btn.enter" : "Enter",
     "btn.close" : "Close",
     "reset.email" : "Your password has been reset!\nPlease wait for the email.",
@@ -55,5 +58,7 @@
     "user.zero_notification" : "No notifications at the moment",
     "notification.remove" : "Remove notification",
     "notification.remove.description" : "Do you really want to remove the selected notification?",
-    "notification.title" : "My notifications"
+    "notification.title" : "My notifications",
+    "profile.remove.account" :"Delete your account",
+    "profile.remove.account.description" : "Do you really want to remove your account?\nYou will lose all your purchases, history and credits in your account.\nDo you really want to continue?"
     }

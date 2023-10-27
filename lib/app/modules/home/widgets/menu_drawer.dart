@@ -39,64 +39,78 @@ class _MenuDrawerState extends State<MenuDrawer> with Loader {
                     ),
                     Container(
                       padding: MenuDrawer.padding,
-                      child: Column(
-                        children: [
-                          buildMenuItem(
-                            tap: () async {
-                              final homeController = context.read<HomeController>();
+                      child: Visibility(
+                        visible: widget.user?.anonymous == false,
+                        child: Column(
+                          children: [
+                            buildMenuItem(
+                              tap: () async {
+                                final homeController = context.read<HomeController>();
+                                final nav = Navigator.of(context);
+                                final client = await Navigator.of(context).pushNamed('/home/profile', arguments: {'client': context.read<UserService>().currentUser});
+                                if (client != null) {
+                                  homeController.refreshUser(client as ClientModel);
+                                }
+                                nav.pop();
+                              },
+                              context,
+                              text: 'drawer.profile'.translate,
+                              icon: Icons.people,
+                            ),
+                            const SizedBox(height: 16),
+                            buildMenuItem(context, text: 'drawer.favorites'.translate, icon: Icons.favorite, tap: () async {
                               final nav = Navigator.of(context);
-                              final client = await Navigator.of(context).pushNamed('/home/profile', arguments: {'client': context.read<UserService>().currentUser});
-                              if (client != null) {
-                                homeController.refreshUser(client as ClientModel);
-                              }
+
+                              await showModalBottomSheet(
+                                  isDismissible: false,
+                                  isScrollControlled: true,
+                                  context: context,
+                                  builder: (_) {
+                                    return FavoriteRoute.page(checkoutController: context.read(), homeController: context.read());
+                                  });
                               nav.pop();
-                            },
-                            context,
-                            text: 'drawer.profile'.translate,
-                            icon: Icons.people,
-                          ),
-                          const SizedBox(height: 16),
-                          buildMenuItem(context, text: 'drawer.favorites'.translate, icon: Icons.favorite, tap: () async {
-                            final nav = Navigator.of(context);
+                            }),
+                            const SizedBox(height: 16),
+                            buildMenuItem(context, text: 'drawer.notification'.translate, icon: Icons.notifications_outlined, tap: () async {
+                              final nav = Navigator.of(context);
 
-                            await showModalBottomSheet(
-                                isDismissible: false,
-                                isScrollControlled: true,
-                                context: context,
-                                builder: (_) {
-                                  return FavoriteRoute.page(checkoutController: context.read(), homeController: context.read());
-                                });
-                            nav.pop();
-                          }),
-                          const SizedBox(height: 16),
-                          buildMenuItem(context, text: 'drawer.notification'.translate, icon: Icons.notifications_outlined, tap: () async {
-                            final nav = Navigator.of(context);
-
-                            await showModalBottomSheet(
-                                isDismissible: false,
-                                isScrollControlled: true,
-                                context: context,
-                                builder: (_) {
-                                  return NotificationRouter.page(notificationController: context.read());
-                                });
-                            nav.pop();
-                          }),
-                        ],
+                              await showModalBottomSheet(
+                                  isDismissible: false,
+                                  isScrollControlled: true,
+                                  context: context,
+                                  builder: (_) {
+                                    return NotificationRouter.page(notificationController: context.read());
+                                  });
+                              nav.pop();
+                            }),
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: buildMenuItem(context, text: 'drawer.logout'.translate, icon: Icons.logout, tap: () async {
-                  showLoader();
-                  final nav = Navigator.of(context);
-                  await context.read<AuthService>().signOut();
-                  hideLoader();
-                  nav.pushNamedAndRemoveUntil('/presentation', (route) => false);
-                }),
-              ),
+              Visibility(
+                visible: widget.user?.anonymous == false,
+                replacement: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: buildMenuItem(context, text: 'login.welcome'.translate, icon: Icons.login, tap: () async {
+                    final nav = Navigator.of(context);
+                    await context.read<AuthService>().signOut();
+                    nav.pushNamedAndRemoveUntil('/login', (route) => false);
+                  }),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: buildMenuItem(context, text: 'drawer.logout'.translate, icon: Icons.logout, tap: () async {
+                    showLoader();
+                    final nav = Navigator.of(context);
+                    await context.read<AuthService>().signOut();
+                    hideLoader();
+                    nav.pushNamedAndRemoveUntil('/presentation', (route) => false);
+                  }),
+                ),
+              )
             ],
           ),
         ),

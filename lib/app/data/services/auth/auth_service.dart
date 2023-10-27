@@ -8,4 +8,6 @@ abstract class AuthService {
   Future<bool> forgotPassword({required String email});
   Future<void> signOut();
   Future<bool> isLogged();
+
+  Future<bool> removeAccount();
 }

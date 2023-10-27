@@ -115,4 +115,16 @@ class UserRepositoryImpl implements UserRepository {
   Future<ParseUser?> getParseUser() async {
     return await ParseUser.currentUser() as ParseUser?;
   }
+
+  @override
+  Future<ClientModel?> getUserAnonimous() async {
+    ParseUser parseUser = ParseUser(null, null, null);
+    final response = await parseUser.loginAnonymous();
+
+    if (response.success) {
+      return ClientModel(id: '999999', password: '123123', email: 'anonymous@howabout.coffee', anonymous: true);
+    }
+
+    return null;
+  }
 }

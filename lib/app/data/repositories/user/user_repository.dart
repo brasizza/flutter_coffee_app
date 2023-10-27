@@ -6,6 +6,7 @@ abstract class UserRepository {
   Future<ParseUser?> getParseUser();
   Future<bool> save(ClientModel client);
   Future<ClientModel?> getUser();
+  Future<ClientModel?> getUserAnonimous();
   Future<ClientModel> updateUser({required ClientModel client, XFile? profilePicture});
 
   Future<List<int>?> getFavoriteUser(ClientModel? user);

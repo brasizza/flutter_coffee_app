@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:howabout_coffee/app/core/extensions/translate.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
+import 'package:howabout_coffee/app/core/widgets/dialog_login.dart';
+import 'package:howabout_coffee/app/data/models/client_model.dart';
 import 'package:howabout_coffee/app/data/models/product_model.dart';
 import 'package:howabout_coffee/app/modules/checkout/checkout_controller.dart';
 
@@ -15,11 +17,13 @@ import '../../../core/global/translation/app_translation.dart';
 class CoffeeDetailsPage extends StatefulWidget {
   final ProductModel product;
   final CheckoutController? checkoutController;
+  final ClientModel? user;
 
   const CoffeeDetailsPage({
     Key? key,
     required this.product,
     this.checkoutController,
+    this.user,
   }) : super(key: key);
 
   @override
@@ -85,11 +89,6 @@ class _CoffeeDetailsPageState extends State<CoffeeDetailsPage> {
                       fit: BoxFit.cover,
                     )),
               ),
-              // Container(
-              //   height: 440,
-              //   width: context.screenWidth,
-              //   decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), image: DecorationImage(image: ((widget.product.imageBig == null) ? const AssetImage('assets/images/logo_coffee.png') : CachedNetworkImageProvider(widget.product.imageBig!)) as ImageProvider, fit: BoxFit.cover)),
-              // ),
               Positioned(
                 top: 320,
                 child: BlurryContainer(
@@ -231,9 +230,13 @@ class _CoffeeDetailsPageState extends State<CoffeeDetailsPage> {
                   // shape: RoundedRectangleBorder(
                   //     borderRadius: BorderRadius.circular(20)),
                   onPressed: () async {
-                    final nav = Navigator.of(context);
-                    await widget.checkoutController?.addItem(widget.product, quantity);
-                    nav.pop();
+                    if (widget.user?.anonymous == true) {
+                      await showDialog(barrierDismissible: false, context: context, builder: (_) => const DialogLogin());
+                    } else {
+                      final nav = Navigator.of(context);
+                      await widget.checkoutController?.addItem(widget.product, quantity);
+                      nav.pop();
+                    }
                   },
                   child: Text(
                     "detail_coffee.add".translate,

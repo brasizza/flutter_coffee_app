@@ -125,7 +125,8 @@ class _PresentationPageState extends BaseState<PresentationPage, PresentationCon
                           await userService.getUser();
                           nav.pushNamedAndRemoveUntil('/home', (route) => false);
                         } else {
-                          nav.pushNamedAndRemoveUntil('/login', (route) => false);
+                          await userService.getUseAnonimous();
+                          nav.pushNamedAndRemoveUntil('/home', (route) => false);
                         }
                       },
                       child: Text(

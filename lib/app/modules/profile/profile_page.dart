@@ -4,8 +4,10 @@ import 'package:howabout_coffee/app/core/extensions/translate.dart';
 import 'package:howabout_coffee/app/core/ui/base_state/app_state.dart';
 import 'package:howabout_coffee/app/core/ui/styles/color_app.dart';
 import 'package:howabout_coffee/app/data/models/client_model.dart';
+import 'package:howabout_coffee/app/data/services/auth/auth_service.dart';
 import 'package:howabout_coffee/app/modules/profile/profile_controller.dart';
 import 'package:howabout_coffee/app/modules/profile/state/profile_state.dart';
+import 'package:howabout_coffee/app/modules/profile/widgets/dialog_remove_account.dart';
 
 import '../../core/widgets/my_button.dart';
 import '../../core/widgets/my_textfield.dart';
@@ -128,6 +130,31 @@ class _ProfilePageState extends BaseState<ProfilePage, ProfileController> {
                 ),
 
                 const SizedBox(height: 20),
+
+                TextButton(
+                    child: Text('fields.account.delete'.translate),
+                    onPressed: () async {
+                      final nav = Navigator.of(context);
+                      final auth = context.read<AuthService>();
+                      final bool decision = await showDialog(barrierDismissible: false, context: context, builder: (_) => DialogRemoveAccount(controller: controller));
+                      if (decision) {
+                        await auth.removeAccount();
+                        await auth.signOut();
+
+                        nav.pushNamedAndRemoveUntil('/presentation', (route) => false);
+                      }
+
+                      // if (state.client != null) {
+                      //   final nav = Navigator.of(context);
+                      //   final clientChanged = await controller.changeProfile(
+                      //     client: state.client!.copyWith(name: nameEC.text, phoneNumber: phoneEC.text),
+                      //   );
+                      //   if (clientChanged != null) {
+                      //     hideLoader();
+                      //     nav.pop(clientChanged);
+                      //   }
+                      // }
+                    }),
                 const Spacer(),
                 // sign in button
                 MyButton(

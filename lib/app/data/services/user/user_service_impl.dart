@@ -46,4 +46,11 @@ class UserServiceImpl implements UserService {
   Future<List<int>> manageFavorites(ClientModel client, int productId) async {
     return await _repository.manageFavorites(client, productId);
   }
+  
+  @override
+  Future<ClientModel?> getUseAnonimous() async {
+    final user = await _repository.getUserAnonimous();
+    _currentUser = user;
+    return user;
+  }
 }

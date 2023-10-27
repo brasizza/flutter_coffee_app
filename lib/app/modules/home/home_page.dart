@@ -50,7 +50,7 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
           )),
       builder: (context, state) {
         return Scaffold(
-          floatingActionButton: FloatButtonCredit(client: state.client),
+          floatingActionButton: (state.client?.anonymous == true) ? null : FloatButtonCredit(client: state.client),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           key: scaffoldKey,
           drawerEnableOpenDragGesture: false,

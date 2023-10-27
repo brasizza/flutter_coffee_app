@@ -27,7 +27,7 @@ class ProductsController extends Cubit<ProductState> {
     try {
       final listCategories = await _categories.getAll();
       final listProducts = await _products.getAll();
-      final favorites = await _userService.getFavoriteUser(client);
+      final favorites = (client?.anonymous == false) ? null : await _userService.getFavoriteUser(client);
 
       emit(
         state.copyWith(

@@ -16,8 +16,8 @@ class NotificationController extends Cubit<NotificationState> {
         super(const NotificationState.initial());
 
   void init() async {
-    final user = await _userService.getUser();
-    if (user != null) {
+    final user = _userService.currentUser;
+    if (user != null && user.anonymous == false) {
       _service.init(client: user).listen((notificationModel) async {
         List<NotificationModel> notifications = List.from(state.notifications);
         final indexOf = notifications.indexWhere((notification) => notification.id == notificationModel.id);
